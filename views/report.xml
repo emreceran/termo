@@ -7,6 +7,12 @@
         </div>
     </template>
 
+    <template id="termo_customized_footer">
+        <div class="footer ">
+
+        </div>
+    </template>
+
 
 
 
@@ -15,37 +21,25 @@
         <t t-call="web.html_container">
 
                         <t t-call="termo.termo_customized_header"/>"
+                        <t t-call="termo.termo_customized_footer"/>"
 
-            <t t-foreach="docs" t-as="o">
+         <t t-foreach="docs" t-as="o">
                 <!--                <t t-set="doc" t-value="doc.with_context(lang=doc.partner_id.lang)" />-->
                 <t t-call="web.external_layout">
 
 
                     <div class="page">
-                        <div class="container" >
+                        <div class="container">
                             <div class="row">
-                                <div class="col-4 "
-                                     style="" >
-                                    <img src="/termo/static/description/tctlogo.png" style="width: 100%; height:auto;" />
+                                <div class="col-4 " style="">
+                                    <img src="/termo/static/description/tctlogo.png" style="width: 100%; height:auto;"/>
                                 </div>
-                                <div class="col "
-                                     style="position: relative;" >
-                                    <div class=""
-                                         style="position: absolute;
-                                         bottom:0px;
-                                         left:40px;
+                                <div class="" style="position: relative;">
+                                    <div class="" style="position: absolute; bottom:0px;   left:40px;  ">
 
-                                            " >
-
-                                        <p style="box-sizing: border-box;
-                                         font-size:0.9 em;
-                                         text-align:center;
-                                         font-weight: bold;
-                                          margin-bottom:0;
-                                          magin-left:10px;
-                                            " >
-                                            <t t-out="o.name"/> <br />
-                                            <t t-out="o.categ_id.name"/> Teknik Özellikler</p>
+                                        <p style="box-sizing: border-box;   font-size:0.9 em;  font-weight: bold;   margin-bottom:0;        text-align:center;    ">
+                                            <span style="  "><t t-out="o.name"/> </span> <br/>
+                                            <t t-out="o.categ_id.name"/> <br/>  Teknik Özellikler</p>
 
 
                                     </div>
@@ -55,27 +49,20 @@
                             </div>
                         </div>
 
-                        <div class="col-12" style="height:5px;
-                                                        background:red;
-                                                        margin-top:10px;
-                                                        margin-bottom:20px; " />
+                        <div class="col-12" style="height:5px;            background:gray;    margin-top:10px;   margin-bottom:20px; "/>
 
 
-                        <div class=""
-                             style="border:1px solid black"
-                        >
-                            <p class=""  style="background-color:grey; padding-left:10px; ine-height:2;" >  Model <t t-out="o.name"/> </p>
+                        <div class="" style="border:1px solid black">
+                            <p class="" style="background-color:grey; padding-left:10px; ine-height:2;">  Model <t t-out="o.name"/> </p>
                             <div class="text-center">
-                                <img style="margin:20px;" t-if="res_company.logo" t-att-src="image_data_uri(o.termo_tip.teknik_cizim)"
-                                     alt="Logo" />
+                                <img style="margin:20px;" t-if="res_company.logo" t-att-src="image_data_uri(o.termo_tip.teknik_cizim)" alt="Logo"/>
                             </div>
 
 
                             <table class="table mx-1 text-left table-borderless">
                                 <thead>
                                     <tr>
-                                        <p class=""
-                                           style="background-color:grey; padding-left:10px; line-height:2">  ÖLÇÜLER </p>
+                                        <p class="" style="background-color:grey; padding-left:10px; line-height:2">  ÖLÇÜLER </p>
 
                                     </tr>
                                 </thead>
@@ -101,24 +88,23 @@
                                         <td><t t-out="o.W3"/></td>
                                     </tr>
                                     <tr>
-                                        <th scope="row"></th>
-                                        <td></td>
+                                        <th scope="row"/>
+                                        <td/>
                                         <th scope="row">LA</th>
                                         <td><t t-out="o.LA"/></td>
-                                        <th scope="row"></th>
-                                        <td></td>
-                                        <th scope="row"></th>
-                                        <td></td>
+                                        <th scope="row"/>
+                                        <td/>
+                                        <th scope="row"/>
+                                        <td/>
                                     </tr>
                                 </tbody>
                             </table>
 
 
-                            <table class="table table-borderless mx-1" style="text-align:left;" >
+                            <table class="table table-borderless mx-1" style="text-align:left;">
                                 <thead>
                                     <tr>
-                                        <p class=""
-                                           style="background-color:grey; padding-left:10px; line-height:2">  Kapasite Bilgileri </p>
+                                        <p class="" style="background-color:grey; padding-left:10px; line-height:2">  Kapasite Bilgileri </p>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -159,17 +145,14 @@
                                 </tbody>
                             </table>
 
-                            <div style="position:fixed; top:37cm;">
-                                <div  style="height:5px; width:30cm;
-                                                        background:gray;
-                                                        border:1px solid black;
-                                                        " />
-                                <div class="row" >
-                                    <div class="col-4"  >
-                                        <img src="/termo/static/description/logokucuk.png" style="width: 100%; height:auto;" />
+                            <div style="position:fixed; top:48cm;">
+                                <div style="height:5px; width:40cm;      background:gray;             "/>
+                                <div class="row">
+                                    <div class="col-2">
+                                        <img src="/termo/static/description/logokucuk.png" style="width: 100%; height:auto;"/>
                                     </div>
-                                    <div class="col-12 my-2" style="margin-left:20px;" >
-                                        <table class="table table-borderless mx-1" style="text-align:left;" >
+                                    <div class="col-12 my-2" style="margin-left:20px;">
+                                        <table class="table table-borderless mx-1" style="text-align:left;">
                                             <tbody>
                                                 <tr>
                                                     <th scope="row"> Adres : </th>
