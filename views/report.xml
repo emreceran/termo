@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
 
+    <template id="termo_customized_header">
+        <div class="header ">
 
+        </div>
+    </template>
 
 
 
@@ -10,11 +14,11 @@
     <template id="report_product_cikti">
         <t t-call="web.html_container">
 
-            <!--            <t t-call="termo.termo_customized_footer"/>"-->
+                        <t t-call="termo.termo_customized_header"/>"
 
             <t t-foreach="docs" t-as="o">
                 <!--                <t t-set="doc" t-value="doc.with_context(lang=doc.partner_id.lang)" />-->
-                <t t-call="web.internal_layout">
+                <t t-call="web.external_layout">
 
 
                     <div class="page">
