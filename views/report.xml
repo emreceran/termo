@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+
+
+
+
+
+
+    <template id="report_product_cikti">
+        <t t-call="web.html_container">
+
+            <!--            <t t-call="termo.termo_customized_footer"/>"-->
+
+            <t t-foreach="docs" t-as="o">
+                <!--                <t t-set="doc" t-value="doc.with_context(lang=doc.partner_id.lang)" />-->
+                <t t-call="web.internal_layout">
+
+
+                    <div class="page">
+                        <div class="container" >
+                            <div class="row">
+                                <div class="col-4 "
+                                     style="" >
+                                    <img src="/termo/static/description/tctlogo.png" style="width: 100%; height:auto;" />
+                                </div>
+                                <div class="col "
+                                     style="position: relative;
+                                      text-align:center;
+
+                                            " >
+                                    <div class=""
+                                         style="position: absolute;
+                                         bottom:0px;
+                                         left:40px;
+
+                                            " >
+
+                                        <p style="box-sizing: border-box;
+                                         font-size:0.9 em;
+                                         text-align:center;
+                                         font-weight: bold;
+                                          margin-bottom:0;
+                                          magin-left:10px;
+                                            " >
+                                            <t t-out="o.name"/> <br />
+                                            <t t-out="o.categ_id.name"/> Teknik Özellikler</p>
+
+
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+
+                        <div class="col-12" style="height:5px;
+                                                        background:red;
+                                                        margin-top:10px;
+                                                        margin-bottom:20px; " />
+
+
+                        <div class=""
+                             style="border:1px solid black"
+                        >
+                            <p class=""  style="background-color:grey; padding-left:10px; ine-height:2;" >  Model <t t-out="o.name"/> </p>
+                            <div class="text-center">
+                                <img style="margin:20px;" t-if="res_company.logo" t-att-src="image_data_uri(o.termo_tip.teknik_cizim)"
+                                     alt="Logo" />
+                            </div>
+
+
+                            <table class="table mx-1 text-left table-borderless">
+                                <thead>
+                                    <tr>
+                                        <p class=""
+                                           style="background-color:grey; padding-left:10px; line-height:2">  ÖLÇÜLER </p>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">H</th>
+                                        <td><t t-out="o.H"/></td>
+                                        <th scope="row">L</th>
+                                        <td><t t-out="o.L"/></td>
+                                        <th scope="row">W</th>
+                                        <td><t t-out="o.W"/></td>
+                                        <th scope="row">W2</th>
+                                        <td><t t-out="o.W2"/></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">H1</th>
+                                        <td><t t-out="o.H1"/></td>
+                                        <th scope="row">L1</th>
+                                        <td><t t-out="o.L1"/></td>
+                                        <th scope="row">W1</th>
+                                        <td><t t-out="o.W1"/></td>
+                                        <th scope="row">W3</th>
+                                        <td><t t-out="o.W3"/></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row"></th>
+                                        <td></td>
+                                        <th scope="row">LA</th>
+                                        <td><t t-out="o.LA"/></td>
+                                        <th scope="row"></th>
+                                        <td></td>
+                                        <th scope="row"></th>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+
+                            <table class="table table-borderless mx-1" style="text-align:left;" >
+                                <thead>
+                                    <tr>
+                                        <p class=""
+                                           style="background-color:grey; padding-left:10px; line-height:2">  Kapasite Bilgileri </p>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">Kapasite</th>
+                                        <td><t t-out="o.kapasite"/></td>
+                                        <th scope="row">Hava Debisi</th>
+                                        <td><t t-out="o.hava_debisi"/></td>
+                                        <th scope="row">Fan Çapı </th>
+                                        <td><t t-out="o.fan_cap"/></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Oda Sıcaklığı</th>
+                                        <td><t t-out="o.oda_sicakligi"/></td>
+                                        <th scope="row">Evaporasyon Sıcaklığı</th>
+                                        <td><t t-out="o.evaporasyon_sicakligi"/></td>
+                                        <th scope="row"> Fan Sayısı</th>
+                                        <td><t t-out="o.fan_adet"/></td>
+                                    </tr>
+
+                                    <tr>
+                                        <th scope="row">Akışkan</th>
+                                        <td> R404A </td>
+                                        <th scope="row">Test Basıncı</th>
+                                        <td>32 bar</td>
+                                        <th scope="row">Fan Devri</th>
+                                        <td>1400 rpm</td>
+                                    </tr>
+
+                                    <tr>
+                                        <th scope="row">Lamel Aralığı</th>
+                                        <td><t t-out="o.lamel_aralik"/></td>
+                                        <th scope="row">Isı Transfer Yüzey Alanı</th>
+                                        <td><t t-out="o.H"/></td>
+                                        <th> </th>
+                                        <td> </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <div style="position:fixed; top:37cm;">
+                                <div  style="height:5px; width:30cm;
+                                                        background:gray;
+                                                        border:1px solid black;
+                                                        " />
+                                <div class="row" >
+                                    <div class="col-4"  >
+                                        <img src="/termo/static/description/logokucuk.png" style="width: 100%; height:auto;" />
+                                    </div>
+                                    <div class="col-12 my-2" style="margin-left:20px;" >
+                                        <table class="table table-borderless mx-1" style="text-align:left;" >
+                                            <tbody>
+                                                <tr>
+                                                    <th scope="row"> Adres : </th>
+                                                    <td> 3. ORGANİZE SANAYİ BÖLGESİ BÜYÜKKAYACIK MAH. 9.SOK NO:31/1 SELÇUKLU / KONYA  </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <th scope="row">Telefon</th>
+                                                    <td> +90 (332) 345 01 77  </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <th scope="row">Fax : </th>
+                                                    <td> +90 (332) 345 01 88 </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <th scope="row"> E-Mail :  </th>
+                                                    <td> info@thermocooltech.com </td>
+                                                </tr>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+
+    <record id="irsaliye_paperformat" model="report.paperformat">
+        <field name="name">Customized Paper Format</field>
+        <field name="default" eval="True"/>
+        <field name="format">custom</field>
+        <field name="page_height">297</field>
+        <field name="page_width">210</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">9</field>
+        <field name="margin_bottom">10</field>
+        <field name="margin_left">10</field>
+        <field name="margin_right">10</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">22</field>
+        <field name="dpi">90</field>
+    </record>
+
+
+
+
+    <record id="product" model="ir.actions.report">
+        <field name="name">cikti</field>
+        <field name="model">product.template</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">termo.report_product_cikti</field>
+        <field name="report_file">termo.report_product_cikti</field>
+        <!--            <field name="print_report_name">'Delivery Slip - %s - %s' % (object.partner_id.name or '', object.name)</field>-->
+        <field name="binding_model_id" ref="model_product_template"/>
+        <field name="binding_type">report</field>
+        <field name="paperformat_id" ref="irsaliye_paperformat"/>
+    </record>
+
+
+</odoo>
+
+
+
+
+        <!-- <div class="page">-->
+        <!--                        <div class="container" >-->
+        <!--                            <div class="row">-->
+        <!--                                <div class="col-6 d-flex flex-column justify-content-center align-items-center my-4"-->
+        <!--                                     style="" >-->
+        <!--                                    <img src="/termo/static/description/tctlogo.png"/>-->
+        <!--                                </div>-->
+        <!--                                <div class="d-flex flex-column justify-content-end align-items-center">-->
+        <!--                                    <div class=""><h3><t t-out="o.name"/></h3></div>-->
+        <!--                                    <div class="d-flex flex-row"> <h4> <t t-out="o.categ_id.name"/>Teknik Özellikler</h4></div>-->
+
+
+        <!--                                </div>-->
+
+
+        <!--                            </div>-->
+        <!--                        </div>-->
+
+        <!--                        <hr class="hr" />-->
+
+        <!--                        <div>-->
+        <!--                            <p class=""  style="background-color:grey;" >  Model <t t-out="o.name"/> </p>-->
+        <!--                            <div class="d-flex flex-column justify-content-center align-items-center">-->
+        <!--                                <img t-if="res_company.logo" t-att-src="image_data_uri(o.teknik_cizim)"-->
+        <!--                                     alt="Logo" />-->
+        <!--                            </div>-->
+
+        <!--                            <p class="bg-secondary border">  ÖLÇÜLER </p>-->
+
+        <!--                            <table class="table table-bordered">-->
+        <!--                                <thead>-->
+        <!--                                    <tr>-->
+        <!--                                        <p class="bg-secondary border">  ÖLÇÜLER </p>-->
+
+        <!--                                    </tr>-->
+        <!--                                </thead>-->
+        <!--                                <tbody>-->
+        <!--                                    <tr>-->
+        <!--                                        <th scope="row">H</th>-->
+        <!--                                        <td><t t-out="o.H"/></td>-->
+        <!--                                        <th scope="row">L</th>-->
+        <!--                                        <td><t t-out="o.L"/></td>-->
+        <!--                                        <th scope="row">W</th>-->
+        <!--                                        <td><t t-out="o.W"/></td>-->
+        <!--                                        <th scope="row">W2</th>-->
+        <!--                                        <td><t t-out="o.W2"/></td>-->
+        <!--                                    </tr>-->
+        <!--                                    <tr>-->
+        <!--                                        <th scope="row">H1</th>-->
+        <!--                                        <td><t t-out="o.H1"/></td>-->
+        <!--                                        <th scope="row">L1</th>-->
+        <!--                                        <td><t t-out="o.L1"/></td>-->
+        <!--                                        <th scope="row">W1</th>-->
+        <!--                                        <td><t t-out="o.W1"/></td>-->
+        <!--                                        <th scope="row">W3</th>-->
+        <!--                                        <td><t t-out="o.W3"/></td>-->
+        <!--                                    </tr>-->
+        <!--                                    <tr>-->
+        <!--                                        <th scope="row"></th>-->
+        <!--                                        <td></td>-->
+        <!--                                        <th scope="row">LA</th>-->
+        <!--                                        <td><t t-out="o.LA"/></td>-->
+        <!--                                        <th scope="row"></th>-->
+        <!--                                        <td></td>-->
+        <!--                                        <th scope="row"></th>-->
+        <!--                                        <td></td>-->
+        <!--                                    </tr>-->
+        <!--                                </tbody>-->
+        <!--                            </table>-->
+
+
+
+        <!--                        </div>-->
+        <!--                    </div>-->

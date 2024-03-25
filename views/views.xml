@@ -1,0 +1,120 @@
+<odoo>
+  <data>
+
+<!--    <record model="ir.ui.view" id="product_form_inherit_view">-->
+<!--        <field name="name">product.template.form.inherit</field>-->
+<!--        <field name="model">product.template</field>-->
+<!--        <field name="inherit_id" ref="product.product_template_only_form_view"/>-->
+<!--        <field name="arch" type="xml">-->
+<!--            <xpath expr="//field[@name='categ_id']" position="after">-->
+<!--                <field name="adamsaat">Adam/Saat</field>-->
+<!--&lt;!&ndash;                <field name="liste_fiyat" groups="base.group_system">Liste Fiyatı</field>&ndash;&gt;-->
+<!--            </xpath>-->
+
+<!--        </field>-->
+<!--    </record>-->
+
+
+      <record id="termo_product_template_form" model="ir.ui.view">
+		<field name="name">product.template.termo.form.inherit</field>
+		<field name="model">product.template</field>
+		<field name="inherit_id" ref="product.product_template_form_view" />
+		<field name="arch" type="xml">
+			<xpath expr="//page[last()]" position="after">
+				<page name="termo" string="Thermo">
+                    <group>
+                        <group>
+                            <field name="yuzey" />
+                            <field name="boru_hacmi" />
+                            <field name="t1" />
+                            <field name="t2" />
+                            <field name="sc1" />
+                            <field name="sc2" />
+                            <field name="sc3" />
+                            <field name="sc4" />
+                            <field name="fan_adet" />
+                            <field name="fan_cap" />
+                            <field name="hava_debisi" />
+
+
+                        </group>
+
+                        <group>
+                             <field name="H" />
+                            <field name="L" />
+                            <field name="W" />
+                            <field name="H1" />
+                            <field name="L1" />
+                            <field name="W1" />
+                            <field name="W2" />
+                            <field name="W3" />
+                            <field name="LA" />
+                            <field name="hatve" />
+                        </group>
+                    </group>
+                    <group>
+                        <field name="termo_tip"/>
+
+                    </group>
+				</page>
+			</xpath>
+		</field>
+	</record>
+    <!-- explicit list view definition -->
+<!--
+    <record model="ir.ui.view" id="termo.list">
+      <field name="name">termo list</field>
+      <field name="model">termo.termo</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="value"/>
+          <field name="value2"/>
+        </tree>
+      </field>
+    </record>
+-->
+
+    <!-- actions opening views on models -->
+<!--
+    <record model="ir.actions.act_window" id="termo.action_window">
+      <field name="name">termo window</field>
+      <field name="res_model">termo.termo</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+-->
+
+    <!-- server action to the one above -->
+<!--
+    <record model="ir.actions.server" id="termo.action_server">
+      <field name="name">termo server</field>
+      <field name="model_id" ref="model_termo_termo"/>
+      <field name="state">code</field>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": model._name,
+        }
+      </field>
+    </record>
+-->
+
+    <!-- Top menu item -->
+<!--
+    <menuitem name="termo" id="termo.menu_root"/>
+-->
+    <!-- menu categories -->
+<!--
+    <menuitem name="Menu 1" id="termo.menu_1" parent="termo.menu_root"/>
+    <menuitem name="Menu 2" id="termo.menu_2" parent="termo.menu_root"/>
+-->
+    <!-- actions -->
+<!--
+    <menuitem name="List" id="termo.menu_1_list" parent="termo.menu_1"
+              action="termo.action_window"/>
+    <menuitem name="Server to list" id="termo" parent="termo.menu_2"
+              action="termo.action_server"/>
+-->
+  </data>
+</odoo>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2020 Tecnativa - Jairo Llopis
+     Copyright 2021 Tecnativa - Víctor Martínez
+     License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl). -->
+<data>
+    <template
+        id="product_attachments"
+        inherit_id="website_sale.product"
+        name="Product downloads"
+        customize_show="True"
+    >
+        <xpath expr="//*[@id='product_details']">
+
+                <hr />
+                <div id="product_attachments" class="accordion" role="tablist">
+                    <div class="card bg-white" data-name="Item">
+                        <a
+                            href="#"
+                            role="tab"
+                            data-bs-toggle="collapse"
+                            aria-expanded="false"
+                            class="card-header o_default_snippet_text collapsed"
+                            data-bs-target="#product_attachments_body"
+                        >
+                            <div class="row justify-content-between">
+                                <div class="col-auto">
+                                    <i class="fa fa-download" />
+                                    Product downloads
+                                </div>
+                                <div class="col-auto ml-auto">
+                                    <i class="fa fa-caret-down" />
+                                </div>
+                            </div>
+                        </a>
+                        <div
+                            class="collapse"
+                            role="tabpanel"
+                            id="product_attachments_body"
+                            style=""
+                        >
+                            <div class="card-body">
+                                <ul class="list-group list-group-flush">
+
+
+
+                                         <li class="list-group-item">
+                                            <a
+                                                class="d-flex justify-content-start align-items-center"
+                                                target="_new"
+                                                t-att-href="'http://localhost:8069/en/report/pdf/termo.report_product_cikti/'+str(product.id)"
+                                            >
+                                                <span
+                                                    t-out="product.name+'asa'"
+                                                />
+                                            </a>
+                                        </li>
+
+
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+        </xpath>
+    </template>
+
+</data>

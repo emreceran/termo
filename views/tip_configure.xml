@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="termo_tip_configuration_action" model="ir.actions.act_window">
+            <field name="name">Termo Tip</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">termo.tip</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record id="termo_tip_tree" model="ir.ui.view">
+            <field name="name">termo.tip.tree</field>
+            <field name="model">termo.tip</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="termo_tip_form" model="ir.ui.view">
+            <field name="name">termo.tip.form</field>
+            <field name="model">termo.tip</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <field name="name" />
+                        <field name="teknik_cizim" />
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <menuitem id="termo_tip_menu"
+                  name="Termo Configuration"
+                  parent="website.menu_website_global_configuration"
+                  sequence="165"
+                  action="termo_tip_configuration_action"/>
+    </data>
+</odoo>
