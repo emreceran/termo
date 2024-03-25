@@ -29,10 +29,7 @@
                                     <img src="/termo/static/description/tctlogo.png" style="width: 100%; height:auto;" />
                                 </div>
                                 <div class="col "
-                                     style="position: relative;
-                                      text-align:center;
-
-                                            " >
+                                     style="position: relative;" >
                                     <div class=""
                                          style="position: absolute;
                                          bottom:0px;
@@ -244,80 +241,3 @@
 
 </odoo>
 
-
-
-
-        <!-- <div class="page">-->
-        <!--                        <div class="container" >-->
-        <!--                            <div class="row">-->
-        <!--                                <div class="col-6 d-flex flex-column justify-content-center align-items-center my-4"-->
-        <!--                                     style="" >-->
-        <!--                                    <img src="/termo/static/description/tctlogo.png"/>-->
-        <!--                                </div>-->
-        <!--                                <div class="d-flex flex-column justify-content-end align-items-center">-->
-        <!--                                    <div class=""><h3><t t-out="o.name"/></h3></div>-->
-        <!--                                    <div class="d-flex flex-row"> <h4> <t t-out="o.categ_id.name"/>Teknik Özellikler</h4></div>-->
-
-
-        <!--                                </div>-->
-
-
-        <!--                            </div>-->
-        <!--                        </div>-->
-
-        <!--                        <hr class="hr" />-->
-
-        <!--                        <div>-->
-        <!--                            <p class=""  style="background-color:grey;" >  Model <t t-out="o.name"/> </p>-->
-        <!--                            <div class="d-flex flex-column justify-content-center align-items-center">-->
-        <!--                                <img t-if="res_company.logo" t-att-src="image_data_uri(o.teknik_cizim)"-->
-        <!--                                     alt="Logo" />-->
-        <!--                            </div>-->
-
-        <!--                            <p class="bg-secondary border">  ÖLÇÜLER </p>-->
-
-        <!--                            <table class="table table-bordered">-->
-        <!--                                <thead>-->
-        <!--                                    <tr>-->
-        <!--                                        <p class="bg-secondary border">  ÖLÇÜLER </p>-->
-
-        <!--                                    </tr>-->
-        <!--                                </thead>-->
-        <!--                                <tbody>-->
-        <!--                                    <tr>-->
-        <!--                                        <th scope="row">H</th>-->
-        <!--                                        <td><t t-out="o.H"/></td>-->
-        <!--                                        <th scope="row">L</th>-->
-        <!--                                        <td><t t-out="o.L"/></td>-->
-        <!--                                        <th scope="row">W</th>-->
-        <!--                                        <td><t t-out="o.W"/></td>-->
-        <!--                                        <th scope="row">W2</th>-->
-        <!--                                        <td><t t-out="o.W2"/></td>-->
-        <!--                                    </tr>-->
-        <!--                                    <tr>-->
-        <!--                                        <th scope="row">H1</th>-->
-        <!--                                        <td><t t-out="o.H1"/></td>-->
-        <!--                                        <th scope="row">L1</th>-->
-        <!--                                        <td><t t-out="o.L1"/></td>-->
-        <!--                                        <th scope="row">W1</th>-->
-        <!--                                        <td><t t-out="o.W1"/></td>-->
-        <!--                                        <th scope="row">W3</th>-->
-        <!--                                        <td><t t-out="o.W3"/></td>-->
-        <!--                                    </tr>-->
-        <!--                                    <tr>-->
-        <!--                                        <th scope="row"></th>-->
-        <!--                                        <td></td>-->
-        <!--                                        <th scope="row">LA</th>-->
-        <!--                                        <td><t t-out="o.LA"/></td>-->
-        <!--                                        <th scope="row"></th>-->
-        <!--                                        <td></td>-->
-        <!--                                        <th scope="row"></th>-->
-        <!--                                        <td></td>-->
-        <!--                                    </tr>-->
-        <!--                                </tbody>-->
-        <!--                            </table>-->
-
-
-
-        <!--                        </div>-->
-        <!--                    </div>-->
