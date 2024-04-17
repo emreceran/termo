@@ -42,11 +42,17 @@ class ProductTemplate(models.Model):
 
 
     termo_tip = fields.Many2one('termo.tip', string="tEKNİK çİZİM")
+    # termo_id = fields.Many2one('termo.tip', string="tEKNİK çİZİM")
+    # image_1920 =  fields.Binary(related='termo_id.teknik_cizim',)
+
 
     kapasite = fields.Float(string = "Kapasite ", compute="_value_pc", default = 6, store=True)
     oda_sicakligi = fields.Float(string = "Oda Sıcaklığı ", compute="_value_pc", default = 6, store=True)
     evaporasyon_sicakligi = fields.Float(string = "Evaporasyon Sıcaklığı ", compute="_value_pc", default = 6, store=True)
 
+    def get_teknik_cizim_name(self):
+        for rec in self:
+            rec.image_1920 = rec.termo_tip.teknik_cizim
 
     @api.depends('hatve', 'sc2', 'sc3', 'sc4')
     def _value_pc(self):

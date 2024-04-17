@@ -1,12 +1,20 @@
 <odoo>
     <data>
-<!--
+
         <template id="listing">
           <ul>
             <li t-foreach="objects" t-as="object">
               <a t-attf-href="#{ root }/objects/#{ object.id }">
                 <t t-esc="object.display_name"/>
               </a>
+            </li>
+          </ul>
+
+            <ul>
+            <li t-foreach="yuzeyler" t-as="yuzey">
+
+                <t t-esc="yuzey"/>
+
             </li>
           </ul>
         </template>
@@ -19,6 +27,6 @@
             </t>
           </dl>
         </template>
--->
+
     </data>
 </odoo>

@@ -1,0 +1,40 @@
+yapılacaklar:
+
+1. web sitesi
+
+1.1 header  ve menü
+-yeni logo eklenecek
+-tüm kategoriilerin görselleri lazım
+-ürünler mega menü düzenlenecek
+-
+
+1.2 home page
+
+1.3 shop tasarımı
+
+1.4 ürün detay sayfası
+- fotoğraf kategoriden çekilecek buna sonra bak
+- termo özellikler variant bilgilerin yer aldığı kısımda gösterilecek variant yerine
+
+
+2. teknik bilgiler formu
+-kutuları genişlet sayfayaa yay
+ok - public ulaşılabilir olmalı
+-ürün tipi excelden çekilebilir mi?
+
+3. Shop
+3.1 Filtreler - varintlar:
+-ürün özellikleri değişince variaant değerlerini değiştrime
+- Ürünler listesinde özellikleri eklencek (hangi bilgiler isteniyor diye sor)
+
+4. ürün seçme programı
+
+5. backend
+-ürün oluşturma
+-ürün bilgileri düncelleme manuel
+-ürün bilgileri düncelleme excel
+-termo tip konfigurasyon
+-özel tasarım ürün girme
+-özel ürün siparişi ile müştteri ilişkilendir, müşteri ssiparişlerinde görebilsin
+
+
