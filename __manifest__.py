@@ -30,6 +30,7 @@
         'views/report.xml',
         'views/product_template.xml',
         'views/tip_configure.xml',
+        'views/urun_detay.xml',
     ],
     # only loaded in demonstration mode
     'demo': [

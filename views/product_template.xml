@@ -6,7 +6,7 @@
     <template
         id="product_attachments"
         inherit_id="website_sale.product"
-        name="Product downloads"
+        name="Teknik Döküman"
         customize_show="True"
     >
         <xpath expr="//*[@id='product_details']">
@@ -25,7 +25,7 @@
                             <div class="row justify-content-between">
                                 <div class="col-auto">
                                     <i class="fa fa-download" />
-                                    Product downloads
+                                    Teknik Döküman
                                 </div>
                                 <div class="col-auto ml-auto">
                                     <i class="fa fa-caret-down" />
@@ -50,8 +50,9 @@
                                                 t-att-href="'http://localhost:8069/en/report/pdf/termo.report_product_cikti/'+str(product.id)"
                                             >
                                                 <span
-                                                    t-out="product.name+'asa'"
+                                                    t-out="product.name"
                                                 />
+                                                <span>Teknik Bilgiler</span>
                                             </a>
                                         </li>
 

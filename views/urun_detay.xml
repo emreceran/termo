@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2020 Tecnativa - Jairo Llopis
+     Copyright 2021 Tecnativa - Víctor Martínez
+     License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl). -->
+<data>
+    <template
+            id="product_detail_page"
+            inherit_id="website_sale.product"
+            name="Product termo"
+            customize_show="True"
+    >
+        <xpath expr="//div[@id='product_attributes_simple']" position="replace">
+            <t t-foreach="product" t-as="o">
+                <div >
+
+                    <p class="" style="background-color:grey; padding:10px;  line-height:2">  Ölçüler </p>
+                    <table class="table mx-1 text-left " >
+                        <!--                                <thead>-->
+                        <!--                                    <tr>-->
+                        <!--                                        <p class="" style="background-color:grey; padding:5px;  line-height:2">  Ölçüler </p>-->
+
+                        <!--                                    </tr>-->
+                        <!--                                </thead>-->
+                        <tbody style="line-height:1.5;" >
+                            <tr>
+                                <th scope="row">H</th>
+                                <td><t t-out="o.H"/></td>
+                                <th scope="row">L</th>
+                                <td><t t-out="o.L"/></td>
+                                <th scope="row">W</th>
+                                <td><t t-out="o.W"/></td>
+                                <th scope="row">W2</th>
+                                <td><t t-out="o.W2"/></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">H1</th>
+                                <td><t t-out="o.H1"/></td>
+                                <th scope="row">L1</th>
+                                <td><t t-out="o.L1"/></td>
+                                <th scope="row">W1</th>
+                                <td><t t-out="o.W1"/></td>
+                                <th scope="row">W3</th>
+                                <td><t t-out="o.W3"/></td>
+
+                            </tr>
+
+
+                            <tr>
+                                <th style="border:none;" scope="row"/>
+                                <td/>
+                                <th scope="row">LA</th>
+                                <td><t t-out="o.LA"/></td>
+                                <th />
+                                <td />
+                                <th />
+                                <td />
+
+                            </tr>
+
+
+                        </tbody>
+                    </table>
+                </div>
+                <div >
+                    <p class="" style="background-color:grey; padding:10px; line-height:2">  Kapasite Bilgileri </p>
+                    <table class="table  " style="text-align:left; padding:0; margin-bottom:0;">
+                        <!--                                <thead style="margin-bottom:0" >-->
+                        <!--                                    <tr>-->
+                        <!--                                        <p class="" style="background-color:grey; padding:5px; line-height:2">  Kapasite Bilgileri </p>-->
+                        <!--                                    </tr>-->
+                        <!--                                </thead>-->
+                        <tbody style="line-height:1.5;" >
+                            <tr>
+                                <th scope="row">Kapasite</th>
+                                <td><t t-out="o.kapasite"/></td>
+                                <th scope="row">Hava Debisi</th>
+                                <td><t t-out="o.hava_debisi"/></td>
+
+                            </tr>
+                            <tr>
+                                <th scope="row">Oda Sıcaklığı</th>
+                                <td><t t-out="o.oda_sicakligi"/></td>
+                                <th scope="row">Evaporasyon Sıcaklığı</th>
+                                <td><t t-out="o.evaporasyon_sicakligi"/></td>
+
+                            </tr>
+
+                            <tr>
+                                <th scope="row">Akışkan</th>
+                                <td> R404A </td>
+                                <th scope="row">Test Basıncı</th>
+                                <td>32 bar</td>
+
+                            </tr>
+
+                            <tr>
+                                <th scope="row">Lamel Aralığı</th>
+                                <td><t t-out="o.lamel_aralik"/></td>
+                                <th scope="row">Isı Transfer Yüzey Alanı</th>
+                                <td><t t-out="o.H"/></td>
+
+                            </tr>
+
+                            <tr>
+                                <th scope="row">Fan Çapı </th>
+                                <td><t t-out="o.fan_cap"/></td>
+                                <th scope="row"> Fan Sayısı</th>
+                                <td><t t-out="o.fan_adet"/></td>
+
+                            </tr>
+
+                            <tr>
+                                <th scope="row">Fan Devri</th>
+                                <td>1400 rpm</td>
+
+                                <th> </th>
+                                <td> </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </t>
+
+            <!--            <div id="product_attributes_simple">-->
+            <!--                <t t-set="single_value_attributes" t-value="product.valid_product_template_attribute_line_ids._prepare_single_value_for_display()"/>-->
+            <!--                <table t-attf-class="table table-sm text-muted {{'' if single_value_attributes else 'd-none'}}">-->
+            <!--                    <t t-foreach="single_value_attributes" t-as="attribute">-->
+            <!--                        <tr>-->
+            <!--                            <td>-->
+            <!--                                <span t-field="attribute.name"/>:-->
+            <!--                                <span>haydaa</span>-->
+            <!--                                <t t-foreach="single_value_attributes[attribute]" t-as="ptal">-->
+            <!--                                    <span t-field="ptal.product_template_value_ids._only_active().name"/><t t-if="not ptal_last">, </t>-->
+            <!--                                </t>-->
+            <!--                            </td>-->
+            <!--                        </tr>-->
+            <!--                    </t>-->
+            <!--                </table>-->
+            <!--            </div>-->
+
+        </xpath>
+    </template>
+
+
+
+    <template id="grid_views" name="Ggg">
+        <div>
+            <p>grid</p>
+        </div>
+    </template>
+
+    <template id="list_views" name="Lll">
+        <div>
+            <p>List</p>
+        </div>
+    </template>
+
+    <!--    <template id="termo_desc" inherit_id="website_sale.products_item"  name="Termo Description">-->
+    <!--        <xpath expr="//h6[hasclass('o_wsale_products_item_title')]/*[@t-if='layout_mode == 'list'']" position="after">-->
+
+    <!--            <div>-->
+    <!--                <p> list</p>-->
+    <!--            </div>-->
+    <!--        </xpath>-->
+    <!--    </template>-->
+
+    <template id="termo_desc" inherit_id="website_sale.products_item"  name="Termo Description">
+        <xpath expr="//div[hasclass('o_wsale_product_information_text')]" position="after">
+
+            <t t-foreach="product" t-as="o">
+
+                <!--                <div class="d-flex flex-wrap">-->
+                <!--                    <div style="display:inline">-->
+                <!--                        <span> <b>Yüzey Alanı :</b>  </span> <span class="text-center ml-5" ><t t-out="o.yuzey" /></span>-->
+                <!--                    </div>-->
+
+
+                <!--                    <div style="display:inline">-->
+                <!--                        <span> <b>Yüzey Alanı :</b>  </span> <span class="text-center ml-5" ><t t-out="o.yuzey" /></span>-->
+                <!--                    </div>-->
+
+
+
+                <!--                    <div style="display:inline">-->
+                <!--                        <span> <b>Yüzey Alanı :</b>  </span> <span class="text-center ml-5" ><t t-out="o.yuzey" /></span>-->
+                <!--                    </div>-->
+
+
+
+                <!--                    <div style="display:inline">-->
+                <!--                        <span> <b>Yüzey Alanı :</b>  </span> <span class="text-center ml-5" ><t t-out="o.yuzey" /></span>-->
+                <!--                    </div>-->
+
+
+
+                <!--                    <div style="display:inline">-->
+                <!--                        <span> <b>Yüzey Alanı :</b>  </span> <span class="text-center ml-5" ><t t-out="o.yuzey" /></span>-->
+                <!--                    </div>-->
+
+
+
+                <!--                    <div style="display:inline">-->
+                <!--                        <span> <b>Yüzey Alanı :</b>  </span> <span class="text-center ml-5" ><t t-out="o.yuzey" /></span>-->
+                <!--                    </div>-->
+
+
+
+                <!--                    <div style="display:inline">-->
+                <!--                        <span> <b>Yüzey Alanı :</b>  </span> <span class="text-center ml-5" ><t t-out="o.yuzey" /></span>-->
+                <!--                    </div>-->
+
+
+
+                <!--                    <div style="display:inline">-->
+                <!--                        <span> <b>Yüzey Alanı :</b>  </span> <span class="text-center ml-5" ><t t-out="o.yuzey" /></span>-->
+                <!--                    </div>-->
+
+
+
+                <!--                    <div style="display:inline">-->
+                <!--                        <span> <b>Yüzey Alanı :</b>  </span> <span class="text-center ml-5" ><t t-out="o.yuzey" /></span>-->
+                <!--                    </div>-->
+                <!--                </div>-->
+
+
+
+
+                <div t-attf-class="d-flex flex-wrap justify-content-between" >
+                    <div class="col">
+                        <div class="d-flex flex-nowrap">
+                            <p> <b>Yüzey Alanı :</b>  </p> <span class="text-center d-inline" ><t t-out="o.yuzey" /></span>
+
+                        </div>
+
+                        <div class="d-flex flex-nowrap">
+                            <p> <b>Fan Çapı :</b> </p>
+                            <span class="text-center d-inline" ><t t-out="o.fan_cap" /></span>
+                        </div>
+
+                    </div>
+
+
+                    <div class="col">
+                        <div class="d-flex justify-content-around">
+                            <p> <b>T1 :</b>  </p> <span class="text-center ml-5" ><t t-out="o.t1" /></span>
+
+                        </div>
+
+                        <div class="d-flex justify-content-around">
+                            <span> <b>T2 :</b> </span>
+                            <span class="text-center" ><t t-out="o.t2" /></span>
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="col">
+                        <div class="d-flex justify-content-around">
+                            <p> <b>SC1 :</b>  </p> <span class="text-center ml-5" ><t t-out="o.sc1" /></span>
+
+                        </div>
+
+                        <div class="d-flex justify-content-around">
+                            <span> <b>SC2 :</b> </span>
+                            <span class="text-center" ><t t-out="o.sc2" /></span>
+                        </div>
+
+                    </div>
+
+                    <div class="col">
+                        <div class="d-flex justify-content-around">
+                            <p> <b>SC3 :</b>  </p> <span class="text-center ml-5" ><t t-out="o.sc3" /></span>
+
+                        </div>
+
+                        <div class="d-flex justify-content-around">
+                            <span> <b>SC4 :</b> </span>
+                            <span class="text-center" ><t t-out="o.sc4" /></span>
+                        </div>
+
+                    </div>
+
+                </div>
+            </t>
+        </xpath>
+    </template>
+
+</data>
