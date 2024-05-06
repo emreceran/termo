@@ -13,7 +13,8 @@ class Tip(models.Model):
     teknik_cizim = fields.Binary("Teknik Çizim", help="Teknik Ressim")
     gorsel = fields.Binary("Ürün Görseli ", help="Bu tipte yer alacak ürübnlerin resimleri")
     filtre = fields.Many2many('product.attribute', string='Tags')
-    grup = fields.Char("tip")
+    grup = fields.Char("Filtre grubu")
+    public = fields.Many2many('product.public.category', string="Web kategori")
 
 
 class filtredegeri(models.Model):
@@ -125,8 +126,11 @@ class ProductTemplate(models.Model):
 
     @api.onchange('termo_tip_id')
     def _onchange_termo_tip_id(self):
-        if self.termo_tip_id and self.termo_tip_id.gorsel:
+        if self.termo_tip_id and self.termo_tip_id.gorsel and self.termo_tip_id.public:
             self.image_1920 = self.termo_tip_id.gorsel
+            self.public_categ_ids = [(6, 0, [self.termo_tip_id.public.id])]
+            # raise UserError(self.termo_tip_id.public.id)
+
 
 
     def get_teknik_cizim_name(self):

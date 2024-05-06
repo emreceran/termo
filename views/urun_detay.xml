@@ -13,56 +13,7 @@
     >
         <xpath expr="//div[@id='product_attributes_simple']" position="replace">
             <t t-foreach="product" t-as="o">
-                <div >
 
-                    <p class="" style="background-color:grey; padding:10px;  line-height:2">  Ölçüler </p>
-                    <table class="table mx-1 text-left " >
-                        <!--                                <thead>-->
-                        <!--                                    <tr>-->
-                        <!--                                        <p class="" style="background-color:grey; padding:5px;  line-height:2">  Ölçüler </p>-->
-
-                        <!--                                    </tr>-->
-                        <!--                                </thead>-->
-                        <tbody style="line-height:1.5;" >
-                            <tr>
-                                <th scope="row">H</th>
-                                <td><t t-out="o.H"/></td>
-                                <th scope="row">L</th>
-                                <td><t t-out="o.L"/></td>
-                                <th scope="row">W</th>
-                                <td><t t-out="o.W"/></td>
-                                <th scope="row">W2</th>
-                                <td><t t-out="o.W2"/></td>
-                            </tr>
-                            <tr>
-                                <th scope="row">H1</th>
-                                <td><t t-out="o.H1"/></td>
-                                <th scope="row">L1</th>
-                                <td><t t-out="o.L1"/></td>
-                                <th scope="row">W1</th>
-                                <td><t t-out="o.W1"/></td>
-                                <th scope="row">W3</th>
-                                <td><t t-out="o.W3"/></td>
-
-                            </tr>
-
-
-                            <tr>
-                                <th style="border:none;" scope="row"/>
-                                <td/>
-                                <th scope="row">LA</th>
-                                <td><t t-out="o.LA"/></td>
-                                <th />
-                                <td />
-                                <th />
-                                <td />
-
-                            </tr>
-
-
-                        </tbody>
-                    </table>
-                </div>
                 <div >
                     <p class="" style="background-color:grey; padding:10px; line-height:2">  Kapasite Bilgileri </p>
                     <table class="table  " style="text-align:left; padding:0; margin-bottom:0;">
@@ -121,6 +72,57 @@
                         </tbody>
                     </table>
                 </div>
+
+                <div >
+
+                    <p class="" style="background-color:grey; padding:10px;  line-height:2">  Ölçüler </p>
+                    <table class="table mx-1 text-left " >
+                        <!--                                <thead>-->
+                        <!--                                    <tr>-->
+                        <!--                                        <p class="" style="background-color:grey; padding:5px;  line-height:2">  Ölçüler </p>-->
+
+                        <!--                                    </tr>-->
+                        <!--                                </thead>-->
+                        <tbody style="line-height:1.5;" >
+                            <tr>
+                                <th scope="row">H</th>
+                                <td><t t-out="o.H"/></td>
+                                <th scope="row">L</th>
+                                <td><t t-out="o.L"/></td>
+                                <th scope="row">W</th>
+                                <td><t t-out="o.W"/></td>
+                                <th scope="row">W2</th>
+                                <td><t t-out="o.W2"/></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">H1</th>
+                                <td><t t-out="o.H1"/></td>
+                                <th scope="row">L1</th>
+                                <td><t t-out="o.L1"/></td>
+                                <th scope="row">W1</th>
+                                <td><t t-out="o.W1"/></td>
+                                <th scope="row">W3</th>
+                                <td><t t-out="o.W3"/></td>
+
+                            </tr>
+
+
+                            <tr>
+                                <th style="border:none;" scope="row"/>
+                                <td/>
+                                <th scope="row">LA</th>
+                                <td><t t-out="o.LA"/></td>
+                                <th />
+                                <td />
+                                <th />
+                                <td />
+
+                            </tr>
+
+
+                        </tbody>
+                    </table>
+                </div>
             </t>
 
             <!--            <div id="product_attributes_simple">-->
@@ -171,7 +173,7 @@
 
             <t t-foreach="product" t-as="o">
 
-               <div t-attf-class="d-flex flex-wrap justify-content-between" >
+                <div t-attf-class="d-flex flex-wrap justify-content-between" >
                     <t t-if="o.termo_tip_id.grup=='1'">
                         <div class="col">
                             <div class="d-flex justify-content-around">
@@ -232,32 +234,32 @@
 
 
 
-                        <div class="col">
+                    <div class="col">
 
-                            <div class="d-flex  justify-content-around">
-                                <p> <b>Fan Çapı :</b> </p>
-                                <span class="text-center d-inline" ><t t-out="o.fan_cap" /></span>
-                            </div>
+                        <div class="d-flex  justify-content-around">
+                            <p> <b>Fan Çapı :</b> </p>
+                            <span class="text-center d-inline" ><t t-out="o.fan_cap" /></span>
+                        </div>
 
-                            <div class="d-flex  justify-content-around">
-                                <p> <b>Fan Adet :</b> </p>
-                                <span class="text-center d-inline" ><t t-out="o.fan_cap" /></span>
-                            </div>
+                        <div class="d-flex  justify-content-around">
+                            <p> <b>Fan Adet :</b> </p>
+                            <span class="text-center d-inline" ><t t-out="o.fan_cap" /></span>
+                        </div>
+
+                    </div>
+
+                    <div class="col">
+                        <div class="d-flex justify-content-around">
+                            <p> <b>Yüzey Alanı :</b>  </p> <span class="text-center d-inline" ><t t-out="o.yuzey" /></span>
 
                         </div>
 
-                        <div class="col">
-                            <div class="d-flex justify-content-around">
-                                <p> <b>Yüzey Alanı :</b>  </p> <span class="text-center d-inline" ><t t-out="o.yuzey" /></span>
-
-                            </div>
-
-                            <div class="d-flex justify-content-around">
-                                <p> <b>Lamel  :</b> </p>
-                                <span class="text-center d-inline" ><t t-out="o.lamel_aralik" /></span>
-                            </div>
-
+                        <div class="d-flex justify-content-around">
+                            <p> <b>Lamel  :</b> </p>
+                            <span class="text-center d-inline" ><t t-out="o.lamel_aralik" /></span>
                         </div>
+
+                    </div>
 
 
 
@@ -272,12 +274,28 @@
     </template>
 
 
-     <template id="products_add_to_cart_inherit" inherit_id="website_sale.products_add_to_cart"  name="Add to Cart inherit">
+
+
+    <template id="products_add_to_cart_inherit" inherit_id="website_sale.products_add_to_cart"  name="Add to Cart inherit">
         <xpath expr="//span[hasclass('fa-shopping-cart')]" position="replace">
 
-                    <span>Siparişe Ekle</span>
+            <span>Siparişe Ekle</span>
 
         </xpath>
     </template>
+
+<!--    <template id="hide_grid_label" inherit_id="website_sale.add_grid_or_list_option"  name="Hide Gridt">-->
+<!--        <xpath expr="//div" position="replace">-->
+
+<!--            <div t-attf-class="o_wsale_apply_layout btn-group ms-3 {{_classes}}" t-att-data-active-classes="_activeClasses">-->
+
+<!--                <input type="radio" class="btn-check" name="wsale_products_layout" id="o_wsale_apply_list" t-att-checked="'checked' if layout_mode == 'list' else None" value="list"/>-->
+<!--                <label t-attf-class="btn btn-{{navClass}} #{_activeClasses if layout_mode == 'list' else None} o_wsale_apply_list" title="List" for="o_wsale_apply_list">-->
+<!--                    <i class="oi oi-view-list"/>-->
+<!--                </label>-->
+<!--            </div>-->
+
+<!--        </xpath>-->
+<!--    </template>-->
 
 </data>

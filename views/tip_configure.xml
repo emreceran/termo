@@ -58,6 +58,7 @@
                         <field name="gorsel" />
                         <field name="filtre" />
                         <field name="grup" />
+                        <field name="public" />
                     </group>
                 </form>
             </field>
