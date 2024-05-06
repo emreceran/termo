@@ -1,6 +1,35 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
     <data>
+
+
+<!--        <record id="product_template_action_kopya" model="ir.actions.act_window">-->
+<!--            <field name="name">Products</field>-->
+<!--            <field name="type">ir.actions.act_window</field>-->
+<!--            <field name="res_model">product.template</field>-->
+<!--            <field name="view_mode">tree</field>-->
+<!--        </record>-->
+
+        <record id="product_template_action_kopya" model="ir.actions.act_window">
+        <field name="name">Products</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">product.template</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="view_id" ref="product.product_template_tree_view"/>
+        <field name="search_view_id" ref="product.product_template_search_view"/>
+        <field name="context">{"search_default_filter_to_sell":1, "sale_multi_pricelist_product_template": 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new product
+            </p><p>
+                You must define a product for everything you sell or purchase,
+                whether it's a storable product, a consumable or a service.
+            </p>
+        </field>
+    </record>
+
+
+
         <record id="termo_tip_configuration_action" model="ir.actions.act_window">
             <field name="name">Termo Tip</field>
             <field name="type">ir.actions.act_window</field>
@@ -26,15 +55,79 @@
                     <group>
                         <field name="name" />
                         <field name="teknik_cizim" />
+                        <field name="gorsel" />
+                        <field name="filtre" />
+                        <field name="grup" />
                     </group>
                 </form>
             </field>
         </record>
 
+
+
+
+        <record id="termo_filtre_configuration_action" model="ir.actions.act_window">
+            <field name="name">Termo filtre</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">termo.filtre</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record id="termo_filtre_tree" model="ir.ui.view">
+            <field name="name">termo.filtre.tree</field>
+            <field name="model">termo.filtre</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="termo_filtre_form" model="ir.ui.view">
+            <field name="name">termo.filtre.form</field>
+            <field name="model">termo.filtre</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <field name="name" />
+                        <field name="min_deger" />
+                        <field name="max_deger" />
+                        <field name="delta_deger" />
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <menuitem sequence="0" id="menu_termo" name="Termo"/>
+
+
         <menuitem id="termo_tip_menu"
-                  name="Termo Configuration"
-                  parent="website.menu_website_global_configuration"
-                  sequence="165"
+                  name="Ürün Tipleri"
+                  parent="menu_termo"
+                  sequence="0"
                   action="termo_tip_configuration_action"/>
+
+
+        <menuitem id="termo_filtre_menu"
+                  name="Ürün Filtreleri"
+                  parent="menu_termo"
+                  sequence="1"
+                  action="product.attribute_action"/>
+
+
+        <menuitem id="termo_urun_menu"
+                  name="Ürünler"
+                  parent="menu_termo"
+                  sequence="2"
+                  action="product_template_action_kopya"/>
+
+
+
+
+
+
+
+
+
     </data>
 </odoo>

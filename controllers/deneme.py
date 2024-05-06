@@ -31,27 +31,7 @@ _logger = logging.getLogger(__name__)
 
 
 
-class Website(main.Website):
-    @http.route()
-    def autocomplete(self, search_type=None, term=None, order=None, limit=5, max_nb_chars=999, options=None):
-        options = options or {}
-        if 'display_currency' not in options:
-            options['display_currency'] = request.website.currency_id
-        return super().autocomplete(search_type, term, order, limit, max_nb_chars, options)
 
-    @http.route()
-    def theme_customize_data(self, is_view_data, enable=None, disable=None, reset_view_arch=False):
-        super().theme_customize_data(is_view_data, enable, disable, reset_view_arch)
-        if any(key in enable or key in disable for key in ['website_sale.products_list_view', 'website_sale.add_grid_or_list_option']):
-            request.session.pop('website_sale_shop_layout_mode', None)
-
-    @http.route()
-    def get_current_currency(self, **kwargs):
-        return {
-            'id': request.website.currency_id.id,
-            'symbol': request.website.currency_id.symbol,
-            'position': request.website.currency_id.position,
-        }
 
 class WebsiteSale(http.Controller):
     _express_checkout_route = '/hop/express_checkout'

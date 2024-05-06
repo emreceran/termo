@@ -1,3 +1,5 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_termo_internal,termo.tip.internal,model_termo_tip,base.group_user,1,1,1,1
 access_termo_public,termo.tip.public,model_termo_tip,base.group_public,1,1,1,1
+access_termo_filtreler,termo.filtreler.internal,model_termo_filtreler,base.group_user,1,1,1,1
+access_termo_filtre,termo.filtre.internal,model_termo_filtre,base.group_user,1,1,1,1

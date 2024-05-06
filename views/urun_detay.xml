@@ -3,6 +3,8 @@
      Copyright 2021 Tecnativa - Víctor Martínez
      License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl). -->
 <data>
+
+
     <template
             id="product_detail_page"
             inherit_id="website_sale.product"
@@ -169,120 +171,112 @@
 
             <t t-foreach="product" t-as="o">
 
-                <!--                <div class="d-flex flex-wrap">-->
-                <!--                    <div style="display:inline">-->
-                <!--                        <span> <b>Yüzey Alanı :</b>  </span> <span class="text-center ml-5" ><t t-out="o.yuzey" /></span>-->
-                <!--                    </div>-->
+               <div t-attf-class="d-flex flex-wrap justify-content-between" >
+                    <t t-if="o.termo_tip_id.grup=='1'">
+                        <div class="col">
+                            <div class="d-flex justify-content-around">
+                                <p> <b>SC1 :</b>  </p> <span class="text-center ml-5" ><t t-out="o.sc1" /></span>
+                            </div>
+
+                            <div class="d-flex justify-content-around">
+                                <span> <b>SC2 :</b> </span>
+                                <span class="text-center" ><t t-out="o.sc2" /></span>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="d-flex justify-content-around">
+                                <p> <b>SC3 :</b>  </p> <span class="text-center ml-5" ><t t-out="o.sc3" /></span>
+                            </div>
+
+                            <div class="d-flex justify-content-around">
+                                <span> <b>SC4 :</b> </span>
+                                <span class="text-center" ><t t-out="o.sc4" /></span>
+                            </div>
+
+                        </div>
+                    </t>
+
+                    <t t-elif="o.termo_tip_id.grup=='2'">
+                        <div class="col">
+                            <div class="d-flex justify-content-around">
+                                <p class="text-center"> <b>To / Te  -35°C/-40°C  W :</b>   </p> <span class="text-center ml-5" ><t t-out="o.t1" /></span>
+
+                            </div>
+
+                            <div class="d-flex justify-content-around">
+                                <p class="text-center"> <b>To / Te  -40°C/-45°C  W :</b>   </p>
+                                <span class="text-center" ><t t-out="o.t2" /></span>
+                            </div>
+
+                        </div>
+                    </t>
 
 
-                <!--                    <div style="display:inline">-->
-                <!--                        <span> <b>Yüzey Alanı :</b>  </span> <span class="text-center ml-5" ><t t-out="o.yuzey" /></span>-->
-                <!--                    </div>-->
+                    <t t-if="o.termo_tip_id.grup=='3'">
+                        <div class="col">
+                            <div class="d-flex justify-content-around">
+                                <p> <b>SC1 :</b>  </p> <span class="text-center ml-5" ><t t-out="o.sc1" /></span>
+                            </div>
 
+                            <div class="d-flex justify-content-around">
+                                <span> <b>SC2 :</b> </span>
+                                <span class="text-center" ><t t-out="o.sc2" /></span>
+                            </div>
+                        </div>
 
-
-                <!--                    <div style="display:inline">-->
-                <!--                        <span> <b>Yüzey Alanı :</b>  </span> <span class="text-center ml-5" ><t t-out="o.yuzey" /></span>-->
-                <!--                    </div>-->
-
-
-
-                <!--                    <div style="display:inline">-->
-                <!--                        <span> <b>Yüzey Alanı :</b>  </span> <span class="text-center ml-5" ><t t-out="o.yuzey" /></span>-->
-                <!--                    </div>-->
-
-
-
-                <!--                    <div style="display:inline">-->
-                <!--                        <span> <b>Yüzey Alanı :</b>  </span> <span class="text-center ml-5" ><t t-out="o.yuzey" /></span>-->
-                <!--                    </div>-->
-
-
-
-                <!--                    <div style="display:inline">-->
-                <!--                        <span> <b>Yüzey Alanı :</b>  </span> <span class="text-center ml-5" ><t t-out="o.yuzey" /></span>-->
-                <!--                    </div>-->
-
-
-
-                <!--                    <div style="display:inline">-->
-                <!--                        <span> <b>Yüzey Alanı :</b>  </span> <span class="text-center ml-5" ><t t-out="o.yuzey" /></span>-->
-                <!--                    </div>-->
-
-
-
-                <!--                    <div style="display:inline">-->
-                <!--                        <span> <b>Yüzey Alanı :</b>  </span> <span class="text-center ml-5" ><t t-out="o.yuzey" /></span>-->
-                <!--                    </div>-->
-
-
-
-                <!--                    <div style="display:inline">-->
-                <!--                        <span> <b>Yüzey Alanı :</b>  </span> <span class="text-center ml-5" ><t t-out="o.yuzey" /></span>-->
-                <!--                    </div>-->
-                <!--                </div>-->
+                    </t>
 
 
 
 
-                <div t-attf-class="d-flex flex-wrap justify-content-between" >
-                    <div class="col">
-                        <div class="d-flex flex-nowrap">
-                            <p> <b>Yüzey Alanı :</b>  </p> <span class="text-center d-inline" ><t t-out="o.yuzey" /></span>
+
+
+                        <div class="col">
+
+                            <div class="d-flex  justify-content-around">
+                                <p> <b>Fan Çapı :</b> </p>
+                                <span class="text-center d-inline" ><t t-out="o.fan_cap" /></span>
+                            </div>
+
+                            <div class="d-flex  justify-content-around">
+                                <p> <b>Fan Adet :</b> </p>
+                                <span class="text-center d-inline" ><t t-out="o.fan_cap" /></span>
+                            </div>
 
                         </div>
 
-                        <div class="d-flex flex-nowrap">
-                            <p> <b>Fan Çapı :</b> </p>
-                            <span class="text-center d-inline" ><t t-out="o.fan_cap" /></span>
-                        </div>
+                        <div class="col">
+                            <div class="d-flex justify-content-around">
+                                <p> <b>Yüzey Alanı :</b>  </p> <span class="text-center d-inline" ><t t-out="o.yuzey" /></span>
 
-                    </div>
+                            </div>
 
-
-                    <div class="col">
-                        <div class="d-flex justify-content-around">
-                            <p> <b>T1 :</b>  </p> <span class="text-center ml-5" ><t t-out="o.t1" /></span>
-
-                        </div>
-
-                        <div class="d-flex justify-content-around">
-                            <span> <b>T2 :</b> </span>
-                            <span class="text-center" ><t t-out="o.t2" /></span>
-                        </div>
-
-                    </div>
-
-
-
-                    <div class="col">
-                        <div class="d-flex justify-content-around">
-                            <p> <b>SC1 :</b>  </p> <span class="text-center ml-5" ><t t-out="o.sc1" /></span>
+                            <div class="d-flex justify-content-around">
+                                <p> <b>Lamel  :</b> </p>
+                                <span class="text-center d-inline" ><t t-out="o.lamel_aralik" /></span>
+                            </div>
 
                         </div>
 
-                        <div class="d-flex justify-content-around">
-                            <span> <b>SC2 :</b> </span>
-                            <span class="text-center" ><t t-out="o.sc2" /></span>
-                        </div>
 
-                    </div>
 
-                    <div class="col">
-                        <div class="d-flex justify-content-around">
-                            <p> <b>SC3 :</b>  </p> <span class="text-center ml-5" ><t t-out="o.sc3" /></span>
 
-                        </div>
 
-                        <div class="d-flex justify-content-around">
-                            <span> <b>SC4 :</b> </span>
-                            <span class="text-center" ><t t-out="o.sc4" /></span>
-                        </div>
 
-                    </div>
+
 
                 </div>
             </t>
+        </xpath>
+    </template>
+
+
+     <template id="products_add_to_cart_inherit" inherit_id="website_sale.products_add_to_cart"  name="Add to Cart inherit">
+        <xpath expr="//span[hasclass('fa-shopping-cart')]" position="replace">
+
+                    <span>Siparişe Ekle</span>
+
         </xpath>
     </template>
 

@@ -32,7 +32,7 @@ class Termo(http.Controller):
     def index(self, **kw):
         return "Hello, world"
 
-    @http.route('/termo/termo/objects', auth='public')
+    @http.route('/termo/termo/urunler', auth='public')
     def list(self, **kw):
         urunler = request.env['product.template'].sudo().search([])
         print("urunler")
@@ -41,6 +41,8 @@ class Termo(http.Controller):
         yuzeyler = {}
         for product in urunler:
             yuzeyler[product.id] = (product.yuzey)
+
+        print(yuzeyler)
 
 
         return http.request.render('termo.listing', {
