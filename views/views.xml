@@ -16,6 +16,15 @@
         </record>
 
 
+<!--        <record id="action_apply_custom_task_to_products" model="ir.actions.server">-->
+<!--            <field name="name">Apply Custom Task to Products</field>-->
+<!--            <field name="model_id" ref="product.template"/>-->
+<!--            <field name="state">code</field>-->
+<!--            <field name="code">-->
+<!--                action = self.env['product.template.'].gorev()-->
+<!--            </field>-->
+<!--        </record>-->
+
 
 
 
@@ -39,8 +48,9 @@
             <field name="inherit_id" ref="product.product_template_tree_view" />
             <field name="arch" type="xml">
                 <xpath expr="//header" position="inside">
-<!--                        <button string="Variantları Güncelle" type="object" name="gorev3"/>-->
-                        <button string="Variantları Güncelle" type="object" name="gorev"/>
+                    <!--                        <button string="Variantları Güncelle" type="object" name="gorev3"/>-->
+                    <button string="Variantları Güncelle" type="object" name="gorev"/>
+                    <button string="Tüm Variantları Güncelle " type="object" name="tum_gorev"/>
                 </xpath>
             </field>
         </record>
@@ -51,17 +61,17 @@
             <field name="inherit_id" ref="product.product_attribute_view_form" />
             <field name="arch" type="xml">
                 <xpath expr="//div[@name='button_box']" position="before">
-                        <header>
-                            <button string="Variantları Güncelle" type="object" name="gorev"/>
-                        </header>
+                    <header>
+                        <button string="Değerleri  Güncelle" type="object" name="gorev"/>
+                    </header>
                 </xpath>
 
-                 <xpath expr="//field[@name='name']" position="after">
-                        <field name="ref" />
-                        <field name="attribute_field_id" />
-                        <field name="alt_sinir" />
-                        <field name="Ust_sinir" />
-                        <field name="delta_deger" />
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="ref" />
+                    <field name="attribute_field_id" />
+                    <field name="alt_sinir" />
+                    <field name="Ust_sinir" />
+                    <field name="delta_deger" />
                 </xpath>
             </field>
         </record>

@@ -74,12 +74,12 @@ class ProductTemplate(models.Model):
     _inherit = "product.template"
 
 
-    yuzey = fields.Integer(string = "Yüzey", default = 0, store=True)
-    boru_hacmi = fields.Integer(string = "Boru Hacmi", default = 0, store=True)
+    yuzey = fields.Float(string = "Yüzey", default = 0, store=True)
+    boru_hacmi = fields.Float(string = "Boru Hacmi", default = 0, store=True)
     t1 = fields.Integer (string = "To / Te -35°C/-40°C W", default=None)
     t2 = fields.Integer (string = "To / Te -40°C/-45°C W", default = 0, store=True)
     sc1 = fields.Integer (string = "SC1 10°C/0°C W", default = 0, store=True)
-    sc2 = fields.Integer (string = "SC2 0°C/- 8°C W", default = 0, store=True)
+    sc2 = fields.Float (string = "SC2 0°C/- 8°C W", default = 0, store=True)
     sc3 = fields.Integer (string = "SC3 - 18°C/ - 25°C W", default = 0, store=True)
     sc4 = fields.Integer (string = "SC4 - 25°C/ - 31°C W", default = 0, store=True)
     fan_adet = fields.Integer(string = "Fan Adeti", default = 0, store=True)
@@ -106,90 +106,11 @@ class ProductTemplate(models.Model):
 
     termo_tip_id = fields.Many2one('termo.tip', string="tEKNİK çİZİM")
     termo_filtre =fields.Many2many(related="termo_tip_id.filtre")
-    # image_1920 =fields.Binary(related="termo_tip_id.gorsel")
-    # termo_id = fields.Many2one('termo.tip', string="tEKNİK çİZİM")
-    # image_1920 =  fields.Binary(related='termo_id.teknik_cizim',)
-
 
 
     oda_sicakligi = fields.Float(string = "Oda Sıcaklığı ", compute="_value_pc", default = 6, store=True)
     evaporasyon_sicakligi = fields.Float(string = "Evaporasyon Sıcaklığı ", compute="_value_pc", default = 6, store=True)
 
-    sc1_aralik = fields.Char(string="SC1 Aralik",  default="-", store=True)
-    sc2_aralik = fields.Char(string="SC2 Aralik", compute="_compute_sc2", default="-", store=True)
-    sc3_aralik = fields.Char(string="SC3 Aralik", compute="_compute_sc3", default="-", store=True)
-    sc4_aralik = fields.Char(string="SC4 Aralik", compute="_compute_sc4", default="-", store=True)
-    t1_aralik = fields.Char(string="T1 Aralik", compute="_compute_t1", default="-", store=True)
-    t2_aralik = fields.Char(string="T2 Aralik", compute="_compute_t2", default="-", store=True)
-    yuzey_aralik = fields.Char(string="Yüzey Aralik", compute="_compute_yuzey_aralik", default="-", store=True)
-    fan_cap_aralik = fields.Char(string="Fan Çap Aralik", compute="_compute_fan_cap_aralik", default="-", store=True)
-
-    @api.onchange('termo_tip_id')
-    def _onchange_termo_tip_id(self):
-        if self.termo_tip_id and self.termo_tip_id.gorsel and self.termo_tip_id.public:
-            self.image_1920 = self.termo_tip_id.gorsel
-            self.public_categ_ids = [(6, 0, [self.termo_tip_id.public.id])]
-            # raise UserError(self.termo_tip_id.public.id)
-
-
-
-    def get_teknik_cizim_name(self):
-        for rec in self:
-            rec.image_1920 = rec.termo_tip.teknik_cizim
-
-    # @api.onchange('sc1')
-    # def _compute_sc1_aralik(self):
-    #     for record in self:
-    #         if record.sc1 !=0:
-    #             alt = int(record.sc1 - (record.sc1 % 5000))
-    #             ust = int(alt + 5000)
-    #             record.aralik = str(alt) + " - " + str(ust)
-    #         else:
-    #             record.aralik = False
-
-    @api.depends('sc2')
-    def _compute_sc2(self):
-        for record in self:
-            alt = int(record.sc2 - (record.sc2 % 5000))
-            ust = int(alt + 5000)
-            record.sc2_aralik = str(alt) + " - " + str(ust)
-
-
-    @api.depends('sc3')
-    def _compute_sc3(self):
-        for record in self:
-            alt = int(record.sc3 - (record.sc3 % 5000))
-            ust = int(alt + 5000)
-            record.sc3_aralik = str(alt) + " - " + str(ust)
-
-
-    @api.depends('t1')
-    def _compute_t1(self):
-        for record in self:
-            alt = int(record.t1 - (record.t1 % 10000))
-            ust = int(alt + 10000)
-            record.t1_aralik = str(alt) + " - " + str(ust)
-
-    @api.depends('t2')
-    def _compute_t2(self):
-        for record in self:
-            alt = int(record.t2 - (record.t2 % 10000))
-            ust = int(alt + 10000)
-            record.t2_aralik = str(alt) + " - " + str(ust)
-
-    @api.depends('fan_cap')
-    def _compute_fan_cap_aralik(self):
-        for record in self:
-            alt = int(record.fan_cap - (record.fan_cap % 50))
-            ust = int(alt + 50)
-            record.fan_cap_aralik = str(alt) + " - " + str(ust)
-
-    @api.depends('yuzey')
-    def _compute_yuzey_aralik(self):
-        for record in self:
-            alt = int(record.yuzey - (record.yuzey % 10))
-            ust = int(alt + 10)
-            record.yuzey_aralik = str(alt) + " - " + str(ust)
 
 
 
@@ -213,6 +134,8 @@ class ProductTemplate(models.Model):
 
     def gorev(self):
        for record in self:
+
+           print(record.name)
            a =record.termo_filtre #üründeki filtreler
 
            for attrib in a: #filtre isimleri loop ör sc1_aralik
@@ -233,6 +156,7 @@ class ProductTemplate(models.Model):
                print(urun_filtre_degeri)
 
                attrib_value = attrib.value_ids
+               print([x.name for x in attrib_value])
                deger = [x for x in attrib_value if x.name == urun_filtre_degeri][0]
 
 
@@ -257,6 +181,16 @@ class ProductTemplate(models.Model):
                #     raise UserError(
                #         'Değiştirmye çalıştığınız %s ürününün %s filtresinde yer alan  %s  değeri geçersiz. Kontrol ediniz yada filtre değerlerine ekleyiniz.' % (
                #         record.name, attrib_name, sc1_aralik_deger))
+
+
+
+    def tum_gorev(self):
+
+        tum_urunler = self.env['product.template'].search([])
+        for record in tum_urunler:
+            if record.termo_tip_id != False:
+                record.gorev()
+
 
     def gorev2(self):
 
