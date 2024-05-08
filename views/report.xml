@@ -86,7 +86,7 @@
                         <div class=""  style="border:1px solid black;">
                             <p class="" style="background-color:grey; padding:10px;  line-height:2;">  Model <t t-out="o.name"/> </p>
                             <div class="text-center">
-                                <img style="margin:20px;" t-if="res_company.logo" t-att-src="image_data_uri(o.termo_tip.teknik_cizim)" alt="Logo"/>
+                                <img style="margin:20px;" t-if="res_company.logo" t-att-src="image_data_uri(o.termo_tip_id.teknik_cizim)" alt="Logo"/>
                             </div>
 
 

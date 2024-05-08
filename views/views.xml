@@ -16,14 +16,14 @@
         </record>
 
 
-<!--        <record id="action_apply_custom_task_to_products" model="ir.actions.server">-->
-<!--            <field name="name">Apply Custom Task to Products</field>-->
-<!--            <field name="model_id" ref="product.template"/>-->
-<!--            <field name="state">code</field>-->
-<!--            <field name="code">-->
-<!--                action = self.env['product.template.'].gorev()-->
-<!--            </field>-->
-<!--        </record>-->
+        <!--        <record id="action_apply_custom_task_to_products" model="ir.actions.server">-->
+        <!--            <field name="name">Apply Custom Task to Products</field>-->
+        <!--            <field name="model_id" ref="product.template"/>-->
+        <!--            <field name="state">code</field>-->
+        <!--            <field name="code">-->
+        <!--                action = self.env['product.template.'].gorev()-->
+        <!--            </field>-->
+        <!--        </record>-->
 
 
 
@@ -127,6 +127,84 @@
 
                     </page>
                 </xpath>
+            </field>
+        </record>
+
+
+        <record id="termo_product_template_list" model="ir.ui.view">
+            <field name="name">product.template.termo.list.inherit</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_tree_view" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="termo_tip_id" />
+                    <field name="yuzey" />
+                    <field name="boru_hacmi" />
+                    <field name="fan_adet" />
+                    <field name="fan_cap" />
+                    <field name="hatve" />
+                </xpath>
+
+                <xpath expr="//field[@name='default_code']" position="attributes">
+                    <attribute name="invisible">True</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='product_tag_ids']" position="attributes">
+                    <attribute name="invisible">True</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='barcode']" position="attributes">
+                    <attribute name="invisible">True</attribute>
+                </xpath>
+
+
+                <xpath expr="//field[@name='company_id']" position="attributes">
+                    <attribute name="invisible">True</attribute>
+                </xpath>
+
+
+                <xpath expr="//field[@name='standard_price']" position="attributes">
+                    <attribute name="invisible">True</attribute>
+                </xpath>
+
+
+                <xpath expr="//field[@name='categ_id']" position="attributes">
+                    <attribute name="invisible">True</attribute>
+                </xpath>
+
+                 <xpath expr="//field[@name='detailed_type']" position="attributes">
+                    <attribute name="invisible">True</attribute>
+                </xpath>
+
+
+                 <xpath expr="//field[@name='type']" position="attributes">
+                    <attribute name="invisible">True</attribute>
+                </xpath>
+
+
+                 <xpath expr="//field[@name='uom_id']" position="attributes">
+                    <attribute name="invisible">True</attribute>
+                </xpath>
+
+
+                 <xpath expr="//field[@name='active']" position="attributes">
+                    <attribute name="invisible">True</attribute>
+                </xpath>
+            </field>
+        </record>
+
+
+        <record id="termo_product_template_list_disable_user" model="ir.ui.view">
+            <field name="name">product.template.termo.list.inherit.disable.user</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="stock.view_stock_product_template_tree" />
+            <field name="arch" type="xml">
+
+
+                <xpath expr="//field[@name='responsible_id']" position="attributes">
+                    <attribute name="invisible">True</attribute>
+                </xpath>
+
             </field>
         </record>
         <!-- explicit list view definition -->
