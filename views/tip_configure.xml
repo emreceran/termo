@@ -59,6 +59,7 @@
                         <field name="filtre" />
                         <field name="grup" />
                         <field name="public" />
+                        <field name="product_ids" />
                     </group>
                 </form>
             </field>

@@ -12,10 +12,11 @@ class Tip(models.Model):
     name = fields.Char(string='Ürün Tipi', required=True, translate=True)
     teknik_cizim = fields.Binary("Teknik Çizim", help="Teknik Ressim")
     gorsel = fields.Binary("Ürün Görseli ", help="Bu tipte yer alacak ürübnlerin resimleri")
-    filtre = fields.Many2many('product.attribute', string='Tags')
+    filtre = fields.Many2many('product.attribute', string='Filtreler')
     grup = fields.Char("Filtre grubu")
     public = fields.Many2many('product.public.category', string="Web kategori")
-
+    # product_ids = fields.One2many('product.template', 'termo_tip_id', string='Related Products')
+    product_ids = fields.Many2many('product.template', string='Related Products', domain="[('termo_tip_id', '=', False)]")
 
 class filtredegeri(models.Model):
     _name = "termo.filtre"
@@ -88,7 +89,8 @@ class ProductTemplate(models.Model):
     H = fields.Integer(string = "H", default = 0, store=True)
     L = fields.Integer(string = "L", default = 0, store=True)
     W = fields.Integer(string = "W", default = 0, store=True)
-    H1 = fields.Integer(string = "H", default = 0, store=True)
+    H1 = fields.Integer(string = "H1", default = 0, store=True)
+    H2 = fields.Integer(string = "H2", default = 0, store=True)
     L1 = fields.Integer(string = "L1", default = 0, store=True)
     W1 = fields.Integer(string = "W1", default = 0, store=True)
     W2 = fields.Integer(string = "W2", default = 0, store=True)
@@ -97,13 +99,15 @@ class ProductTemplate(models.Model):
     lamel_aralik= fields.Integer(string = "Lamel Aralığı", default = 4, store=True)
     hatve= fields.Integer(string = "Hatve ", default = 6, store=True)
     kapasite = fields.Integer(string = "Kapasite ", default = 6, store=True)
-    kapasiteyuksek_devir = fields.Integer(string = "Kapasite YÜKSEK DEVİR(H) ", default = 0, store=True)
-    kapasite_dusuk_devir = fields.Integer(string = "KapasiteDÜŞÜK DEVİR (L) ", default = 0, store=True)
+    kapasiteyuksek_devir = fields.Float(string = "Kapasite YÜKSEK DEVİR(H) ", default = 0, store=True)
+    kapasite_dusuk_devir = fields.Float(string = "KapasiteDÜŞÜK DEVİR (L) ", default = 0, store=True)
 
-    hava_debisi_yuksek_devir = fields.Integer(string = "YÜKSEK DEVİR HAVA DEBİSİ m3/h", default = 0, store=True)
-    hava_debisi_dusuk_devir  = fields.Integer(string = "Düşük DEVİR HAVA DEBİSİ m3/h", default = 0, store=True)
+    hava_debisi_yuksek_devir = fields.Float(string = "YÜKSEK DEVİR HAVA DEBİSİ m3/h", default = 0, store=True)
+    hava_debisi_dusuk_devir  = fields.Float(string = "Düşük DEVİR HAVA DEBİSİ m3/h", default = 0, store=True)
 
-
+    rezidans_t1 = fields.Char(string = "REzidans T1 Batarya Coil")
+    rezidans_t2_batarya = fields.Char(string = "REzidans T2 Batarya Coil")
+    rezidans_t2_tava = fields.Char(string = "REzidans T2 Tva Drip Tray")
     termo_tip_id = fields.Many2one('termo.tip', string="tEKNİK çİZİM")
     termo_filtre =fields.Many2many(related="termo_tip_id.filtre")
 
@@ -133,63 +137,64 @@ class ProductTemplate(models.Model):
 
 
     def gorev(self):
-       for record in self:
+        for record in self:
 
-           print(record.name)
-           a =record.termo_filtre #üründeki filtreler
+            print(record.name)
+            a =record.termo_filtre #üründeki filtreler
 
-           for attrib in a: #filtre isimleri loop ör sc1_aralik
-
-
-               self.env['product.template.attribute.line'].search(
-                   [('product_tmpl_id', '=', record.id), ('attribute_id', '=', attrib.id)]).unlink()
-               referans = attrib.ref #atribute reeras
-               print(referans)
-               urun_sc1_degeri = getattr(record, referans)
-               urun_filtre_degeri = False
-               print([urun_sc1_degeri, attrib.delta_deger])
-
-               alt = int(urun_sc1_degeri - (urun_sc1_degeri % attrib.delta_deger))
-               ust = int(alt + attrib.delta_deger)
-               urun_filtre_degeri = str(alt) + " - " + str(ust)
-
-               print(urun_filtre_degeri)
-
-               attrib_value = attrib.value_ids
-               print([x.name for x in attrib_value])
-               deger = [x for x in attrib_value if x.name == urun_filtre_degeri][0]
+            for attrib in a: #filtre isimleri loop ör sc1_aralik
 
 
-               if deger:
-                   self.env['product.template.attribute.line'].create({'product_tmpl_id': record.id,
-                                                                       'attribute_id': attrib.id,
-                                                                       'value_ids': [(4, deger.id)],
-                                                                       })
-               else:
-                   raise UserError(
-                       'Değiştirmye çalıştığınız %s ürününün %s filtresinde yer alan  %s  değeri geçersiz. Kontrol ediniz yada filtre değerlerine ekleyiniz.' % ( record.name, attrib.name, deger))
+                self.env['product.template.attribute.line'].search(
+                    [('product_tmpl_id', '=', record.id), ('attribute_id', '=', attrib.id)]).unlink()
+                referans = attrib.ref #atribute reeras
+                print(referans)
+                urun_sc1_degeri = getattr(record, referans)
+                urun_filtre_degeri = False
+                print([urun_sc1_degeri, attrib.delta_deger])
 
-               # variant = self.env['product.attribute.value'].search(
-               #     [('attribute_id', '=', attr_id.id), ('name', '=', sc1_aralik_deger,)])
-               #
-               # if variant:
-               #     self.env['product.template.attribute.line'].create({'product_tmpl_id': record.id,
-               #                                                         'attribute_id': attr_id.id,
-               #                                                         'value_ids': [(4, variant.id)],
-               #                                                         })
-               # else:
-               #     raise UserError(
-               #         'Değiştirmye çalıştığınız %s ürününün %s filtresinde yer alan  %s  değeri geçersiz. Kontrol ediniz yada filtre değerlerine ekleyiniz.' % (
-               #         record.name, attrib_name, sc1_aralik_deger))
+                alt = int(urun_sc1_degeri - (urun_sc1_degeri % attrib.delta_deger))
+                ust = int(alt + attrib.delta_deger)
+                urun_filtre_degeri = str(alt) + " - " + str(ust)
+
+                print(urun_filtre_degeri)
+
+                attrib_value = attrib.value_ids
+                print([x.name for x in attrib_value])
+                deger = [x for x in attrib_value if x.name == urun_filtre_degeri][0]
+
+
+                if deger:
+                    self.env['product.template.attribute.line'].create({'product_tmpl_id': record.id,
+                                                                        'attribute_id': attrib.id,
+                                                                        'value_ids': [(4, deger.id)],
+                                                                        })
+                else:
+                    raise UserError(
+                        'Değiştirmye çalıştığınız %s ürününün %s filtresinde yer alan  %s  değeri geçersiz. Kontrol ediniz yada filtre değerlerine ekleyiniz.' % ( record.name, attrib.name, deger))
+
+                # variant = self.env['product.attribute.value'].search(
+                #     [('attribute_id', '=', attr_id.id), ('name', '=', sc1_aralik_deger,)])
+                #
+                # if variant:
+                #     self.env['product.template.attribute.line'].create({'product_tmpl_id': record.id,
+                #                                                         'attribute_id': attr_id.id,
+                #                                                         'value_ids': [(4, variant.id)],
+                #                                                         })
+                # else:
+                #     raise UserError(
+                #         'Değiştirmye çalıştığınız %s ürününün %s filtresinde yer alan  %s  değeri geçersiz. Kontrol ediniz yada filtre değerlerine ekleyiniz.' % (
+                #         record.name, attrib_name, sc1_aralik_deger))
 
 
 
     def tum_gorev(self):
+        raise UserError(self.termo_tip_id)
 
-        tum_urunler = self.env['product.template'].search([])
-        for record in tum_urunler:
-            if record.termo_tip_id != False:
-                record.gorev()
+        # tum_urunler = self.env['product.template'].search([])
+        # for record in tum_urunler:
+        #     if record.termo_tip_id != False:
+        #         record.gorev()
 
 
     def gorev2(self):
@@ -231,9 +236,9 @@ class ProductTemplate(models.Model):
 
                     if variant:
                         self.env['product.template.attribute.line'].create({'product_tmpl_id': record.id,
-                        'attribute_id': attr_id.id,
-                        'value_ids': [(4, variant.id)],
-                        })
+                                                                            'attribute_id': attr_id.id,
+                                                                            'value_ids': [(4, variant.id)],
+                                                                            })
                     else:
                         raise UserError('Değiştirmye çalıştığınız %s ürününün %s filtresinde yer alan  %s  değeri geçersiz. Kontrol ediniz yada filtre değerlerine ekleyiniz.' % (record.name, attrib_name, sc1_aralik_deger))
 

@@ -229,6 +229,20 @@
 
                     </t>
 
+                     <t t-if="o.termo_tip_id.grup=='4'">
+                        <div class="col">
+                            <div class="d-flex justify-content-around">
+                                <p> <b>Kapasite YÜKSEK DEVİR(H) :</b>  </p> <span class="text-center ml-5" ><t t-out="o.kapasiteyuksek_devir" /></span>
+                            </div>
+
+                            <div class="d-flex justify-content-around">
+                                <span> <b>KapasiteDÜŞÜK DEVİR (L) :</b> </span>
+                                <span class="text-center" ><t t-out="o.kapasite_dusuk_devir" /></span>
+                            </div>
+                        </div>
+
+                    </t>
+
 
 
 
