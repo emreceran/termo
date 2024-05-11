@@ -120,6 +120,37 @@
                             </tr>
 
 
+                            <t t-if="o.termo_tip_id.grup=='4'">
+                                <tr>
+
+
+                                    <th scope="row">KONDENSER  GİRİŞ  KOLLEKTÖR  ÇAPI mm / inc</th>
+                                    <td><t t-out="o.kondenser_giris_cap"/></td>
+
+                                    <th scope="row">KONDENSER  ÇIKIŞ  KOLLEKTÖR  ÇAPI mm / inc</th>
+                                    <td><t t-out="o.kondenser_cikis_cap"/></td>
+
+
+                                </tr>
+
+                            </t>
+
+                            <t t-else="">
+                                <tr>
+
+
+                                    <th scope="row">KONDENSER  GİRİŞ  KOLLEKTÖR  ÇAPI mm / inc</th>
+                                    <td><t t-out="o.kondenser_giris_cap"/></td>
+
+                                    <th scope="row">KONDENSER  ÇIKIŞ  KOLLEKTÖR  ÇAPI mm / inc</th>
+                                    <td><t t-out="o.kondenser_cikis_cap"/></td>
+
+
+                                </tr>
+
+                            </t>
+
+
                         </tbody>
                     </table>
                 </div>
@@ -229,7 +260,7 @@
 
                     </t>
 
-                     <t t-if="o.termo_tip_id.grup=='4'">
+                    <t t-if="o.termo_tip_id.grup=='4'">
                         <div class="col">
                             <div class="d-flex justify-content-around">
                                 <p> <b>Kapasite YÜKSEK DEVİR(H) :</b>  </p> <span class="text-center ml-5" ><t t-out="o.kapasiteyuksek_devir" /></span>
@@ -298,18 +329,18 @@
         </xpath>
     </template>
 
-<!--    <template id="hide_grid_label" inherit_id="website_sale.add_grid_or_list_option"  name="Hide Gridt">-->
-<!--        <xpath expr="//div" position="replace">-->
+    <!--    <template id="hide_grid_label" inherit_id="website_sale.add_grid_or_list_option"  name="Hide Gridt">-->
+    <!--        <xpath expr="//div" position="replace">-->
 
-<!--            <div t-attf-class="o_wsale_apply_layout btn-group ms-3 {{_classes}}" t-att-data-active-classes="_activeClasses">-->
+    <!--            <div t-attf-class="o_wsale_apply_layout btn-group ms-3 {{_classes}}" t-att-data-active-classes="_activeClasses">-->
 
-<!--                <input type="radio" class="btn-check" name="wsale_products_layout" id="o_wsale_apply_list" t-att-checked="'checked' if layout_mode == 'list' else None" value="list"/>-->
-<!--                <label t-attf-class="btn btn-{{navClass}} #{_activeClasses if layout_mode == 'list' else None} o_wsale_apply_list" title="List" for="o_wsale_apply_list">-->
-<!--                    <i class="oi oi-view-list"/>-->
-<!--                </label>-->
-<!--            </div>-->
+    <!--                <input type="radio" class="btn-check" name="wsale_products_layout" id="o_wsale_apply_list" t-att-checked="'checked' if layout_mode == 'list' else None" value="list"/>-->
+    <!--                <label t-attf-class="btn btn-{{navClass}} #{_activeClasses if layout_mode == 'list' else None} o_wsale_apply_list" title="List" for="o_wsale_apply_list">-->
+    <!--                    <i class="oi oi-view-list"/>-->
+    <!--                </label>-->
+    <!--            </div>-->
 
-<!--        </xpath>-->
-<!--    </template>-->
+    <!--        </xpath>-->
+    <!--    </template>-->
 
 </data>

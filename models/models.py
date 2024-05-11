@@ -12,12 +12,26 @@ class Tip(models.Model):
     name = fields.Char(string='Ürün Tipi', required=True, translate=True)
     teknik_cizim = fields.Binary("Teknik Çizim", help="Teknik Ressim")
     gorsel = fields.Binary("Ürün Görseli ", help="Bu tipte yer alacak ürübnlerin resimleri")
-    filtre = fields.Many2many('product.attribute', string='Filtreler')
-    grup = fields.Char("Filtre grubu")
+    filtre_grubu_id = fields.Many2one('termo.filtre_grubu')
+    filtre = fields.Many2many(related="filtre_grubu_id.filtreler", string='Filtreler')
+    grup = fields.Char(related="filtre_grubu_id.name")
     public = fields.Many2many('product.public.category', string="Web kategori")
     # product_ids = fields.One2many('product.template', 'termo_tip_id', string='Related Products')
-    product_ids = fields.Many2many('product.template', string='Related Products', domain="[('termo_tip_id', '=', False)]")
+    # product_ids = fields.Many2many('product.template', string='Related Products', domain="[('termo_tip_id', '=', False)]")
 
+    # def update_related_products(self):
+    #     for tip in self:
+    #         if tip.product_ids:
+    #             tip.product_ids.write({
+    #                 'gorsel': tip.gorsel,
+    #                 'public': [(6, 0, tip.public.ids)]
+    #             })
+    #
+    # @api.multi
+    # def write(self, vals):
+    #     res = super(Tip, self).write(vals)
+    #     self.update_related_products()
+    #     return res
 class filtredegeri(models.Model):
     _name = "termo.filtre"
     _description = 'Ürün Filtresi'
@@ -34,6 +48,18 @@ class filtreler(models.Model):
 
     active = fields.Boolean('Active', default=True)
     name = fields.Char(string='Ürün Filtresi', required=True, translate=True)
+
+
+class filtregrubu(models.Model):
+    _name = "termo.filtre_grubu"
+    _description = 'Filtre Grupları'
+
+    active = fields.Boolean('Active', default=True)
+    name = fields.Char(string='Ürün Filtresi', required=True, translate=True)
+    filtreler = fields.Many2many('product.attribute', string='Filtreler')
+
+
+
 
 class ProductTemplate(models.Model):
     _inherit = "product.attribute"
