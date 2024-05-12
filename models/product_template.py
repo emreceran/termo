@@ -60,23 +60,41 @@ class ProductTemplate(models.Model):
     evaporasyon_sicakligi = fields.Float(string = "Evaporasyon Sıcaklığı ", compute="_value_pc", default = 6, store=True)
 
     # @api.onchange('termo_tip_id')
+    @api.depends('termo_tip_id')
+    def onchange_termo_tip_id(self):
+        for record in self:
+            print(record)
+            if record.termo_tip_id:
+
+                if record.termo_tip_id.gorsel:
+
+                    record.image_1920 = record.termo_tip_id.gorsel
+                if record.termo_tip_id.public:
+
+                    record.public_categ_ids = [(6, 0, [record.termo_tip_id.public.id])]
+                if record.termo_tip_id.filtre:
+
+                    record.termo_filtre = [(6, 0, [x.id for x in record.termo_tip_id.filtre])]
+
+
     # def onchange_termo_tip_id(self):
     #     for product in self:
-    #         if product.termo_tip_id and product.termo_tip_id.gorsel:
+    #         if product.termo_tip_id and product.termo_tip_id.gorsel and product.termo_tip_id.filtre_grubu_id:
     #             product.image_1920 = product.termo_tip_id.gorsel
-    #             # product.public_categ_ids = product.termo_tip_id.public
+    #             product.public_categ_ids = [(4, product.termo_tip_id.public)]
+    #             product.termo_filtre = [(4, product.termo_tip_id.filtre)]
 
-    def write(self, vals):
-        res = super(ProductTemplate, self).write(vals)
-        if 'termo_tip_id' in vals:  # Eğer termo_tip_id alanı değiştirildiyse
-            for product in self:
-                if product.termo_tip_id:  # Eğer yeni bir termo tipi atanmışsa
-                    product.image_1920 = product.termo_tip_id.gorsel
-                    product.public_categ_ids = product.termo_tip_id.public
-
-                else:  # Eğer termo tipi kaldırılmışsa, varsayılan değerler atanabilir veya boş bırakılabilir.
-                    pass  # İlgili işlemi burada yapabilirsiniz, eğer gerekiyorsa
-        return res
+    # def write(self, vals):
+    #     res = super(ProductTemplate, self).write(vals)
+    #     if 'termo_tip_id' in vals:  # Eğer termo_tip_id alanı değiştirildiyse
+    #         for product in self:
+    #             if product.termo_tip_id:  # Eğer yeni bir termo tipi atanmışsa
+    #                 product.image_1920 = product.termo_tip_id.gorsel
+    #                 product.public_categ_ids = product.termo_tip_id.public
+    #
+    #             else:  # Eğer termo tipi kaldırılmışsa, varsayılan değerler atanabilir veya boş bırakılabilir.
+    #                 pass  # İlgili işlemi burada yapabilirsiniz, eğer gerekiyorsa
+    #     return res
 
     @api.depends('hatve', 'sc2', 'sc3', 'sc4')
     def _value_pc(self):

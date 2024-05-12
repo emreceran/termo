@@ -15,7 +15,8 @@ class Tip(models.Model):
     filtre_grubu_id = fields.Many2one('termo.filtre_grubu')
     filtre = fields.Many2many(related="filtre_grubu_id.filtreler", string='Filtreler')
     grup = fields.Char(related="filtre_grubu_id.name")
-    public = fields.Many2many('product.public.category', string="Web kategori")
+    web_grubu_id = fields.Many2one('termo.web_grubu')
+    public = fields.Many2many(related="web_grubu_id.kategoriler", string='Web Kategori')
     # product_ids = fields.One2many('product.template', 'termo_tip_id', string='Related Products')
     # product_ids = fields.Many2many('product.template', string='Related Products', domain="[('termo_tip_id', '=', False)]")
 
@@ -58,6 +59,14 @@ class filtregrubu(models.Model):
     name = fields.Char(string='Ürün Filtresi', required=True, translate=True)
     filtreler = fields.Many2many('product.attribute', string='Filtreler')
 
+
+class webkategorigrup(models.Model):
+    _name = "termo.web_grubu"
+    _description = 'Web Kategori Grupları'
+
+    active = fields.Boolean('Active', default=True)
+    name = fields.Char(string='Ürün Filtresi', required=True, translate=True)
+    kategoriler = fields.Many2many('product.public.category', string='Filtreler')
 
 
 
