@@ -56,7 +56,7 @@ class ProductTemplate(models.Model):
     termo_tip_id = fields.Many2one('termo.tip', string="Ürün Tipi")
     termo_filtre =fields.Many2many(related="termo_tip_id.filtre")
     public_categ_ids =fields.Many2many(related="termo_tip_id.public")
-    image_1920 =fields.Binary(related="termo_tip_id.gorsel")
+    # image_1920 =fields.Binary(related="termo_tip_id.gorsel")
 
     oda_sicakligi = fields.Float(string = "Oda Sıcaklığı ", compute="_value_pc", default = 6, store=True)
     evaporasyon_sicakligi = fields.Float(string = "Evaporasyon Sıcaklığı ", compute="_value_pc", default = 6, store=True)
@@ -65,18 +65,14 @@ class ProductTemplate(models.Model):
     @api.depends('termo_tip_id')
     def onchange_termo_tip_id(self):
         for record in self:
-            print(record)
             if record.termo_tip_id:
-
                 if record.termo_tip_id.gorsel:
-
                     record.image_1920 = record.termo_tip_id.gorsel
-                if record.termo_tip_id.public:
 
-                    record.public_categ_ids = [(6, 0, [record.termo_tip_id.public.id])]
-                if record.termo_tip_id.filtre:
-
-                    record.termo_filtre = [(6, 0, [x.id for x in record.termo_tip_id.filtre])]
+                # if record.termo_tip_id.public:
+                #     record.public_categ_ids = [(6, 0, [record.termo_tip_id.public.id])]
+                # if record.termo_tip_id.filtre:
+                #     record.termo_filtre = [(6, 0, [x.id for x in record.termo_tip_id.filtre])]
 
 
     # def onchange_termo_tip_id(self):
