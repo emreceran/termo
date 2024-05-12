@@ -55,6 +55,7 @@ class ProductTemplate(models.Model):
 
     termo_tip_id = fields.Many2one('termo.tip', string="Ürün Tipi")
     termo_filtre =fields.Many2many(related="termo_tip_id.filtre")
+    public_categ_ids =fields.Many2many(related="termo_tip_id.public")
 
     oda_sicakligi = fields.Float(string = "Oda Sıcaklığı ", compute="_value_pc", default = 6, store=True)
     evaporasyon_sicakligi = fields.Float(string = "Evaporasyon Sıcaklığı ", compute="_value_pc", default = 6, store=True)
