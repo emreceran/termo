@@ -73,7 +73,11 @@ class webkategorigrup(models.Model):
 class ProductTemplate(models.Model):
     _inherit = "product.attribute"
 
-
+    att_type = fields.Selection(
+        [("aralik", "Aralık"), ("sabit", "Sabit Değerler")],
+        help="Attribute type",
+        default="sabit",
+    )
     ref = fields.Char(related="attribute_field_id.name")
     alt_sinir = fields.Integer(string="Filtre min deger")
     Ust_sinir = fields.Integer(string="Filtre max deger")
@@ -92,12 +96,21 @@ class ProductTemplate(models.Model):
             max = record.Ust_sinir
             delta = record.delta_deger
             degerelr = []
-            while min < max:
-                alt = int(min / delta) * delta
-                ust = alt + delta
-                deger = str(alt) + " - " + str(ust)
-                degerelr.append(deger)
-                min = ust
+            if record.att_type == "aralik":
+                while min < max:
+                    alt = int(min / delta) * delta
+                    ust = alt + delta
+                    deger = str(alt) + " - " + str(ust)
+                    degerelr.append(deger)
+                    min = ust
+            else:
+                while min < max:
+                    alt = int(min / delta) * delta
+                    ust = alt + delta
+                    deger = str(ust)
+                    degerelr.append(deger)
+                    min = ust
+
 
             colors =['a','b']
             record.value_ids.unlink()

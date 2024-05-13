@@ -68,8 +68,10 @@
                 </xpath>
 
                 <xpath expr="//field[@name='name']" position="after">
+
                     <field name="ref" />
                     <field name="attribute_field_id" />
+                    <field name="att_type" widget="radio" />
                     <field name="alt_sinir" />
                     <field name="Ust_sinir" />
                     <field name="delta_deger" />
