@@ -2,7 +2,7 @@
 
 from odoo import models, fields, api
 from odoo.exceptions import UserError, ValidationError, AccessError
-
+import json
 
 
 
@@ -61,6 +61,95 @@ class ProductTemplate(models.Model):
     oda_sicakligi = fields.Float(string = "Oda Sıcaklığı ", compute="_value_pc", default = 6, store=True)
     evaporasyon_sicakligi = fields.Float(string = "Evaporasyon Sıcaklığı ", compute="_value_pc", default = 6, store=True)
 
+    precomputed_values = fields.Text(string="Precomputed Values")
+
+
+    def write_precomputed_values(self):
+        for record in self:
+            a = record.termo_filtre
+            precomputed_values = { }
+            for attrib in a:
+                referans = attrib.ref  # atribute reeras
+                urun_sc1_degeri = getattr(record, referans)
+                if urun_sc1_degeri == attrib.bos_deger:
+                    deger = False
+                    precomputed_values.update({attrib.ref: [deger]})
+                else:
+                    if attrib.att_type == "aralik":
+                        alt = int(urun_sc1_degeri - (urun_sc1_degeri % attrib.delta_deger))
+                        ust = int(alt + attrib.delta_deger)
+                        deger = str(alt) + " - " + str(ust)
+                    else:
+                        deger = str(urun_sc1_degeri)
+
+                    precomputed_values.update({attrib.ref: [deger]})
+            record.precomputed_values = json.dumps(precomputed_values)
+            print(record.precomputed_values)
+
+    def read_precomputed_values(self):
+        precomputed_values = {}
+        for record in self:
+            if record.precomputed_values:
+                precomputed_values = json.loads(record.precomputed_values)
+                print(precomputed_values)
+                a = record.termo_filtre  # üründeki filtreler
+
+                for attrib in a:  # filtre isimleri loop ör sc1_aralik
+
+                    self.env['product.template.attribute.line'].search(
+                        [('product_tmpl_id', '=', record.id), ('attribute_id', '=', attrib.id)]).unlink()
+                    referans = attrib.ref  # atribute reeras
+
+                    urun_field_degeri = getattr(record, referans)
+                    urun_filtre_degeri = precomputed_values[str(referans)][0]
+                    print([urun_field_degeri,urun_filtre_degeri])
+
+
+
+                    if urun_field_degeri != attrib.bos_deger:
+                        deger = False
+                        attrib_value = attrib.value_ids
+
+
+                        deger = [x for x in attrib_value if x.name == urun_filtre_degeri][0]
+
+
+                        if deger:
+                            self.env['product.template.attribute.line'].create({'product_tmpl_id': record.id,
+                                                                                'attribute_id': attrib.id,
+                                                                                'value_ids': [(4, deger.id)],
+                                                                                })
+                        else:
+                            raise UserError(
+                                'Değiştirmye çalıştığınız %s ürününün %s alaanınıda yer alan  %s  değeri geçersiz. Kontrol ediniz yada filtre değerlerine ekleyiniz.' % (
+                                record.name, referans, urun_field_degeri))
+
+            #     if urun_sc1_degeri != attrib.bos_deger:
+            #         deger = False
+            #         if attrib.att_type == "aralik":
+            #             alt = int(urun_sc1_degeri - (urun_sc1_degeri % attrib.delta_deger))
+            #             ust = int(alt + attrib.delta_deger)
+            #             urun_filtre_degeri = str(alt) + " - " + str(ust)
+            #         else:
+            #             urun_filtre_degeri = str(urun_sc1_degeri)
+            #         attrib_value = attrib.value_ids
+            #         try:
+            #             deger = [x for x in attrib_value if x.name == urun_filtre_degeri][0]
+            #         except:
+            #             pass
+            #         if deger:
+            #            precomputed_values.update({attrib.ref: [deger.name]})
+            # record.precomputed_values = json.dumps(precomputed_values)
+
+
+
+
+
+        #
+        # # JSON formatına dönüştürüp alan içine yaz
+        # for record in self:
+        #     record.precomputed_values = json.dumps(precomputed_values)
+
     # @api.onchange('termo_tip_id')
     @api.depends('termo_tip_id')
     def onchange_termo_tip_id(self):
@@ -75,24 +164,7 @@ class ProductTemplate(models.Model):
                 #     record.termo_filtre = [(6, 0, [x.id for x in record.termo_tip_id.filtre])]
 
 
-    # def onchange_termo_tip_id(self):
-    #     for product in self:
-    #         if product.termo_tip_id and product.termo_tip_id.gorsel and product.termo_tip_id.filtre_grubu_id:
-    #             product.image_1920 = product.termo_tip_id.gorsel
-    #             product.public_categ_ids = [(4, product.termo_tip_id.public)]
-    #             product.termo_filtre = [(4, product.termo_tip_id.filtre)]
 
-    # def write(self, vals):
-    #     res = super(ProductTemplate, self).write(vals)
-    #     if 'termo_tip_id' in vals:  # Eğer termo_tip_id alanı değiştirildiyse
-    #         for product in self:
-    #             if product.termo_tip_id:  # Eğer yeni bir termo tipi atanmışsa
-    #                 product.image_1920 = product.termo_tip_id.gorsel
-    #                 product.public_categ_ids = product.termo_tip_id.public
-    #
-    #             else:  # Eğer termo tipi kaldırılmışsa, varsayılan değerler atanabilir veya boş bırakılabilir.
-    #                 pass  # İlgili işlemi burada yapabilirsiniz, eğer gerekiyorsa
-    #     return res
 
     @api.depends('hatve', 'sc2', 'sc3', 'sc4')
     def _value_pc(self):
@@ -231,6 +303,3 @@ class ProductTemplate(models.Model):
         # for record in self:
         #     self.env['product.template.attribute.line'].search(
         #     [('product_tmpl_id', '=', record.id), ('attribute_id', '=', attr_id.id)]).unlink()
-
-
-

@@ -51,7 +51,9 @@
                     <!--                        <button string="Variantları Güncelle" type="object" name="gorev3"/>-->
                     <button string="Variantları Güncelle" type="object" name="gorev"/>
                     <button string="Gupları Güncelle" type="object" name="onchange_termo_tip_id"/>
-                    <button string="Tüm Variantları Güncelle " type="object" name="tum_gorev"/>
+                    <button string="Tüm Variantları Güncelle " type="object" name="write_precomputed_values"/>
+                    <button string="read Variantları Güncelle " type="object" name="read_precomputed_values"/>
+
                 </xpath>
             </field>
         </record>
@@ -87,7 +89,7 @@
             <field name="arch" type="xml">
                 <xpath expr="//header" position="inside">
                     <!--                        <button string="Variantları Güncelle" type="object" name="gorev3"/>-->
-                    <button string="Variantları Güncelle" type="object" name="gorev"/>
+                    <button string="Variantları Güncelle" type="object" name="read_precomputed_values"/>
                     <button string="Gupları Güncelle" type="object" name="onchange_termo_tip_id"/>
 
                 </xpath>
@@ -99,6 +101,9 @@
                                 <field name="termo_tip_id"/>
                                 <field name="termo_filtre" widget="many2many_tags"/>
                                 <field name="public_categ_ids" widget="many2many_tags"/>
+
+                                <field name="precomputed_values" />
+                                <field name="attribute_line_ids" />
                                 <field name="yuzey" />
                                 <field name="boru_hacmi" />
                                 <field name="t1" />
@@ -152,6 +157,8 @@
                     <field name="termo_tip_id" />
                     <field name="termo_filtre" widget="many2many_tags"/>
                     <field name="public_categ_ids" widget="many2many_tags"/>
+                    <field name="precomputed_values" />
+                    <field name="attribute_line_ids" />
                     <field name="yuzey" />
                     <field name="boru_hacmi" />
                     <field name="fan_adet" />
