@@ -125,37 +125,38 @@ class ProductTemplate(models.Model):
                 referans = attrib.ref #atribute reeras
                 print(referans)
                 urun_sc1_degeri = getattr(record, referans)
-                deger = False
-                print([urun_sc1_degeri, attrib.delta_deger])
+                if urun_sc1_degeri != attrib.bos_deger:
+                    deger = False
+                    print([urun_sc1_degeri, attrib.delta_deger])
 
-                if attrib.att_type == "aralik":
+                    if attrib.att_type == "aralik":
 
-                    alt = int(urun_sc1_degeri - (urun_sc1_degeri % attrib.delta_deger))
-                    ust = int(alt + attrib.delta_deger)
-                    urun_filtre_degeri = str(alt) + " - " + str(ust)
+                        alt = int(urun_sc1_degeri - (urun_sc1_degeri % attrib.delta_deger))
+                        ust = int(alt + attrib.delta_deger)
+                        urun_filtre_degeri = str(alt) + " - " + str(ust)
 
-                else:
-                    urun_filtre_degeri = str(urun_sc1_degeri)
-
-
-                print(urun_filtre_degeri)
-
-                attrib_value = attrib.value_ids
-                print([x.name for x in attrib_value])
-                try:
-                    deger = [x for x in attrib_value if x.name == urun_filtre_degeri][0]
-                except:
-                    pass
+                    else:
+                        urun_filtre_degeri = str(urun_sc1_degeri)
 
 
-                if deger:
-                    self.env['product.template.attribute.line'].create({'product_tmpl_id': record.id,
-                                                                        'attribute_id': attrib.id,
-                                                                        'value_ids': [(4, deger.id)],
-                                                                        })
-                else:
-                    raise UserError(
-                        'Değiştirmye çalıştığınız %s ürününün %s alaanınıda yer alan  %s  değeri geçersiz. Kontrol ediniz yada filtre değerlerine ekleyiniz.' % ( record.name, referans, urun_sc1_degeri))
+                    print(urun_filtre_degeri)
+
+                    attrib_value = attrib.value_ids
+                    print([x.name for x in attrib_value])
+                    try:
+                        deger = [x for x in attrib_value if x.name == urun_filtre_degeri][0]
+                    except:
+                        pass
+
+
+                    if deger:
+                        self.env['product.template.attribute.line'].create({'product_tmpl_id': record.id,
+                                                                            'attribute_id': attrib.id,
+                                                                            'value_ids': [(4, deger.id)],
+                                                                       })
+                    else:
+                        raise UserError(
+                            'Değiştirmye çalıştığınız %s ürününün %s alaanınıda yer alan  %s  değeri geçersiz. Kontrol ediniz yada filtre değerlerine ekleyiniz.' % ( record.name, referans, urun_sc1_degeri))
 
                 # variant = self.env['product.attribute.value'].search(
                 #     [('attribute_id', '=', attr_id.id), ('name', '=', sc1_aralik_deger,)])

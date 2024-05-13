@@ -82,6 +82,7 @@ class ProductTemplate(models.Model):
     alt_sinir = fields.Integer(string="Filtre min deger")
     Ust_sinir = fields.Integer(string="Filtre max deger")
     delta_deger = fields.Integer(string="Filtre Artış deger")
+    bos_deger = fields.Integer(string="Filtre Boş deger")
     attribute_field_id = fields.Many2one(
         'ir.model.fields',
         string="Attribute Field",

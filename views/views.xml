@@ -57,7 +57,7 @@
         </record>
 
         <record id="termo_attribute_action_tree" model="ir.ui.view">
-            <field name="name">product.attribute.termo.tree.inherit</field>
+            <field name="name">product.attribute.termo.form.inherit</field>
             <field name="model">product.attribute</field>
             <field name="inherit_id" ref="product.product_attribute_view_form" />
             <field name="arch" type="xml">
@@ -75,6 +75,7 @@
                     <field name="alt_sinir" />
                     <field name="Ust_sinir" />
                     <field name="delta_deger" />
+                    <field name="bos_deger" />
                 </xpath>
             </field>
         </record>
