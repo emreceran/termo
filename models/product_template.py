@@ -128,7 +128,7 @@ class ProductTemplate(models.Model):
                 deger = False
                 print([urun_sc1_degeri, attrib.delta_deger])
 
-                if a.att_type == "aralik":
+                if attrib.att_type == "aralik":
 
                     alt = int(urun_sc1_degeri - (urun_sc1_degeri % attrib.delta_deger))
                     ust = int(alt + attrib.delta_deger)
