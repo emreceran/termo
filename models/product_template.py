@@ -107,11 +107,14 @@ class ProductTemplate(models.Model):
 
 
                     if urun_field_degeri != attrib.bos_deger:
-                        deger = False
+                        # deger = False
                         attrib_value = attrib.value_ids
 
 
-                        deger = [x for x in attrib_value if x.name == urun_filtre_degeri][0]
+                        # deger = [x for x in attrib_value if x.name == urun_filtre_degeri][0]
+                        deger = self.env['product.attribute.value'].search([('name', '=', urun_filtre_degeri), ('attribute_id', '=', attrib.id)])
+
+
 
 
                         if deger:
