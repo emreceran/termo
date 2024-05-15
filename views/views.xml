@@ -105,7 +105,10 @@
                                 <field name="precomputed_values" />
                                 <field name="attribute_line_ids" />
                                 <field name="yuzey" />
-                                <field name="boru_hacmi" />
+                                <field name="sutluk_uzunluk" />
+                                <field name="boru_sayisi" />
+                                <field name="yuzey" />
+                                <field name="sutluk_tip" />
                                 <field name="t1" />
                                 <field name="t2" />
                                 <field name="sc1" />
