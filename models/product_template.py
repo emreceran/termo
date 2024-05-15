@@ -51,6 +51,8 @@ class ProductTemplate(models.Model):
     lamel_aralik= fields.Integer(string = "Lamel Aralığı", default = 4, store=True)
     hatve= fields.Integer(string = "Hatve ", default = 6, store=True)
     kapasite = fields.Integer(string = "Kapasite ", default = 6, store=True)
+    sutluk_uzunluk = fields.Integer(string="Sütlük Uzunluk",)
+    boru_sayisi = fields.Integer(string="Boru Sayısı",)
 
 
     termo_tip_id = fields.Many2one('termo.tip', string="Ürün Tipi")
