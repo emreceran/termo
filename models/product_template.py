@@ -53,7 +53,7 @@ class ProductTemplate(models.Model):
     kapasite = fields.Integer(string = "Kapasite ", default = 6, store=True)
     sutluk_uzunluk = fields.Integer(string="Sütlük Uzunluk")
     boru_sayisi = fields.Integer(string="Boru Sayısı")
-    sutluk_tip = fields.Char(string = "Sütlük Tipi")
+    sutluk_tip = fields.Char(string = "Sütlük Tipi", defult="5x3")
 
 
     termo_tip_id = fields.Many2one('termo.tip', string="Ürün Tipi")
