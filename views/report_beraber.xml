@@ -248,12 +248,12 @@
 
                             <div class="col-12" style="height:5px; background:gray; margin-top:10px; margin-bottom:20px;"></div>
 
-                        <t t-if="product.filtre_grubu_id.name in ['1', '2', '3']">
+                        <t t-if="o.filtre_grubu_id.name in ['1', '2', '3']">
 
                                 <t t-call="termo.tablo_evap"/>
 
                             </t>
-                          <t t-if="product.filtre_grubu_id.name in ['4', '5']">
+                          <t t-if="o.filtre_grubu_id.name in ['4', '5']">
                                 <t t-call="termo.tablo_kondanser"/>
 
                             </t>
