@@ -10,7 +10,6 @@
             <field name="arch" type="xml">
                 <xpath expr="//page[last()]" position="after">
 
-
                 </xpath>
             </field>
         </record>
@@ -48,11 +47,11 @@
             <field name="inherit_id" ref="product.product_template_tree_view" />
             <field name="arch" type="xml">
                 <xpath expr="//header" position="inside">
-                    <!--                        <button string="Variantları Güncelle" type="object" name="gorev3"/>-->
-                    <button string="Variantları Güncelle" type="object" name="gorev"/>
-                    <button string="Gupları Güncelle" type="object" name="onchange_termo_tip_id"/>
-                    <button string="Tüm Variantları Güncelle " type="object" name="write_precomputed_values"/>
-                    <button string="read Variantları Güncelle " type="object" name="read_precomputed_values"/>
+
+                    <button string="Variantları sil" type="object" name="clear_existing_variants"/>
+                    <button string="varyant ypdate sql" type="object" name="update_precomputed_values"/>
+                    <button string="VARYANTLARI OLUŞTUR " type="object" name="write_precomputed_values"/>
+                    <button string="VARYANTLARI YAZ " type="object" name="read_precomputed_values"/>
 
                 </xpath>
             </field>
@@ -88,10 +87,10 @@
             <field name="inherit_id" ref="product.product_template_form_view" />
             <field name="arch" type="xml">
                 <xpath expr="//header" position="inside">
-                    <!--                        <button string="Variantları Güncelle" type="object" name="gorev3"/>-->
-                    <button string="Variantları Güncelle" type="object" name="read_precomputed_values"/>
-                    <button string="Gupları Güncelle" type="object" name="onchange_termo_tip_id"/>
-
+                     <button string="Variantları sil" type="object" name="clear_existing_variants"/>
+                    <button string="varyant ypdate sql" type="object" name="update_precomputed_values"/>
+                    <button string="VARYANTLARI OLUŞTUR " type="object" name="write_precomputed_values"/>
+                    <button string="VARYANTLARI YAZ " type="object" name="read_precomputed_values"/>
                 </xpath>
                 <xpath expr="//page[last()]" position="after">
                     <page name="termo" string="Thermo">
@@ -104,6 +103,7 @@
 
                                 <field name="precomputed_values" />
                                 <field name="attribute_line_ids" />
+                                <field name="filtre_grubu_id" />
                                 <field name="yuzey" />
                                 <field name="sutluk_uzunluk" />
                                 <field name="boru_sayisi" />

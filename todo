@@ -37,4 +37,7 @@ ok - public ulaşılabilir olmalı
 -özel tasarım ürün girme
 -özel ürün siparişi ile müştteri ilişkilendir, müşteri ssiparişlerinde görebilsin
 
+sorulacak ve notlar:
+
+- hatve bazı ürünlerde yok bazılarında var ve lazım olduğu için manuel hesaplıyoruz excelde gerekirse backendde de hesaplanabilir
 

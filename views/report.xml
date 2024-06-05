@@ -3,44 +3,11 @@
 
     <template id="termo_customized_header">
         <div class="header ">
-
         </div>
     </template>
 
     <template id="termo_customized_footer">
         <div class="footer">
-            <!--            <div class="row">-->
-            <!--                <div class="col-2">-->
-            <!--                    <img src="/termo/static/description/logokucuk.png" style="width: 100%; height:auto;"/>-->
-            <!--                </div>-->
-            <!--                <div class="col-12 " style="margin-left:20px;">-->
-            <!--                    <table class="table table-borderless " style="text-align:left;">-->
-            <!--                        <tbody>-->
-            <!--                            <tr>-->
-            <!--                                <th scope="row"> Adres : </th>-->
-            <!--                                <td> 3. ORGANİZE SANAYİ BÖLGESİ BÜYÜKKAYACIK MAH. 9.SOK NO:31/1 SELÇUKLU / KONYA  </td>-->
-            <!--                            </tr>-->
-
-            <!--                            <tr>-->
-            <!--                                <th scope="row">Telefon</th>-->
-            <!--                                <td> +90 (332) 345 01 77  </td>-->
-            <!--                            </tr>-->
-
-            <!--                            <tr>-->
-            <!--                                <th scope="row">Fax : </th>-->
-            <!--                                <td> +90 (332) 345 01 88 </td>-->
-            <!--                            </tr>-->
-
-            <!--                            <tr>-->
-            <!--                                <th scope="row"> E-Mail :  </th>-->
-            <!--                                <td> info@thermocooltech.com </td>-->
-            <!--                            </tr>-->
-
-            <!--                        </tbody>-->
-            <!--                    </table>-->
-            <!--                </div>-->
-            <!--            </div>-->
-
         </div>
     </template>
 
@@ -94,12 +61,7 @@
 
                                 <p class="" style="background-color:grey; padding:10px;  line-height:2">  Ölçüler </p>
                                 <table class="table mx-1 text-left " >
-                                    <!--                                <thead>-->
-                                    <!--                                    <tr>-->
-                                    <!--                                        <p class="" style="background-color:grey; padding:5px;  line-height:2">  Ölçüler </p>-->
 
-                                    <!--                                    </tr>-->
-                                    <!--                                </thead>-->
                                     <tbody style="line-height:1.5;" >
                                         <tr>
                                             <th scope="row">H</th>

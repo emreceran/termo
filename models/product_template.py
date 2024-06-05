@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
-
-from odoo import models, fields, api
+import time
+import logging
+from odoo import models, fields, api, _
 from odoo.exceptions import UserError, ValidationError, AccessError
 import json
 
 
+_logger = logging.getLogger(__name__)
 
 class ProductTemplate(models.Model):
     _inherit = "product.template"
@@ -49,16 +51,18 @@ class ProductTemplate(models.Model):
     LA = fields.Integer(string = "LA", default = 0, store=True)
 
     lamel_aralik= fields.Integer(string = "Lamel Aralığı", default = 4, store=True)
-    hatve= fields.Integer(string = "Hatve ", default = 6, store=True)
+    hatve= fields.Float(string = "Hatve ", default = 6, store=True)
     kapasite = fields.Integer(string = "Kapasite ", default = 6, store=True)
     sutluk_uzunluk = fields.Integer(string="Sütlük Uzunluk")
     boru_sayisi = fields.Integer(string="Boru Sayısı")
-    sutluk_tip = fields.Char(string = "Sütlük Tipi", defult="5x3")
+    sutluk_tip = fields.Char(string = "Sütlük Tipi", defult="-")
+    sutluk_geometri = fields.Char(string = "Sütlük Geometri", defult="-")
 
 
     termo_tip_id = fields.Many2one('termo.tip', string="Ürün Tipi")
     termo_filtre =fields.Many2many(related="termo_tip_id.filtre")
     public_categ_ids =fields.Many2many(related="termo_tip_id.public")
+    filtre_grubu_id =fields.Many2one(related="termo_tip_id.filtre_grubu_id")
     # image_1920 =fields.Binary(related="termo_tip_id.gorsel")
 
     oda_sicakligi = fields.Float(string = "Oda Sıcaklığı ", compute="_value_pc", default = 6, store=True)
@@ -89,72 +93,147 @@ class ProductTemplate(models.Model):
             record.precomputed_values = json.dumps(precomputed_values)
             print(record.precomputed_values)
 
-    def read_precomputed_values(self):
-        precomputed_values = {}
+    def clear_existing_variants(self):
         for record in self:
+            # Önce product_variant_combination kayıtlarını sil
+            combination_delete_query = """
+                DELETE FROM product_variant_combination 
+                WHERE product_template_attribute_value_id IN (
+                    SELECT ptav.id 
+                    FROM product_template_attribute_value ptav
+                    JOIN product_template_attribute_line ptal ON ptav.attribute_line_id = ptal.id
+                    WHERE ptal.product_tmpl_id = %s
+                )
+            """
+            self.env.cr.execute(combination_delete_query, (record.id,))
+
+            # Sonra product_template_attribute_value kayıtlarını sil
+            value_delete_query = """
+                DELETE FROM product_template_attribute_value 
+                WHERE attribute_line_id IN (
+                    SELECT id FROM product_template_attribute_line 
+                    WHERE product_tmpl_id = %s
+                )
+            """
+            self.env.cr.execute(value_delete_query, (record.id,))
+
+            # Son olarak product_template_attribute_line kayıtlarını sil
+            line_delete_query = """
+                DELETE FROM product_template_attribute_line 
+                WHERE product_tmpl_id = %s
+            """
+            self.env.cr.execute(line_delete_query, (record.id,))
+
+            self.env.cr.commit()
+
+    def update_precomputed_values(self):
+        self.clear_existing_variants()  # Mevcut varyantları temizle
+        for record in self:
+            precomputed_values = {}
+            attribute_lines_to_create = []
+            attribute_values_cache = {}
+            value_lines_to_create = []
+
+            product_tmpl_id = record.id
             if record.precomputed_values:
                 precomputed_values = json.loads(record.precomputed_values)
-                print(precomputed_values)
-                a = record.termo_filtre  # üründeki filtreler
+                termo_filtre_attributes = record.termo_filtre
 
-                for attrib in a:  # filtre isimleri loop ör sc1_aralik
-
-                    self.env['product.template.attribute.line'].search(
-                        [('product_tmpl_id', '=', record.id), ('attribute_id', '=', attrib.id)]).unlink()
-                    referans = attrib.ref  # atribute reeras
-
+                for attrib in termo_filtre_attributes:
+                    referans = attrib.ref  # attribute referansı
                     urun_field_degeri = getattr(record, referans)
-                    urun_filtre_degeri = precomputed_values[str(referans)][0]
-                    print([urun_field_degeri,urun_filtre_degeri])
-
-
+                    urun_filtre_degeri = precomputed_values.get(referans, [None])[0]
 
                     if urun_field_degeri != attrib.bos_deger:
-                        # deger = False
-                        attrib_value = attrib.value_ids
-
-
-                        # deger = [x for x in attrib_value if x.name == urun_filtre_degeri][0]
-                        deger = self.env['product.attribute.value'].search([('name', '=', urun_filtre_degeri), ('attribute_id', '=', attrib.id)])
-
-
-
+                        # Cache'de attribute value kontrolü
+                        if (attrib.id, urun_filtre_degeri) in attribute_values_cache:
+                            deger = attribute_values_cache[(attrib.id, urun_filtre_degeri)]
+                        else:
+                            deger = self.env['product.attribute.value'].search(
+                                [('name', '=', urun_filtre_degeri), ('attribute_id', '=', attrib.id)], limit=1)
+                            attribute_values_cache[(attrib.id, urun_filtre_degeri)] = deger
 
                         if deger:
-                            self.env['product.template.attribute.line'].create({'product_tmpl_id': record.id,
-                                                                                'attribute_id': attrib.id,
-                                                                                'value_ids': [(4, deger.id)],
-                                                                                })
+                            attribute_lines_to_create.append((product_tmpl_id, attrib.id))
+                            value_lines_to_create.append((product_tmpl_id, attrib.id, deger.id))
                         else:
                             raise UserError(
-                                'Değiştirmye çalıştığınız %s ürününün %s alaanınıda yer alan  %s  değeri geçersiz. Kontrol ediniz yada filtre değerlerine ekleyiniz.' % (
-                                record.name, referans, urun_field_degeri))
+                                _('Değiştirmeye çalıştığınız %s ürününün %s alanında yer alan %s değeri geçersiz. Kontrol ediniz ya da filtre değerlerine ekleyiniz.') % (
+                                    record.name, referans, urun_field_degeri))
 
-            #     if urun_sc1_degeri != attrib.bos_deger:
-            #         deger = False
-            #         if attrib.att_type == "aralik":
-            #             alt = int(urun_sc1_degeri - (urun_sc1_degeri % attrib.delta_deger))
-            #             ust = int(alt + attrib.delta_deger)
-            #             urun_filtre_degeri = str(alt) + " - " + str(ust)
-            #         else:
-            #             urun_filtre_degeri = str(urun_sc1_degeri)
-            #         attrib_value = attrib.value_ids
-            #         try:
-            #             deger = [x for x in attrib_value if x.name == urun_filtre_degeri][0]
-            #         except:
-            #             pass
-            #         if deger:
-            #            precomputed_values.update({attrib.ref: [deger.name]})
-            # record.precomputed_values = json.dumps(precomputed_values)
+            # SQL ile attribute_line kayıtlarını ekleme
+            if attribute_lines_to_create:
+                query = """
+                    INSERT INTO product_template_attribute_line (product_tmpl_id, attribute_id)
+                    VALUES %s
+                    RETURNING id, product_tmpl_id, attribute_id
+                """
+                values = ", ".join(
+                    "(%s, %s)" % (pt_id, attr_id)
+                    for pt_id, attr_id in attribute_lines_to_create
+                )
+                self.env.cr.execute(query % values)
+                attribute_line_ids = self.env.cr.fetchall()
+                attribute_line_map = {(line[1], line[2]): line[0] for line in attribute_line_ids}
 
+            # SQL ile attribute_value kayıtlarını ekleme
+            if value_lines_to_create:
+                query = """
+                    INSERT INTO product_template_attribute_value (attribute_line_id, product_attribute_value_id)
+                    VALUES %s
+                """
+                values = ", ".join(
+                    "(%s, %s)" % (attribute_line_map[(pt_id, attr_id)], val_id)
+                    for pt_id, attr_id, val_id in value_lines_to_create
+                )
+                self.env.cr.execute(query % values)
 
+            # Değişiklikleri veritabanına kesinleştir
+            self.env.cr.commit()
 
+    def read_precomputed_values(self):
+        for record in self:
+            precomputed_values = {}
+            attribute_lines_to_create = []
+            attribute_values_cache = {}
+            value_lines_to_create = []
 
+            product_tmpl_id = record.id
+            if record.precomputed_values:
+                precomputed_values = json.loads(record.precomputed_values)
+                termo_filtre_attributes = record.termo_filtre
 
-        #
-        # # JSON formatına dönüştürüp alan içine yaz
-        # for record in self:
-        #     record.precomputed_values = json.dumps(precomputed_values)
+                for attrib in termo_filtre_attributes:
+                    referans = attrib.ref  # attribute referansı
+                    urun_field_degeri = getattr(record, referans)
+                    urun_filtre_degeri = precomputed_values.get(referans, [None])[0]
+
+                    if urun_field_degeri != attrib.bos_deger:
+                        # Cache'de attribute value kontrolü
+                        if (attrib.id, urun_filtre_degeri) in attribute_values_cache:
+                            deger = attribute_values_cache[(attrib.id, urun_filtre_degeri)]
+                        else:
+                            deger = self.env['product.attribute.value'].search(
+                                [('name', '=', urun_filtre_degeri), ('attribute_id', '=', attrib.id)], limit=1)
+                            attribute_values_cache[(attrib.id, urun_filtre_degeri)] = deger
+
+                        if deger:
+                            attribute_lines_to_create.append((product_tmpl_id, attrib.id, deger.id))
+                        else:
+                            raise UserError(
+                                _('Değiştirmeye çalıştığınız %s ürününün %s alanında yer alan %s değeri geçersiz. Kontrol ediniz ya da filtre değerlerine ekleyiniz.') % (
+                                    record.name, referans, urun_field_degeri))
+
+            # ORM ile attribute_line ve attribute_value kayıtlarını ekleme
+            for pt_id, attr_id, val_id in attribute_lines_to_create:
+                attribute_line = self.env['product.template.attribute.line'].create({
+                    'product_tmpl_id': pt_id,
+                    'attribute_id': attr_id,
+                    'value_ids': [(4, val_id)],
+                })
+
+            # Değişiklikleri veritabanına kesinleştir
+            self.env.cr.commit()
 
     # @api.onchange('termo_tip_id')
     @api.depends('termo_tip_id')
@@ -163,11 +242,6 @@ class ProductTemplate(models.Model):
             if record.termo_tip_id:
                 if record.termo_tip_id.gorsel:
                     record.image_1920 = record.termo_tip_id.gorsel
-
-                # if record.termo_tip_id.public:
-                #     record.public_categ_ids = [(6, 0, [record.termo_tip_id.public.id])]
-                # if record.termo_tip_id.filtre:
-                #     record.termo_filtre = [(6, 0, [x.id for x in record.termo_tip_id.filtre])]
 
 
 
@@ -188,124 +262,3 @@ class ProductTemplate(models.Model):
                 record.oda_sicakligi = -25
                 record.evaporasyon_sicakligi = 31
 
-
-    def gorev(self):
-        for record in self:
-
-            print(record.name)
-            a =record.termo_filtre #üründeki filtreler
-
-            for attrib in a: #filtre isimleri loop ör sc1_aralik
-
-
-                self.env['product.template.attribute.line'].search(
-                    [('product_tmpl_id', '=', record.id), ('attribute_id', '=', attrib.id)]).unlink()
-                referans = attrib.ref #atribute reeras
-                print(referans)
-                urun_sc1_degeri = getattr(record, referans)
-                if urun_sc1_degeri != attrib.bos_deger:
-                    deger = False
-                    print([urun_sc1_degeri, attrib.delta_deger])
-
-                    if attrib.att_type == "aralik":
-
-                        alt = int(urun_sc1_degeri - (urun_sc1_degeri % attrib.delta_deger))
-                        ust = int(alt + attrib.delta_deger)
-                        urun_filtre_degeri = str(alt) + " - " + str(ust)
-
-                    else:
-                        urun_filtre_degeri = str(urun_sc1_degeri)
-
-
-                    print(urun_filtre_degeri)
-
-                    attrib_value = attrib.value_ids
-                    print([x.name for x in attrib_value])
-                    try:
-                        deger = [x for x in attrib_value if x.name == urun_filtre_degeri][0]
-                    except:
-                        pass
-
-
-                    if deger:
-                        self.env['product.template.attribute.line'].create({'product_tmpl_id': record.id,
-                                                                            'attribute_id': attrib.id,
-                                                                            'value_ids': [(4, deger.id)],
-                                                                       })
-                    else:
-                        raise UserError(
-                            'Değiştirmye çalıştığınız %s ürününün %s alaanınıda yer alan  %s  değeri geçersiz. Kontrol ediniz yada filtre değerlerine ekleyiniz.' % ( record.name, referans, urun_sc1_degeri))
-
-                # variant = self.env['product.attribute.value'].search(
-                #     [('attribute_id', '=', attr_id.id), ('name', '=', sc1_aralik_deger,)])
-                #
-                # if variant:
-                #     self.env['product.template.attribute.line'].create({'product_tmpl_id': record.id,
-                #                                                         'attribute_id': attr_id.id,
-                #                                                         'value_ids': [(4, variant.id)],
-                #                                                         })
-                # else:
-                #     raise UserError(
-                #         'Değiştirmye çalıştığınız %s ürününün %s filtresinde yer alan  %s  değeri geçersiz. Kontrol ediniz yada filtre değerlerine ekleyiniz.' % (
-                #         record.name, attrib_name, sc1_aralik_deger))
-
-
-
-    def tum_gorev(self):
-        raise UserError(self.termo_tip_id)
-
-        # tum_urunler = self.env['product.template'].search([])
-        # for record in tum_urunler:
-        #     if record.termo_tip_id != False:
-        #         record.gorev()
-
-
-    def gorev2(self):
-
-        attr_id = self.env['product.attribute'].search([('name', '=', 'sc1_aralik')])
-        values = self.env['product.attribute.value'].search([('attribute_id', '=', attr_id.id)])
-        value_names =   [x.name for x in values]
-        value_names =   [x.name for x in values if x.name=="0 - 5000"][0]
-        for record in self:
-            sc1_aralik = str(record.sc1_aralik)
-
-        prints =  value_names == sc1_aralik
-        print(value_names)
-        print(sc1_aralik)
-
-        raise UserError(prints)
-
-        attrib_name = "sc1_aralik"
-        attr_id = self.env['product.attribute'].search([('name', '=', attrib_name)])
-        self.env['product.template.attribute.line'].search(
-            [('product_tmpl_id', '=', record.id), ('attribute_id', '=', 93)]).unlink()
-
-
-    def gorev3(self):
-        a = self.termo_filtre
-        attribs = [x.name for x in a]
-        for i in attribs:
-
-            attrib_name = i
-            attr_id = self.env['product.attribute'].search([('name', '=', attrib_name)])
-
-            for record in self:
-
-                self.env['product.template.attribute.line'].search([('product_tmpl_id', '=', record.id), ('attribute_id', '=', attr_id.id)]).unlink()
-                sc1_aralik_deger = getattr(record, attrib_name)
-
-                if sc1_aralik_deger:
-                    variant = self.env['product.attribute.value'].search([('attribute_id', '=', attr_id.id), ('name', '=', sc1_aralik_deger,)])
-
-                    if variant:
-                        self.env['product.template.attribute.line'].create({'product_tmpl_id': record.id,
-                                                                            'attribute_id': attr_id.id,
-                                                                            'value_ids': [(4, variant.id)],
-                                                                            })
-                    else:
-                        raise UserError('Değiştirmye çalıştığınız %s ürününün %s filtresinde yer alan  %s  değeri geçersiz. Kontrol ediniz yada filtre değerlerine ekleyiniz.' % (record.name, attrib_name, sc1_aralik_deger))
-
-
-        # for record in self:
-        #     self.env['product.template.attribute.line'].search(
-        #     [('product_tmpl_id', '=', record.id), ('attribute_id', '=', attr_id.id)]).unlink()

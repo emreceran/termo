@@ -1,0 +1,247 @@
+<odoo>
+    <template id="termo_customized_header">
+        <div class="header">
+            <!-- Header içeriği buraya -->
+        </div>
+    </template>
+
+    <template id="termo_customized_footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm">
+                    One of three columns
+                </div>
+                <div class="col-sm">
+                    One of three columns
+                </div>
+                <div class="col-sm">
+                    One of three columns
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <template id="report_product_cikti">
+        <t t-call="web.html_container">
+            <t t-call="termo.termo_customized_header"/>
+
+            <t t-foreach="docs" t-as="o">
+                <t t-set="format_value" t-value="lambda v: '-' if v == -11 else v"/>
+                <t t-call="web.external_layout">
+
+                    <div class="page">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-4">
+                                    <img src="/termo/static/description/tctlogo.png" style="width: 100%; height:auto;"/>
+                                </div>
+                                <div class="col-8" style="position: relative;">
+                                    <div style="position: absolute; bottom:0px; left:40px;">
+                                        <p style="box-sizing: border-box; font-size:1.1em; font-weight: bold; margin-bottom:0; text-align:center;">
+                                            <span><t t-esc="o.name"/> </span> <br/>
+                                            <t t-esc="o.public_categ_ids.name"/> <br/> Teknik Özellikler
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12" style="height:5px; background:gray; margin-top:10px; margin-bottom:20px;"></div>
+
+                            <t t-if="(o.public_categ_ids.name.upper() == 'EVAPORATÖR') or (o.public_categ_ids.parent_id.name.upper() == 'EVAPORATÖR')">
+                                <div style="border:1px solid black;">
+                                    <p class="" style="background-color:grey; padding:10px; line-height:2;">Model <t t-esc="o.name"/></p>
+                                    <div class="text-center">
+                                        <img style="margin:20px;" t-if="o.termo_tip_id.teknik_cizim" t-att-src="image_data_uri(o.termo_tip_id.teknik_cizim)" alt="Teknik Çizim"/>
+                                    </div>
+                                    <div>
+                                        <p class="" style="background-color:grey; padding:10px; line-height:2">Ölçüler</p>
+                                        <table class="table mx-1 text-left">
+                                            <tbody style="line-height:1.5;">
+                                                <tr>
+                                                    <th scope="row">H</th>
+                                                    <td><t t-esc="format_value(o.H)"/></td>
+                                                    <th scope="row">L</th>
+                                                    <td><t t-esc="format_value(o.L)"/></td>
+                                                    <th scope="row">W</th>
+                                                    <td><t t-esc="format_value(o.W)"/></td>
+                                                    <th scope="row">W2</th>
+                                                    <td><t t-esc="format_value(o.W2)"/></td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">H1</th>
+                                                    <td><t t-esc="format_value(o.H1)"/></td>
+                                                    <th scope="row">L1</th>
+                                                    <td><t t-esc="format_value(o.L1)"/></td>
+                                                    <th scope="row">W1</th>
+                                                    <td><t t-esc="format_value(o.W1)"/></td>
+                                                    <th scope="row">W3</th>
+                                                    <td><t t-esc="format_value(o.W3)"/></td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">LA</th>
+                                                    <td colspan="7"><t t-esc="format_value(o.LA)"/></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div>
+                                        <p class="" style="background-color:grey; padding:10px; line-height:2">Kapasite Bilgileri</p>
+                                        <table class="table">
+                                            <tbody style="line-height:1.5;">
+                                                <tr>
+                                                    <th scope="row">Kapasite</th>
+                                                    <td><t t-esc="format_value(o.kapasite)"/></td>
+                                                    <th scope="row">Hava Debisi</th>
+                                                    <td><t t-esc="format_value(o.hava_debisi)"/></td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Oda Sıcaklığı</th>
+                                                    <td><t t-esc="format_value(o.oda_sicakligi)"/></td>
+                                                    <th scope="row">Evaporasyon Sıcaklığı</th>
+                                                    <td><t t-esc="format_value(o.evaporasyon_sicakligi)"/></td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Akışkan</th>
+                                                    <td>R404A</td>
+                                                    <th scope="row">Test Basıncı</th>
+                                                    <td>32 bar</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Lamel Aralığı</th>
+                                                    <td><t t-esc="format_value(o.lamel_aralik)"/></td>
+                                                    <th scope="row">Isı Transfer Yüzey Alanı</th>
+                                                    <td><t t-esc="format_value(o.H)"/></td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Fan Çapı</th>
+                                                    <td><t t-esc="format_value(o.fan_cap)"/></td>
+                                                    <th scope="row">Fan Sayısı</th>
+                                                    <td><t t-esc="format_value(o.fan_adet)"/></td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Fan Devri</th>
+                                                    <td>1400 rpm</td>
+                                                    <th></th>
+                                                    <td></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </t>
+                            <t t-elif="(o.public_categ_ids.name.upper() == 'KONDENSER') or (o.public_categ_ids.parent_id.name.upper() == 'KONDENSER')">
+                                <div style="border:1px solid black;">
+                                    <p class="" style="background-color:grey; padding:10px; line-height:2;">Model <t t-esc="o.name"/></p>
+                                    <div class="text-center">
+                                        <img style="margin:20px;" t-if="o.termo_tip_id.teknik_cizim" t-att-src="image_data_uri(o.termo_tip_id.teknik_cizim)" alt="Teknik Çizim"/>
+                                    </div>
+                                    <div>
+                                        <p class="" style="background-color:grey; padding:10px; line-height:2">Ölçüler</p>
+                                        <table class="table mx-1 text-left">
+                                            <tbody style="line-height:1.5;">
+                                                <tr>
+                                                    <th scope="row">H</th>
+                                                    <td><t t-esc="format_value(o.H)"/></td>
+                                                    <th scope="row">W</th>
+                                                    <td><t t-esc="format_value(o.W)"/></td>
+                                                    <th scope="row">L</th>
+                                                    <td><t t-esc="format_value(o.L)"/></td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">H1</th>
+                                                    <td><t t-esc="format_value(o.H1)"/></td>
+                                                    <th scope="row">W1</th>
+                                                    <td><t t-esc="format_value(o.W1)"/></td>
+                                                    <th scope="row">L1</th>
+                                                    <td><t t-esc="format_value(o.L1)"/></td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">H2</th>
+                                                    <td><t t-esc="format_value(o.H2)"/></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div>
+                                        <p class="" style="background-color:grey; padding:10px; line-height:2">Kapasite Bilgileri</p>
+                                        <table class="table">
+                                            <tbody style="line-height:1.5;">
+                                                <tr>
+                                                    <th scope="row">Kapasite</th>
+                                                    <td><t t-esc="format_value(o.kapasiteyuksek_devir)"/></td>
+                                                    <th scope="row">Hava Debisi</th>
+                                                    <td><t t-esc="format_value(o.hava_debisi_yuksek_devir)"/></td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Hava Giriş Sıcaklığı</th>
+                                                    <td><t t-esc="format_value(o.oda_sicakligi)"/></td>
+                                                    <th scope="row">Kondenzasyon Sıcaklığı</th>
+                                                    <td><t t-esc="format_value(o.evaporasyon_sicakligi)"/></td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Akışkan</th>
+                                                    <td>R404A</td>
+                                                    <th scope="row">Test Basıncı</th>
+                                                    <td>32 bar</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Lamel Aralığı</th>
+                                                    <td><t t-esc="format_value(o.lamel_aralik)"/></td>
+                                                    <th scope="row">Isı Transfer Yüzey Alanı</th>
+                                                    <td><t t-esc="format_value(o.H)"/></td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Fan Çapı</th>
+                                                    <td><t t-esc="format_value(o.fan_cap)"/></td>
+                                                    <th scope="row">Fan Sayısı</th>
+                                                    <td><t t-esc="format_value(o.fan_adet)"/></td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Fan Devri</th>
+                                                    <td>1400 rpm</td>
+                                                    <th></th>
+                                                    <td></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </t>
+                        </div>
+                    </div>
+                </t>
+                 <t t-call="termo.termo_customized_footer"/>
+            </t>
+
+
+        </t>
+    </template>
+
+    <record id="irsaliye_paperformat" model="report.paperformat">
+        <field name="name">Customized Paper Format</field>
+        <field name="default" eval="True"/>
+        <field name="format">custom</field>
+        <field name="page_height">290</field>
+        <field name="page_width">210</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">9</field>
+        <field name="margin_bottom">20</field>
+        <field name="margin_left">10</field>
+        <field name="margin_right">10</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">22</field>
+        <field name="dpi">90</field>
+    </record>
+
+    <record id="product" model="ir.actions.report">
+        <field name="name">cikti</field>
+        <field name="model">product.template</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">termo.report_product_cikti</field>
+        <field name="report_file">termo.report_product_cikti</field>
+        <field name="print_report_name">'%s Teknik Bilgiler' % (object.name)</field>
+        <field name="binding_model_id" ref="model_product_template"/>
+        <field name="binding_type">report</field>
+        <field name="groups_id" eval="[(4, ref('base.group_public'))]"/>
+        <field name="paperformat_id" ref="irsaliye_paperformat"/>
+    </record>
+</odoo>
