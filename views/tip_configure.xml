@@ -43,8 +43,8 @@
             <field name="arch" type="xml">
                 <tree multi_edit="1" sample="1">
                     <field name="name"/>
-                    <field name="teknik_cizim"/>
-                    <field name="gorsel"/>
+                    <field name="teknik_cizim" widget="image"/>
+                    <field name="gorsel" widget="image"/>
                     <field name="filtre"/>
                     <field name="filtre_grubu_id"/>
                     <field name="web_grubu_id"/>
