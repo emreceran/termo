@@ -48,7 +48,7 @@
                                     <a
                                             class="d-flex justify-content-start align-items-center"
                                             target="_new"
-                                            t-att-href="'http://localhost:8069/en/report/pdf/termo.report_product_cikti/'+str(product.id)"
+                                            t-att-href="'https://odoo-161782-0.cloudclusters.net/en/report/pdf/termo.report_product_cikti/'+str(product.id)"
                                     >
                                         <span
                                                 t-out="product.name"
