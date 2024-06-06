@@ -140,7 +140,7 @@
 
                             <group>
 
-                                <field name="kapasiteyuksek_devir"/>
+                                <field name="kapasite_yuksek_devir"/>
                                 <field name="kapasite_dusuk_devir"/>
                                 <field name="hava_debisi_yuksek_devir"/>
                                 <field name="hava_debisi_dusuk_devir"/>

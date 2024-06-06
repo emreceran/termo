@@ -190,7 +190,7 @@
                     <tbody style="line-height:1.5;">
                         <tr>
                             <th scope="row">Kapasite</th>
-                            <td><t t-esc="format_value(o.kapasiteyuksek_devir)"/></td>
+                            <td><t t-esc="format_value(o.kapasite_yuksek_devir)"/></td>
                             <th scope="row">Hava Debisi</th>
                             <td><t t-esc="format_value(o.hava_debisi_yuksek_devir)"/></td>
                         </tr>
