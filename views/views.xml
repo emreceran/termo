@@ -53,7 +53,7 @@
                     <button string="Variantları sil" type="object" name="clear_existing_variants"/>
                     <button string="varyant ypdate sql" type="object" name="update_precomputed_values"/>
                     <button string="VARYANTLARI OLUŞTUR " type="object" name="write_precomputed_values"/>
-                    <button string="VARYANTLARI YAZ " type="object" name="read_precomputed_values" class="oe_highlight"  data-hotkey="ö"/>
+                    <button string="VARYANTLARI YAZ " type="object" name="read_precomputed_values"/>
 
                 </xpath>
             </field>
