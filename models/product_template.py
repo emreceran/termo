@@ -236,7 +236,7 @@ class ProductTemplate(models.Model):
             self.env.cr.commit()
 
     # @api.onchange('termo_tip_id')
-    @api.depends('termo_tip_id')
+    # @api.depends('termo_tip_id')
     def onchange_termo_tip_id(self):
         for record in self:
             if record.termo_tip_id:
