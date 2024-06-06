@@ -53,8 +53,8 @@ class ProductTemplate(models.Model):
     lamel_aralik= fields.Integer(string = "Lamel Aralığı", default = 4, store=True)
     hatve= fields.Float(string = "Hatve ", default = 6, store=True)
     kapasite = fields.Integer(string = "Kapasite ", default = 6, store=True)
-    sutluk_uzunluk = fields.Integer(string="Sütlük Uzunluk")
-    boru_sayisi = fields.Integer(string="Boru Sayısı")
+    sutluk_uzunluk = fields.Char(string="Sütlük Uzunluk")
+    boru_sayisi = fields.Char(string="Boru Sayısı")
     sutluk_tip = fields.Char(string = "Sütlük Tipi", defult="-")
     sutluk_geometri = fields.Char(string = "Sütlük Geometri", defult="-")
 
