@@ -78,27 +78,27 @@
                     <tbody style="line-height:1.5;">
                         <tr>
                             <th scope="row">H</th>
-                            <td><t t-esc="format_value(o.H)"/></td>
+                            <td><t t-esc="format_value_with_unit(o.H, 'mm')"/><span> mm</span></td>
                             <th scope="row">L</th>
-                            <td><t t-esc="format_value(o.L)"/></td>
+                            <td><t t-esc="format_value_with_unit(o.L, 'mm')"/><span> mm</span></td>
                             <th scope="row">W</th>
-                            <td><t t-esc="format_value(o.W)"/></td>
+                            <td><t t-esc="format_value_with_unit(o.W, 'mm')"/><span> mm</span></td>
                             <th scope="row">W2</th>
-                            <td><t t-esc="format_value(o.W2)"/></td>
+                            <td><t t-esc="format_value_with_unit(o.W, 'mm'2)"/><span> mm</span></td>
                         </tr>
                         <tr>
                             <th scope="row">H1</th>
-                            <td><t t-esc="format_value(o.H1)"/></td>
+                            <td><t t-esc="format_value_with_unit(o.H1, 'mm')"/><span> mm</span></td>
                             <th scope="row">L1</th>
-                            <td><t t-esc="format_value(o.L1)"/></td>
+                            <td><t t-esc="format_value_with_unit(o.L1, 'mm')"/><span> mm</span></td>
                             <th scope="row">W1</th>
-                            <td><t t-esc="format_value(o.W1)"/></td>
+                            <td><t t-esc="format_value_with_unit(o.W1, 'mm')"/><span> mm</span></td>
                             <th scope="row">W3</th>
-                            <td><t t-esc="format_value(o.W3)"/></td>
+                            <td><t t-esc="format_value_with_unit(o.W3, 'mm')"/><span> mm</span></td>
                         </tr>
                         <tr>
                             <th scope="row">LA</th>
-                            <td colspan="7"><t t-esc="format_value(o.LA)"/></td>
+                            <td colspan="7"><t t-esc="format_value_with_unit(o.LA, 'mm')"/><span> mm</span></td>
                         </tr>
                     </tbody>
                 </table>
@@ -109,7 +109,7 @@
                     <tbody style="line-height:1.5;">
                         <tr>
                             <th scope="row">Kapasite</th>
-                            <td><t t-esc="format_value(o.kapasite)"/></td>
+                            <td><t t-esc="format_value(o.kapasite)"/><span>Watt</span></td>
                             <th scope="row">Hava Debisi</th>
                             <td><t t-esc="format_value(o.hava_debisi)"/></td>
                         </tr>
@@ -238,6 +238,7 @@
             <t t-call="termo.termo_customized_footer"/>
 
             <t t-foreach="docs" t-as="o">
+                <t t-set="format_value_with_unit" t-value="lambda v, unit: ('-' if v in [-11, ''] else str(v) + ' ' + unit )"/>
                 <t t-set="format_value" t-value="lambda v: '-' if v == -11 else v"/>
                 <t t-call="web.external_layout">
 

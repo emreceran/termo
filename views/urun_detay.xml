@@ -2,40 +2,41 @@
 <data>
 
     <template
-        id="product_detail_page"
-        inherit_id="website_sale.product"
-        name="Product termo"
-        customize_show="True"
+            id="product_detail_page"
+            inherit_id="website_sale.product"
+            name="Product termo"
+            customize_show="True"
     >
         <!-- Yardımcı fonksiyonun tanımlandığı yer -->
 
 
         <xpath expr="//div[@id='product_attributes_simple']" position="replace">
             <t t-foreach="product" t-as="o">
-                <t t-set="format_value" t-value="lambda v: '-' if v == -11 else v"/>
+                <t t-set="format_value_with_unit" t-value="lambda v, unit: ('-' if v in [-11, ''] else str(v) + ' ' + unit )"/>
 
                 <!-- 1. Koşul: VİTRİN EVAPORATÖR veya üst kategorisi -->
-<!--               <t t-if="o.filtre_grubu_id.name in ['6']">-->
-<!--                    &lt;!&ndash; Hiçbir tablo gösterme &ndash;&gt;-->
-<!--                </t>-->
+                <!--               <t t-if="o.filtre_grubu_id.name in ['6']">-->
+                <!--                    &lt;!&ndash; Hiçbir tablo gösterme &ndash;&gt;-->
+                <!--                </t>-->
 
                 <!-- 2. Koşul: EVAPORATÖR veya üst kategorisi -->
-               <t t-if="product.filtre_grubu_id.name in ['1', '2', '3']">
+                <t t-if="product.filtre_grubu_id.name in ['1', '2', '3']">
                     <div>
                         <p class="" style="background-color:grey; padding:10px; line-height:2">  Kapasite Bilgileri </p>
                         <table class="table" style="text-align:left; padding:0; margin-bottom:0;">
                             <tbody style="line-height:1.5;">
                                 <tr>
                                     <th scope="row">Kapasite</th>
-                                    <td><t t-esc="format_value(o.kapasite)"/></td>
+                                    <td><t t-esc="format_value_with_unit(o.kapasite, 'Watt')"/></td>
                                     <th scope="row">Hava Debisi</th>
-                                    <td><t t-esc="format_value(o.hava_debisi)"/></td>
+                                    <td><t t-esc="format_value_with_unit(o.hava_debisi,'&#13221;/h')"/></td>
+
                                 </tr>
                                 <tr>
                                     <th scope="row">Oda Sıcaklığı</th>
-                                    <td><t t-esc="format_value(o.oda_sicakligi)"/></td>
+                                    <td><t t-esc="format_value_with_unit(o.oda_sicakligi,'&#8451;')"/></td>
                                     <th scope="row">Evaporasyon Sıcaklığı</th>
-                                    <td><t t-esc="format_value(o.evaporasyon_sicakligi)"/></td>
+                                    <td><t t-esc="format_value_with_unit(o.evaporasyon_sicakligi,'&#8451;')"/></td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Akışkan</th>
@@ -45,15 +46,18 @@
                                 </tr>
                                 <tr>
                                     <th scope="row">Lamel Aralığı</th>
-                                    <td><t t-esc="format_value(o.lamel_aralik)"/></td>
+                                    <td><t t-esc="format_value_with_unit(o.hatve,' ')"/></td>
                                     <th scope="row">Isı Transfer Yüzey Alanı</th>
-                                    <td><t t-esc="format_value(o.H)"/></td>
+                                    <td><t t-esc="format_value_with_unit(o.yuzey,'&#13221;/h')"/></td>
+
                                 </tr>
                                 <tr>
                                     <th scope="row">Fan Çapı</th>
-                                    <td><t t-esc="format_value(o.fan_cap)"/></td>
+                                    <td><span>&#248;</span> <t t-esc="format_value_with_unit(o.fan_cap,'mm')"/></td>
+
                                     <th scope="row">Fan Sayısı</th>
-                                    <td><t t-esc="format_value(o.fan_adet)"/></td>
+                                    <td><t t-esc="format_value_with_unit(o.fan_adet,' ')"/></td>
+
                                 </tr>
                                 <tr>
                                     <th scope="row">Fan Devri</th>
@@ -66,29 +70,33 @@
                     </div>
                     <div>
                         <p class="" style="background-color:grey; padding:10px; line-height:2">  Ölçüler </p>
-                        <table class="table mx-1 text-left" style="table-layout: fixed;">
+                        <table class="table text-left" >
+                            <!--                        <table class="table mx-1 text-left" style="table-layout: fixed;">-->
                             <tbody style="line-height:1.5;">
+
                                 <tr>
                                     <th scope="row">H</th>
-                                    <td><t t-esc="format_value(o.H)"/></td>
+                                    <td><t t-esc="format_value_with_unit(o.H, 'mm')"/></td>
                                     <th scope="row">L</th>
-                                    <td><t t-esc="format_value(o.L)"/></td>
+                                    <td><t t-esc="format_value_with_unit(o.L, 'mm')"/></td>
                                     <th scope="row">W</th>
-                                    <td><t t-esc="format_value(o.W)"/></td>
-                                    <th scope="row">H1</th>
-                                    <td><t t-esc="format_value(o.H1)"/></td>
-                                    <th scope="row">L1</th>
-                                    <td><t t-esc="format_value(o.L1)"/></td>
+                                    <td><t t-esc="format_value_with_unit(o.W, 'mm')"/></td>
                                 </tr>
                                 <tr>
+                                    <th scope="row">H1</th>
+                                    <td><t t-esc="format_value_with_unit(o.H1, 'mm')"/></td>
+                                    <th scope="row">L1</th>
+                                    <td><t t-esc="format_value_with_unit(o.L1, 'mm')"/></td>
                                     <th scope="row">W1</th>
-                                    <td><t t-esc="format_value(o.W1)"/></td>
-                                    <th scope="row">W2</th>
-                                    <td><t t-esc="format_value(o.W2)"/></td>
-                                    <th scope="row">W3</th>
-                                    <td><t t-esc="format_value(o.W3)"/></td>
+                                    <td><t t-esc="format_value_with_unit(o.W1, 'mm')"/></td>
+                                </tr>
+                                <tr>
                                     <th scope="row">LA</th>
-                                    <td><t t-esc="format_value(o.LA)"/></td>
+                                    <td><t t-esc="format_value_with_unit(o.LA, 'mm')"/></td>
+                                    <th scope="row">W2</th>
+                                    <td><t t-esc="format_value_with_unit(o.W2, 'mm')"/></td>
+                                    <th scope="row">W3</th>
+                                    <td><t t-esc="format_value_with_unit(o.W3, 'mm')"/></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -96,22 +104,22 @@
                 </t>
 
                 <!-- 3. Koşul: KONDENSER veya üst kategorisi -->
-               <t t-if="product.filtre_grubu_id.name in ['4', '5']">
+                <t t-if="product.filtre_grubu_id.name in ['4', '5']">
                     <div>
                         <p class="" style="background-color:grey; padding:10px; line-height:2">  Kapasite Bilgileri </p>
                         <table class="table" style="text-align:left; padding:0; margin-bottom:0;">
                             <tbody style="line-height:1.5;">
                                 <tr>
                                     <th scope="row">YÜKSEK DEVİR HAVA DEBİSİ</th>
-                                    <td><t t-esc="format_value(o.hava_debisi_yuksek_devir)"/></td>
+                                    <td><t t-esc="format_value_with_unit(o.hava_debisi_yuksek_devir, 'Watt')"/></td>
                                     <th scope="row">Düşük DEVİR HAVA DEBİSİ</th>
-                                    <td><t t-esc="format_value(o.hava_debisi_dusuk_devir)"/></td>
+                                    <td><t t-esc="format_value_with_unit(o.hava_debisi_dusuk_devir, 'Watt')"/></td>
                                 </tr>
                                 <tr>
-                                    <th scope="row">Oda Sıcaklığı</th>
-                                    <td><t t-esc="format_value(o.oda_sicakligi)"/></td>
-                                    <th scope="row">Evaporasyon Sıcaklığı</th>
-                                    <td><t t-esc="format_value(o.evaporasyon_sicakligi)"/></td>
+                                    <th scope="row">Hava Giriş Sıcaklığı</th>
+                                   <td><t t-esc="format_value_with_unit(o.oda_sicakligi,'&#8451;')"/></td>
+                                    <th scope="row">Kondenzasyon Sıcaklığı</th>
+                                    <td><t t-esc="format_value_with_unit(o.evaporasyon_sicakligi,'&#8451;')"/></td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Akışkan</th>
@@ -119,17 +127,20 @@
                                     <th scope="row">Test Basıncı</th>
                                     <td>32 bar</td>
                                 </tr>
-                                <tr>
+                               <tr>
                                     <th scope="row">Lamel Aralığı</th>
-                                    <td><t t-esc="format_value(o.lamel_aralik)"/></td>
+                                    <td><t t-esc="format_value_with_unit(o.hatve,' ')"/></td>
                                     <th scope="row">Isı Transfer Yüzey Alanı</th>
-                                    <td><t t-esc="format_value(o.H)"/></td>
+                                    <td><t t-esc="format_value_with_unit(o.yuzey,'&#13221;/h')"/></td>
+
                                 </tr>
                                 <tr>
                                     <th scope="row">Fan Çapı</th>
-                                    <td><t t-esc="format_value(o.fan_cap)"/></td>
+                                    <td><span>&#248;</span> <t t-esc="format_value_with_unit(o.fan_cap,'mm')"/></td>
+
                                     <th scope="row">Fan Sayısı</th>
-                                    <td><t t-esc="format_value(o.fan_adet)"/></td>
+                                    <td><t t-esc="format_value_with_unit(o.fan_adet,' ')"/></td>
+
                                 </tr>
                                 <tr>
                                     <th scope="row">Fan Devri</th>
@@ -142,31 +153,38 @@
                     </div>
                     <div>
                         <p class="" style="background-color:grey; padding:10px; line-height:2">  Ölçüler </p>
-                        <table class="table mx-1 text-left" style="table-layout: fixed;">
+                        <table class="table text-left">
                             <tbody style="line-height:1.5;">
                                 <tr>
                                     <th scope="row">H</th>
-                                    <td><t t-esc="format_value(o.H)"/></td>
+                                    <td><t t-esc="format_value_with_unit(o.H, 'mm')"/></td>
                                     <th scope="row">W</th>
-                                    <td><t t-esc="format_value(o.W)"/></td>
+                                    <td><t t-esc="format_value_with_unit(o.W, 'mm')"/></td>
                                     <th scope="row">L</th>
-                                    <td><t t-esc="format_value(o.L)"/></td>
-                                    <th scope="row">W1</th>
-                                    <td><t t-esc="format_value(o.W1)"/></td>
+                                    <td><t t-esc="format_value_with_unit(o.L, 'mm')"/></td>
+
                                 </tr>
                                 <tr>
                                     <th scope="row">H1</th>
-                                    <td><t t-esc="format_value(o.H1)"/></td>
-                                    <th scope="row">H2</th>
-                                    <td><t t-esc="format_value(o.H2)"/></td>
+                                    <td><t t-esc="format_value_with_unit(o.H1, 'mm')"/></td>
+                                     <th scope="row">W1</th>
+                                    <td><t t-esc="format_value_with_unit(o.W1, 'mm')"/></td>
+
                                     <th scope="row">L1</th>
-                                    <td><t t-esc="format_value(o.L1)"/></td>
+                                    <td><t t-esc="format_value_with_unit(o.L1, 'mm')"/></td>
+                                </tr>
+
+                                <tr>
+
+                                    <th scope="row">H2</th>
+                                    <td><t t-esc="format_value_with_unit(o.H2, 'mm')"/></td>
+
                                 </tr>
                                 <tr>
-                                    <th colspan="2" scope="row">KONDENSER GİRİŞ KOLLEKTÖR ÇAPI mm / inc</th>
-                                    <td ><t t-out="format_value(o.kondenser_giris_cap)"/></td>
-                                    <th  colspan="2" scope="row">KONDENSER ÇIKIŞ KOLLEKTÖR ÇAPI mm / inc</th>
-                                    <td><t t-out="format_value(o.kondenser_cikis_cap)"/></td>
+                                    <th colspan="4" scope="row">KONDENSER GİRİŞ KOLLEKTÖR ÇAPI mm / inc</th>
+                                    <td ><t t-out="format_value_with_unit(o.kondenser_giris_cap, '')"/></td>
+                                    <th  colspan="4" scope="row">KONDENSER ÇIKIŞ KOLLEKTÖR ÇAPI mm / inc</th>
+                                    <td><t t-out="format_value_with_unit(o.kondenser_cikis_cap, '')"/></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -209,179 +227,179 @@
     <!--    </template>-->
 
 
-    <template id="termo_desc" inherit_id="website_sale.products_item" name="Termo Description">
-        <xpath expr="//div[hasclass('o_wsale_product_information_text')]" position="after">
-            <t t-foreach="product" t-as="o">
-                <t t-set="format_value" t-value="lambda v: '-' if v == -11 else v"/>
+<!--    <template id="termo_desc" inherit_id="website_sale.products_item" name="Termo Description">-->
+<!--        <xpath expr="//div[hasclass('o_wsale_product_information_text')]" position="after">-->
+<!--            <t t-foreach="product" t-as="o">-->
+<!--                <t t-set="format_value" t-value="lambda v: '-' if v == -11 else v"/>-->
 
-                <div t-attf-class="d-flex flex-wrap justify-content-between" >
-                    <t t-if="o.termo_tip_id.grup == '1'">
-                        <div class="col">
-                            <div class="d-flex justify-content-around">
-                                <p> <b>SC1 :</b>  </p>
-                                <span class="text-center ml-5"><t t-esc="format_value(o.sc1)" /></span>
-                            </div>
+<!--                <div t-attf-class="d-flex flex-wrap justify-content-between" >-->
+<!--                    <t t-if="o.termo_tip_id.grup == '1'">-->
+<!--                        <div class="col">-->
+<!--                            <div class="d-flex justify-content-around">-->
+<!--                                <p> <b>SC1 :</b>  </p>-->
+<!--                                <span class="text-center ml-5"><t t-esc="format_value(o.sc1)" /></span>-->
+<!--                            </div>-->
 
-                            <div class="d-flex justify-content-around">
-                                <span> <b>SC2 :</b> </span>
-                                <span class="text-center"><t t-esc="format_value(o.sc2)" /></span>
-                            </div>
-                        </div>
+<!--                            <div class="d-flex justify-content-around">-->
+<!--                                <span> <b>SC2 :</b> </span>-->
+<!--                                <span class="text-center"><t t-esc="format_value(o.sc2)" /></span>-->
+<!--                            </div>-->
+<!--                        </div>-->
 
-                        <div class="col">
-                            <div class="d-flex justify-content-around">
-                                <p> <b>SC3 :</b>  </p>
-                                <span class="text-center ml-5"><t t-esc="format_value(o.sc3)" /></span>
-                            </div>
+<!--                        <div class="col">-->
+<!--                            <div class="d-flex justify-content-around">-->
+<!--                                <p> <b>SC3 :</b>  </p>-->
+<!--                                <span class="text-center ml-5"><t t-esc="format_value(o.sc3)" /></span>-->
+<!--                            </div>-->
 
-                            <div class="d-flex justify-content-around">
-                                <span> <b>SC4 :</b> </span>
-                                <span class="text-center"><t t-esc="format_value(o.sc4)" /></span>
-                            </div>
-                        </div>
+<!--                            <div class="d-flex justify-content-around">-->
+<!--                                <span> <b>SC4 :</b> </span>-->
+<!--                                <span class="text-center"><t t-esc="format_value(o.sc4)" /></span>-->
+<!--                            </div>-->
+<!--                        </div>-->
 
-                        <div class="col">
-                            <div class="d-flex justify-content-around">
-                                <p> <b>Fan Çapı :</b> </p>
-                                <span class="text-center d-inline"><t t-esc="format_value(o.fan_cap)" /></span>
-                            </div>
+<!--                        <div class="col">-->
+<!--                            <div class="d-flex justify-content-around">-->
+<!--                                <p> <b>Fan Çapı :</b> </p>-->
+<!--                                <span class="text-center d-inline"><t t-esc="format_value(o.fan_cap)" /></span>-->
+<!--                            </div>-->
 
-                            <div class="d-flex justify-content-around">
-                                <p> <b>Fan Adet :</b> </p>
-                                <span class="text-center d-inline"><t t-esc="format_value(o.fan_adet)" /></span>
-                            </div>
-                        </div>
+<!--                            <div class="d-flex justify-content-around">-->
+<!--                                <p> <b>Fan Adet :</b> </p>-->
+<!--                                <span class="text-center d-inline"><t t-esc="format_value(o.fan_adet)" /></span>-->
+<!--                            </div>-->
+<!--                        </div>-->
 
-                        <div class="col">
-                            <div class="d-flex justify-content-around">
-                                <p> <b>Yüzey Alanı :</b>  </p>
-                                <span class="text-center d-inline"><t t-esc="format_value(o.yuzey)" /></span>
-                            </div>
+<!--                        <div class="col">-->
+<!--                            <div class="d-flex justify-content-around">-->
+<!--                                <p> <b>Yüzey Alanı :</b>  </p>-->
+<!--                                <span class="text-center d-inline"><t t-esc="format_value(o.yuzey)" /></span>-->
+<!--                            </div>-->
 
-                            <div class="d-flex justify-content-around">
-                                <p> <b>Lamel :</b> </p>
-                                <span class="text-center d-inline"><t t-esc="format_value(o.lamel_aralik)" /></span>
-                            </div>
-                        </div>
-                    </t>
+<!--                            <div class="d-flex justify-content-around">-->
+<!--                                <p> <b>Lamel :</b> </p>-->
+<!--                                <span class="text-center d-inline"><t t-esc="format_value(o.lamel_aralik)" /></span>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </t>-->
 
-                    <t t-elif="o.termo_tip_id.grup == '2'">
-                        <div class="col">
-                            <div class="d-flex justify-content-around">
-                                <p class="text-center"> <b>To / Te -35°C / -40°C : W </b> </p>
-                                <span class="text-center ml-5"><t t-esc="format_value(o.t1)" /></span>
-                            </div>
+<!--                    <t t-elif="o.termo_tip_id.grup == '2'">-->
+<!--                        <div class="col">-->
+<!--                            <div class="d-flex justify-content-around">-->
+<!--                                <p class="text-center"> <b>To / Te -35°C / -40°C : W </b> </p>-->
+<!--                                <span class="text-center ml-5"><t t-esc="format_value(o.t1)" /></span>-->
+<!--                            </div>-->
 
-                            <div class="d-flex justify-content-around">
-                                <p class="text-center"> <b>To / Te -40°C / -45°C : W </b> </p>
-                                <span class="text-center"><t t-esc="format_value(o.t2)" /></span>
-                            </div>
-                        </div>
+<!--                            <div class="d-flex justify-content-around">-->
+<!--                                <p class="text-center"> <b>To / Te -40°C / -45°C : W </b> </p>-->
+<!--                                <span class="text-center"><t t-esc="format_value(o.t2)" /></span>-->
+<!--                            </div>-->
+<!--                        </div>-->
 
-                        <div class="col">
-                            <div class="d-flex justify-content-around">
-                                <p> <b>Fan Çapı :</b> </p>
-                                <span class="text-center d-inline"><t t-esc="format_value(o.fan_cap)" /></span>
-                            </div>
+<!--                        <div class="col">-->
+<!--                            <div class="d-flex justify-content-around">-->
+<!--                                <p> <b>Fan Çapı :</b> </p>-->
+<!--                                <span class="text-center d-inline"><t t-esc="format_value(o.fan_cap)" /></span>-->
+<!--                            </div>-->
 
-                            <div class="d-flex justify-content-around">
-                                <p> <b>Fan Adet :</b> </p>
-                                <span class="text-center d-inline"><t t-esc="format_value(o.fan_adet)" /></span>
-                            </div>
-                        </div>
+<!--                            <div class="d-flex justify-content-around">-->
+<!--                                <p> <b>Fan Adet :</b> </p>-->
+<!--                                <span class="text-center d-inline"><t t-esc="format_value(o.fan_adet)" /></span>-->
+<!--                            </div>-->
+<!--                        </div>-->
 
-                        <div class="col">
-                            <div class="d-flex justify-content-around">
-                                <p> <b>Yüzey Alanı :</b>  </p>
-                                <span class="text-center d-inline"><t t-esc="format_value(o.yuzey)" /></span>
-                            </div>
+<!--                        <div class="col">-->
+<!--                            <div class="d-flex justify-content-around">-->
+<!--                                <p> <b>Yüzey Alanı :</b>  </p>-->
+<!--                                <span class="text-center d-inline"><t t-esc="format_value(o.yuzey)" /></span>-->
+<!--                            </div>-->
 
-                            <div class="d-flex justify-content-around">
-                                <p> <b>Lamel :</b> </p>
-                                <span class="text-center d-inline"><t t-esc="format_value(o.lamel_aralik)" /></span>
-                            </div>
-                        </div>
-                    </t>
+<!--                            <div class="d-flex justify-content-around">-->
+<!--                                <p> <b>Lamel :</b> </p>-->
+<!--                                <span class="text-center d-inline"><t t-esc="format_value(o.lamel_aralik)" /></span>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </t>-->
 
-                    <t t-elif="o.termo_tip_id.grup == '3'">
-                        <div class="col">
-                            <div class="d-flex justify-content-around">
-                                <p> <b>SC1 :</b>  </p>
-                                <span class="text-center ml-5"><t t-esc="format_value(o.sc1)" /></span>
-                            </div>
+<!--                    <t t-elif="o.termo_tip_id.grup == '3'">-->
+<!--                        <div class="col">-->
+<!--                            <div class="d-flex justify-content-around">-->
+<!--                                <p> <b>SC1 :</b>  </p>-->
+<!--                                <span class="text-center ml-5"><t t-esc="format_value(o.sc1)" /></span>-->
+<!--                            </div>-->
 
-                            <div class="d-flex justify-content-around">
-                                <span> <b>SC2 :</b> </span>
-                                <span class="text-center"><t t-esc="format_value(o.sc2)" /></span>
-                            </div>
-                        </div>
+<!--                            <div class="d-flex justify-content-around">-->
+<!--                                <span> <b>SC2 :</b> </span>-->
+<!--                                <span class="text-center"><t t-esc="format_value(o.sc2)" /></span>-->
+<!--                            </div>-->
+<!--                        </div>-->
 
-                        <div class="col">
-                            <div class="d-flex justify-content-around">
-                                <p> <b>Fan Çapı :</b> </p>
-                                <span class="text-center d-inline"><t t-esc="format_value(o.fan_cap)" /></span>
-                            </div>
+<!--                        <div class="col">-->
+<!--                            <div class="d-flex justify-content-around">-->
+<!--                                <p> <b>Fan Çapı :</b> </p>-->
+<!--                                <span class="text-center d-inline"><t t-esc="format_value(o.fan_cap)" /></span>-->
+<!--                            </div>-->
 
-                            <div class="d-flex justify-content-around">
-                                <p> <b>Fan Adet :</b> </p>
-                                <span class="text-center d-inline"><t t-esc="format_value(o.fan_adet)" /></span>
-                            </div>
-                        </div>
+<!--                            <div class="d-flex justify-content-around">-->
+<!--                                <p> <b>Fan Adet :</b> </p>-->
+<!--                                <span class="text-center d-inline"><t t-esc="format_value(o.fan_adet)" /></span>-->
+<!--                            </div>-->
+<!--                        </div>-->
 
-                        <div class="col">
-                            <div class="d-flex justify-content-around">
-                                <p> <b>Yüzey Alanı :</b>  </p>
-                                <span class="text-center d-inline"><t t-esc="format_value(o.yuzey)" /></span>
-                            </div>
+<!--                        <div class="col">-->
+<!--                            <div class="d-flex justify-content-around">-->
+<!--                                <p> <b>Yüzey Alanı :</b>  </p>-->
+<!--                                <span class="text-center d-inline"><t t-esc="format_value(o.yuzey)" /></span>-->
+<!--                            </div>-->
 
-                            <div class="d-flex justify-content-around">
-                                <p> <b>Lamel :</b> </p>
-                                <span class="text-center d-inline"><t t-esc="format_value(o.lamel_aralik)" /></span>
-                            </div>
-                        </div>
-                    </t>
+<!--                            <div class="d-flex justify-content-around">-->
+<!--                                <p> <b>Lamel :</b> </p>-->
+<!--                                <span class="text-center d-inline"><t t-esc="format_value(o.lamel_aralik)" /></span>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </t>-->
 
-                    <t t-if="o.termo_tip_id.grup in ['4', '5']">
-                        <div class="col">
-                            <div class="d-flex justify-content-around">
-                                <p> <b>Kapasite Yüksek Devir (H) :</b>  </p>
-                                <span class="text-center ml-5"><t t-esc="format_value(o.kapasite_yuksek_devir)" /></span>
-                            </div>
+<!--                    <t t-if="o.termo_tip_id.grup in ['4', '5']">-->
+<!--                        <div class="col">-->
+<!--                            <div class="d-flex justify-content-around">-->
+<!--                                <p> <b>Kapasite Yüksek Devir (H) :</b>  </p>-->
+<!--                                <span class="text-center ml-5"><t t-esc="format_value(o.kapasite_yuksek_devir)" /></span>-->
+<!--                            </div>-->
 
-                            <div class="d-flex justify-content-around">
-                                <span> <b>Kapasite Düşük Devir (L) :</b> </span>
-                                <span class="text-center"><t t-esc="format_value(o.kapasite_dusuk_devir)" /></span>
-                            </div>
-                        </div>
+<!--                            <div class="d-flex justify-content-around">-->
+<!--                                <span> <b>Kapasite Düşük Devir (L) :</b> </span>-->
+<!--                                <span class="text-center"><t t-esc="format_value(o.kapasite_dusuk_devir)" /></span>-->
+<!--                            </div>-->
+<!--                        </div>-->
 
-                        <div class="col">
-                            <div class="d-flex justify-content-around">
-                                <p> <b>Fan Çapı :</b> </p>
-                                <span class="text-center d-inline"><t t-esc="format_value(o.fan_cap)" /></span>
-                            </div>
+<!--                        <div class="col">-->
+<!--                            <div class="d-flex justify-content-around">-->
+<!--                                <p> <b>Fan Çapı :</b> </p>-->
+<!--                                <span class="text-center d-inline"><t t-esc="format_value(o.fan_cap)" /></span>-->
+<!--                            </div>-->
 
-                            <div class="d-flex justify-content-around">
-                                <p> <b>Fan Adet :</b> </p>
-                                <span class="text-center d-inline"><t t-esc="format_value(o.fan_adet)" /></span>
-                            </div>
-                        </div>
+<!--                            <div class="d-flex justify-content-around">-->
+<!--                                <p> <b>Fan Adet :</b> </p>-->
+<!--                                <span class="text-center d-inline"><t t-esc="format_value(o.fan_adet)" /></span>-->
+<!--                            </div>-->
+<!--                        </div>-->
 
-                        <div class="col">
-                            <div class="d-flex justify-content-around">
-                                <p> <b>Yüzey Alanı :</b>  </p>
-                                <span class="text-center d-inline"><t t-esc="format_value(o.yuzey)" /></span>
-                            </div>
+<!--                        <div class="col">-->
+<!--                            <div class="d-flex justify-content-around">-->
+<!--                                <p> <b>Yüzey Alanı :</b>  </p>-->
+<!--                                <span class="text-center d-inline"><t t-esc="format_value(o.yuzey)" /></span>-->
+<!--                            </div>-->
 
-                            <div class="d-flex justify-content-around">
-                                <p> <b>Lamel :</b> </p>
-                                <span class="text-center d-inline"><t t-esc="format_value(o.lamel_aralik)" /></span>
-                            </div>
-                        </div>
-                    </t>
-                </div>
-            </t>
-        </xpath>
-    </template>
+<!--                            <div class="d-flex justify-content-around">-->
+<!--                                <p> <b>Lamel :</b> </p>-->
+<!--                                <span class="text-center d-inline"><t t-esc="format_value(o.lamel_aralik)" /></span>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </t>-->
+<!--                </div>-->
+<!--            </t>-->
+<!--        </xpath>-->
+<!--    </template>-->
 
 
 
