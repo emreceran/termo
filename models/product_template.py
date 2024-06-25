@@ -319,9 +319,7 @@ class ProductTemplate(models.Model):
     # @api.depends('termo_tip_id')
     def onchange_termo_tip_id(self):
         for record in self:
-            if record.termo_tip_id:
-                if record.termo_tip_id.gorsel:
-                    record.image_1920 = record.termo_tip_id.gorsel
+            record.image_1920 = record.termo_tip_id.gorsel
 
 
 
