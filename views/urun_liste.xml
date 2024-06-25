@@ -6,53 +6,53 @@
             <t t-foreach="product" t-as="o">
                 <t t-set="format_value_with_unit" t-value="lambda v, unit: ('-' if v in [-11, ''] else str(v) + ' ' + unit )"/>
 
-                <t t-set="format_value" t-value="lambda v: '-' if v == -11 else v"/>
+                <t t-set="format_value" t-value="lambda v: ' - ' if v == -11 else v"/>
 
                 <div t-attf-class="d-flex flex-wrap justify-content-between" >
                     <t t-if="o.termo_tip_id.grup == '1'">
                         <div class="col">
-                            <div class="d-flex justify-content-around">
+                            <div class="d-flex  mx-2 justify-content-between">
                                 <p> <b>SC1 :</b></p>
                                 <span class="text-center ml-5"><t t-esc="format_value_with_unit(o.sc1, 'W')" /></span>
-                            </div>
+<!--                            </div>-->
 
-                            <div class="d-flex justify-content-around">
+<!--                            <div class="d-flex col-lg-2 mx-2 justify-content-between">-->
                                 <p> <b>SC2 :</b></p>
                                 <span class="text-center"><t t-esc="format_value_with_unit(o.sc2, 'W')" /></span>
                             </div>
                         </div>
 
                         <div class="col">
-                            <div class="d-flex justify-content-around">
+                            <div class="d-flex mx-2 justify-content-between">
                                 <p> <b>SC3 :</b></p>
                                 <span class="text-center"><t t-esc="format_value_with_unit(o.sc3, 'W')" /></span>
-                            </div>
+<!--                            </div>-->
 
-                            <div class="d-flex justify-content-around">
+<!--                            <div class="d-flex mx-2 justify-content-between">-->
                                 <p> <b>SC4 :</b></p>
                                 <span class="text-center"><t t-esc="format_value_with_unit(o.sc4, 'W')" /></span>
                             </div>
                         </div>
 
                         <div class="col">
-                            <div class="d-flex justify-content-around">
+                            <div class="d-flex mx-2 justify-content-between">
                                 <p> <b>Fan Çapı :</b></p>
                                 <span class="text-center"><t t-esc="format_value_with_unit(o.fan_cap, 'mm')" /></span>
                             </div>
 
-                            <div class="d-flex justify-content-around">
+                            <div class="d-flex mx-2 justify-content-between">
                                 <p> <b>Fan Adet :</b></p>
                                 <span class="text-center"><t t-esc="format_value_with_unit(o.fan_adet, ' ')" /></span>
                             </div>
                         </div>
 
                         <div class="col">
-                            <div class="d-flex justify-content-around">
+                            <div class="d-flex mx-2 justify-content-between">
                                 <p> <b>Yüzey Alanı :</b></p>
                                 <span class="text-center"><t t-esc="format_value_with_unit(o.yuzey,'&#13221;')" /></span>
                             </div>
 
-                            <div class="d-flex justify-content-around">
+                            <div class="d-flex mx-2 justify-content-between">
                                 <p> <b>Lamel :</b></p>
                                 <span class="text-center"><t t-esc="format_value_with_unit(o.hatve,'mm')" /></span>
                             </div>

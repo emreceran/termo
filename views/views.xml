@@ -50,9 +50,13 @@
             <field name="arch" type="xml">
                 <xpath expr="//header" position="inside">
 
-                     <button string="Görsellerigüncelle" type="object" name="onchange_termo_tip_id"/>
+                    <button string="Görsellerigüncelle" type="object" name="onchange_termo_tip_id"/>
 
                     <button string="Variantları sil" type="object" name="clear_existing_variants"/>
+
+                     <button string="Variantları kontrol" type="object" name="check_precomputed_values"/>
+                    <button string="Variantları direk yaz" type="object" name="direct_write_precomputed_values"/>
+<!--                    <button string="Variantları sql" type="object" name="update_precomputed_values"/>-->
 
                     <button string="VARYANTLARI OLUŞTUR " type="object" name="write_precomputed_values"/>
                     <button string="VARYANTLARI YAZ " type="object" name="read_precomputed_values"/>
@@ -93,7 +97,10 @@
                 <xpath expr="//header" position="inside">
 
                     <button string="Görsellerigüncelle" type="object" name="onchange_termo_tip_id"/>
-                     <button string="Variantları sil" type="object" name="clear_existing_variants"/>
+                    <button string="Variantları sil" type="object" name="clear_existing_variants"/>
+                    <button string="Variantları kontrol" type="object" name="check_precomputed_values"/>
+                    <button string="Variantları direk yaz" type="object" name="direct_write_precomputed_values"/>
+<!--                    <button string="Variantları sql" type="object" name="update_precomputed_values"/>-->
                     <button string="VARYANTLARI OLUŞTUR " type="object" name="write_precomputed_values"/>
                     <button string="VARYANTLARI YAZ " type="object" name="read_precomputed_values"/>
                 </xpath>

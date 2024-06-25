@@ -127,14 +127,11 @@ class ProductTemplate(models.Model):
             self.env.cr.commit()
 
     def update_precomputed_values(self):
-        self.clear_existing_variants()  # Mevcut varyantları temizle
         for record in self:
-            precomputed_values = {}
             attribute_lines_to_create = []
             attribute_values_cache = {}
-            value_lines_to_create = []
-
             product_tmpl_id = record.id
+
             if record.precomputed_values:
                 precomputed_values = json.loads(record.precomputed_values)
                 termo_filtre_attributes = record.termo_filtre
@@ -142,7 +139,9 @@ class ProductTemplate(models.Model):
                 for attrib in termo_filtre_attributes:
                     referans = attrib.ref  # attribute referansı
                     urun_field_degeri = getattr(record, referans)
+
                     urun_filtre_degeri = precomputed_values.get(referans, [None])[0]
+                    print(referans, urun_field_degeri, urun_filtre_degeri)
 
                     if urun_field_degeri != attrib.bos_deger:
                         # Cache'de attribute value kontrolü
@@ -154,85 +153,74 @@ class ProductTemplate(models.Model):
                             attribute_values_cache[(attrib.id, urun_filtre_degeri)] = deger
 
                         if deger:
-                            attribute_lines_to_create.append((product_tmpl_id, attrib.id))
-                            value_lines_to_create.append((product_tmpl_id, attrib.id, deger.id))
+                            attribute_lines_to_create.append((product_tmpl_id, attrib.id, deger.id))
                         else:
                             raise UserError(
                                 _('Değiştirmeye çalıştığınız %s ürününün %s alanında yer alan %s değeri geçersiz. Kontrol ediniz ya da filtre değerlerine ekleyiniz.') % (
                                     record.name, referans, urun_field_degeri))
 
-            # SQL ile attribute_line kayıtlarını ekleme
-            if attribute_lines_to_create:
-                query = """
+            # Mevcut product_variant_combination kayıtlarını silme
+            self._cr.execute("""
+                DELETE FROM product_variant_combination WHERE product_product_id IN (
+                    SELECT id FROM product_product WHERE product_tmpl_id = %s
+                )
+            """, (product_tmpl_id,))
+
+            # Mevcut product_product kayıtlarını silme
+            self._cr.execute("""
+                DELETE FROM product_product WHERE product_tmpl_id = %s
+            """, (product_tmpl_id,))
+
+            # Mevcut attribute line ve attribute value kayıtlarını temizleme
+            self._cr.execute("""
+                DELETE FROM product_attribute_value_product_template_attribute_line_rel
+                WHERE product_template_attribute_line_id IN (
+                    SELECT id FROM product_template_attribute_line WHERE product_tmpl_id = %s
+                )
+            """, (product_tmpl_id,))
+            self._cr.execute("""
+                DELETE FROM product_template_attribute_line WHERE product_tmpl_id = %s
+            """, (product_tmpl_id,))
+
+            # SQL ile attribute_line ve attribute_value kayıtlarını ekleme
+            for pt_id, attr_id, val_id in attribute_lines_to_create:
+                # Yeni attribute line oluşturma
+                self._cr.execute("""
                     INSERT INTO product_template_attribute_line (product_tmpl_id, attribute_id)
-                    VALUES %s
-                    RETURNING id, product_tmpl_id, attribute_id
-                """
-                values = ", ".join(
-                    "(%s, %s)" % (pt_id, attr_id)
-                    for pt_id, attr_id in attribute_lines_to_create
-                )
-                self.env.cr.execute(query % values)
-                attribute_line_ids = self.env.cr.fetchall()
-                attribute_line_map = {(line[1], line[2]): line[0] for line in attribute_line_ids}
+                    VALUES (%s, %s) RETURNING id
+                """, (pt_id, attr_id))
+                new_line_id = self._cr.fetchone()[0]
+                relation_table = 'product_attribute_value_product_template_attribute_line_rel'
+                self._cr.execute(f"""
+                    INSERT INTO {relation_table} (product_template_attribute_line_id, product_attribute_value_id)
+                    VALUES (%s, %s)
+                """, (new_line_id, val_id))
+                print(f"Created new attribute line: {new_line_id}, value: {val_id}")
 
-            # SQL ile attribute_value kayıtlarını ekleme
-            if value_lines_to_create:
-                query = """
-                    INSERT INTO product_template_attribute_value (attribute_line_id, product_attribute_value_id)
-                    VALUES %s
-                """
-                values = ", ".join(
-                    "(%s, %s)" % (attribute_line_map[(pt_id, attr_id)], val_id)
-                    for pt_id, attr_id, val_id in value_lines_to_create
-                )
-                self.env.cr.execute(query % values)
+            # Product.product varyantlarını ORM ile oluşturma
+            product_variant_obj = self.env['product.product']
+            for pt_id, attr_id, val_id in attribute_lines_to_create:
+                product_variant_obj.create({
+                    'product_tmpl_id': pt_id,
+                    'product_template_attribute_value_ids': [(6, 0, [val_id])]
+                })
+                print(f"Created product variant for product_tmpl_id: {pt_id} with attribute_value_ids: {val_id}")
 
-            # Değişiklikleri veritabanına kesinleştir
-            self.env.cr.commit()
+            # Veritabanı işlemlerini commit etmek
+            self._cr.commit()
 
-    # def read_precomputed_values(self):
-    #     for record in self:
-    #         precomputed_values = {}
-    #         attribute_lines_to_create = []
-    #         attribute_values_cache = {}
-    #         value_lines_to_create = []
-    #
-    #         product_tmpl_id = record.id
-    #         if record.precomputed_values:
-    #             precomputed_values = json.loads(record.precomputed_values)
-    #             termo_filtre_attributes = record.termo_filtre
-    #
-    #             for attrib in termo_filtre_attributes:
-    #                 referans = attrib.ref  # attribute referansı
-    #                 urun_field_degeri = getattr(record, referans)
-    #                 urun_filtre_degeri = precomputed_values.get(referans, [None])[0]
-    #
-    #                 if urun_field_degeri != attrib.bos_deger:
-    #                     # Cache'de attribute value kontrolü
-    #                     if (attrib.id, urun_filtre_degeri) in attribute_values_cache:
-    #                         deger = attribute_values_cache[(attrib.id, urun_filtre_degeri)]
-    #                     else:
-    #                         deger = self.env['product.attribute.value'].search(
-    #                             [('name', '=', urun_filtre_degeri), ('attribute_id', '=', attrib.id)], limit=1)
-    #                         attribute_values_cache[(attrib.id, urun_filtre_degeri)] = deger
-    #
-    #                     if deger:
-    #                         attribute_lines_to_create.append((product_tmpl_id, attrib.id, deger.id))
-    #                     else:
-    #                         raise UserError(
-    #                             _('Değiştirmeye çalıştığınız %s ürününün %s alanında yer alan %s değeri geçersiz. Kontrol ediniz ya da filtre değerlerine ekleyiniz.') % (
-    #                                 record.name, referans, urun_field_degeri))
-    #         # ORM ile attribute_line ve attribute_value kayıtlarını toplu ekleme
-    #         if attribute_lines_to_create:
-    #             self.env['product.template.attribute.line'].create([
-    #                 {
-    #                     'product_tmpl_id': pt_id,
-    #                     'attribute_id': attr_id,
-    #                     'value_ids': [(4, val_id)],
-    #                 }
-    #                 for pt_id, attr_id, val_id in attribute_lines_to_create
-    #             ])
+            # Cache temizliği ve flush işlemleri
+            self.clear_and_reload_cache()
+            self.env['product.template.attribute.line'].flush()
+            self.env['product.template'].flush()
+            self.env['product.attribute.value'].flush()
+            self.env['product.product'].flush()
+            self.invalidate_cache()
+
+            # Ürünü yeniden yükleme
+            self.browse(product_tmpl_id).read()
+
+
 
     def read_precomputed_values(self):
         for record in self:
@@ -280,49 +268,52 @@ class ProductTemplate(models.Model):
                     for pt_id, attr_id, val_id in attribute_lines_to_create
                 ])
 
-    # def read_precomputed_values(self):
-    #     for record in self:
-    #         precomputed_values = {}
-    #         attribute_lines_to_create = []
-    #         attribute_values_cache = {}
-    #         value_lines_to_create = []
-    #
-    #         product_tmpl_id = record.id
-    #         if record.precomputed_values:
-    #             precomputed_values = json.loads(record.precomputed_values)
-    #             termo_filtre_attributes = record.termo_filtre
-    #
-    #             for attrib in termo_filtre_attributes:
-    #                 referans = attrib.ref  # attribute referansı
-    #                 urun_field_degeri = getattr(record, referans)
-    #                 urun_filtre_degeri = precomputed_values.get(referans, [None])[0]
-    #
-    #                 if urun_field_degeri != attrib.bos_deger:
-    #                     # Cache'de attribute value kontrolü
-    #                     if (attrib.id, urun_filtre_degeri) in attribute_values_cache:
-    #                         deger = attribute_values_cache[(attrib.id, urun_filtre_degeri)]
-    #                     else:
-    #                         deger = self.env['product.attribute.value'].search(
-    #                             [('name', '=', urun_filtre_degeri), ('attribute_id', '=', attrib.id)], limit=1)
-    #                         attribute_values_cache[(attrib.id, urun_filtre_degeri)] = deger
-    #
-    #                     if deger:
-    #                         attribute_lines_to_create.append((product_tmpl_id, attrib.id, deger.id))
-    #                     else:
-    #                         raise UserError(
-    #                             _('Değiştirmeye çalıştığınız %s ürününün %s alanında yer alan %s değeri geçersiz. Kontrol ediniz ya da filtre değerlerine ekleyiniz.') % (
-    #                                 record.name, referans, urun_field_degeri))
-    #
-    #         # ORM ile attribute_line ve attribute_value kayıtlarını ekleme
-    #         for pt_id, attr_id, val_id in attribute_lines_to_create:
-    #             attribute_line = self.env['product.template.attribute.line'].create({
-    #                 'product_tmpl_id': pt_id,
-    #                 'attribute_id': attr_id,
-    #                 'value_ids': [(4, val_id)],
-    #             })
-    #
-    #         # Değişiklikleri veritabanına kesinleştir
-    #         self.env.cr.commit()
+    def check_precomputed_values(self):
+        attribute_lines_to_create = []
+        attribute_values_cache = {}
+
+        for record in self:
+            precomputed_values = json.loads(record.precomputed_values)
+            termo_filtre_attributes = record.termo_filtre
+
+            product_tmpl_id = record.id
+
+            for attrib in termo_filtre_attributes:
+                referans = attrib.ref  # attribute referansı
+                urun_field_degeri = getattr(record, referans)
+                urun_filtre_degeri = precomputed_values.get(referans, [None])[0]
+
+                if urun_field_degeri != attrib.bos_deger:
+                    # Cache'de attribute value kontrolü
+                    if (attrib.id, urun_filtre_degeri) in attribute_values_cache:
+                        deger = attribute_values_cache[(attrib.id, urun_filtre_degeri)]
+                    else:
+                        deger = self.env['product.attribute.value'].search(
+                            [('name', '=', urun_filtre_degeri), ('attribute_id', '=', attrib.id)], limit=1)
+                        attribute_values_cache[(attrib.id, urun_filtre_degeri)] = deger
+
+                    if not deger:
+                        raise UserError(
+                            _('Değiştirmeye çalıştığınız %s ürününün %s alanında yer alan %s değeri geçersiz. Kontrol ediniz ya da filtre değerlerine ekleyiniz.') % (
+                                record.name, referans, urun_field_degeri))
+
+                    attribute_lines_to_create.append((product_tmpl_id, attrib.id, deger.id))
+
+        return attribute_lines_to_create
+
+    def direct_write_precomputed_values(self):
+        attribute_lines_to_create = self.check_precomputed_values()
+
+        if attribute_lines_to_create:
+            self.env['product.template.attribute.line'].create([
+                {
+                    'product_tmpl_id': pt_id,
+                    'attribute_id': attr_id,
+                    'value_ids': [(4, val_id)],
+                }
+                for pt_id, attr_id, val_id in attribute_lines_to_create
+            ])
+
 
     # @api.onchange('termo_tip_id')
     # @api.depends('termo_tip_id')
