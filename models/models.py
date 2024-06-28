@@ -117,5 +117,16 @@ class ProductTemplate(models.Model):
             record.value_ids.unlink()
             self.env['product.attribute.value'].create([{'name': color, 'attribute_id': record.id} for color in degerelr])
 
-
-
+# class ProductImage(models.Model):
+#     _inherit = 'product.image'
+#     _description = "Product Image"
+#
+#     product_tmpl_id = fields.Many2one('product.template', "Product Template", index=True, ondelete='cascade')
+#
+#     image_1920 = fields.Image(compute='_compute_1920', store=True)
+#
+#
+#     @api.depends('product_tmpl_id')
+#     def _compute_1920(self):
+#         for image in self:
+#             image.image_1920 = image.product_tmpl_id.termo_tip_id.gorsel

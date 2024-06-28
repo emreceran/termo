@@ -63,7 +63,8 @@ class ProductTemplate(models.Model):
     termo_filtre =fields.Many2many(related="termo_tip_id.filtre")
     public_categ_ids =fields.Many2many(related="termo_tip_id.public")
     filtre_grubu_id =fields.Many2one(related="termo_tip_id.filtre_grubu_id")
-    # image_1920 =fields.Binary(related="termo_tip_id.gorsel")
+    image_1920 =fields.Image(related="termo_tip_id.gorsel")
+    image_128 =fields.Image(related="termo_tip_id.gorsel")
 
     oda_sicakligi = fields.Float(string = "Oda Sıcaklığı ", compute="_value_pc", default = 6, store=True)
     evaporasyon_sicakligi = fields.Float(string = "Evaporasyon Sıcaklığı ", compute="_value_pc", default = 6, store=True)
@@ -321,7 +322,43 @@ class ProductTemplate(models.Model):
         for record in self:
             record.image_1920 = record.termo_tip_id.gorsel
 
+    # def _get_image_holder(self):
+    # #     """Returns the holder of the image to use as default representation.
+    # #     If the product template has an image it is the product template,
+    # #     otherwise if the product has variants it is the first variant
+    # #
+    # #     :return: this product template or the first product variant
+    # #     :rtype: recordset of 'product.template' or recordset of 'product.product'
+    # #     """
+    # #     # self.ensure_one()
+    # #     # if self.termo_tip_id.gorsel:
+    # #     #     print("asasa")
+    # #     #     return self.termo_tip_id.gorsel
+    # #     # variant = self.env['product.product'].browse(self._get_first_possible_variant_id())
+    # #     # # if the variant has no image anyway, spare some queries by using template
+    # #     # return variant if variant.image_variant_128 else self
+    # #
+    #     for record in self:
+    #         if record.termo_tip_id:
+    #             return record.termo_tip_id.gorsel
 
+
+    def _get_images(self):
+        """Return a list of records implementing `image.mixin` to
+        display on the carousel on the website for this template.
+
+        This returns a list and not a recordset because the records might be
+        from different models (template and image).
+
+        It contains in this order: the main image of the template and the
+        Template Extra Images.
+        """
+        self.ensure_one()
+        # iamges=[]
+        # for record in self:
+        #     iamges.append(record.termo_tip_id.gorsel)
+
+        return [self] + list(self.product_template_image_ids)
 
 
     @api.depends('hatve', 'sc2', 'sc3', 'sc4')
