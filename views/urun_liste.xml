@@ -2,20 +2,53 @@
 <data>
 
 
-    <template id="termo_desc2" inherit_id="website_sale.products_item" name="Termo Description">
-        <xpath expr="//a[hasclass('oe_product_image_link')]" position="replace">
+    <template id="termo_desc3" inherit_id="website_sale.products_item" name="Termo Description3">
 
-            <a t-att-href="product_href" class="oe_product_image_link d-block h-100 position-relative" itemprop="url" contenteditable="false">
-                <t t-set="image_holder" t-value="product._get_image_holder()"/>
-                <span t-field="image_holder.image_1920"
-                      t-options="{'widget': 'image', 'itemprop': 'image',  'class': 'h-100 w-100 position-absolute'}"
-                      class="oe_product_image_img_wrapper d-flex h-100 justify-content-center align-items-center position-absolute"/>
+        <xpath expr="//div[@class='product_price']" position="replace">
+            <style>
+                @media (max-width: 767px) {
+                .product_price {
+                margin-left: 20px; /* Fiyat kısmını sağa çekmek için margin ekledik */
+                }
+                }
+            </style>
 
-                <t t-set="bg_color" t-value="td_product['ribbon']['bg_color'] or ''"/>
-                <t t-set="text_color" t-value="td_product['ribbon']['text_color']"/>
-                <t t-set="bg_class" t-value="td_product['ribbon']['html_class']"/>
-                <span t-attf-class="o_ribbon #{bg_class}" t-attf-style="#{text_color and ('color: %s; ' % text_color)}#{bg_color and 'background-color:' + bg_color}" t-out="td_product['ribbon']['html'] or ''"/>
-            </a>
+
+            <div class="product_price" itemprop="offers" itemscope="itemscope" itemtype="http://schema.org/Offer">
+                <t t-if="'base_price' in template_price_vals">
+                    <del t-attf-class="text-muted me-1 h6 mb-0" style="white-space: nowrap;">
+                        <em class="small" t-esc="template_price_vals['base_price']" t-options="{'widget': 'monetary', 'display_currency': website.currency_id}" />
+                    </del>
+                </t>
+                <span class="h6 mb-0" t-if="template_price_vals['price_reduce'] or not website.prevent_zero_price_sale" t-esc="template_price_vals['price_reduce']" t-options="{'widget': 'monetary', 'display_currency': website.currency_id}"/>
+                <span class="h6 mb-0" t-else="" t-field="website.prevent_zero_price_sale_text"/>
+                <span itemprop="price" style="display:none;" t-esc="template_price_vals['price_reduce']" />
+                <span itemprop="priceCurrency" style="display:none;" t-esc="website.currency_id.name" />
+            </div>
+
+        </xpath>
+
+
+    </template>
+
+
+    <template id="termo_desc2" inherit_id="website_sale.products_item" name="Termo Description2">
+        <xpath expr="//a[hasclass('oe_product_image_link')]/parent::div" position="replace">
+
+            <div class="oe_product_image position-relative h-100 flex-grow-0 overflow-hidden">
+                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()" t-nocache="The csrf token must always be up to date."/>
+                <a t-att-href="product_href" class="oe_product_image_link d-block h-100 position-relative" itemprop="url" contenteditable="false">
+                    <t t-set="image_holder" t-value="product._get_image_holder()"/>
+                    <span t-field="image_holder.image_1920"
+                          t-options="{'widget': 'image', 'itemprop': 'image',  'class': 'h-100 w-100 position-absolute'}"
+                          class="oe_product_image_img_wrapper d-flex h-100 justify-content-center align-items-center position-absolute"/>
+
+                    <t t-set="bg_color" t-value="td_product['ribbon']['bg_color'] or ''"/>
+                    <t t-set="text_color" t-value="td_product['ribbon']['text_color']"/>
+                    <t t-set="bg_class" t-value="td_product['ribbon']['html_class']"/>
+                    <span t-attf-class="o_ribbon #{bg_class}" t-attf-style="#{text_color and ('color: %s; ' % text_color)}#{bg_color and 'background-color:' + bg_color}" t-out="td_product['ribbon']['html'] or ''"/>
+                </a>
+            </div>
             <!--            <span t-out="product.termo_tip_id.gorsel"-->
             <!--                  t-options="{'widget': 'image', 'preview_image': image_type, 'itemprop': 'image', 'class': 'h-100 w-100 position-absolute'}"-->
             <!--                  class="oe_product_image_img_wrapper d-flex h-100 justify-content-center align-items-center position-absolute"/>-->
@@ -25,293 +58,260 @@
     </template>
 
 
-    <template id="termo_desc" inherit_id="website_sale.products_item" name="Termo Description">
-
-        <xpath expr="//div[hasclass('o_wsale_product_information_text')]" position="after">
-            <t t-foreach="product" t-as="o">
-
-                <t t-set="format_value_with_unit" t-value="lambda v, unit: ('-' if v in [-11, ''] else str(v) + ' ' + unit )"/>
-
-                <t t-set="format_value" t-value="lambda v: ' - ' if v == -11 else v"/>
-
-                <div t-attf-class="d-flex flex-wrap justify-content-between" >
-
-                    <t t-if="o.termo_tip_id.grup == '1'">
-
-                        <style>
-                            @media (max-width: 767px) {
-                            .product-info {
-                            display: block;
-                            <!--                            margin-bottom: 1px; /* Boşluğu azaltmak için değeri değiştirdik */-->
-                            }
-                            }
-                            @media (min-width: 768px) {
-                            .product-info {
-                            display: flex;
-                            align-items: center;
-                            justify-content: space-between;
-                            margin-bottom: 10px;
-                            }
-                            .product-info > div {
-                            flex: 1;
-                            display: flex;
-                            align-items: center;
-                            }
-                            .product-info > div > span + span {
-                            margin-left: 10px;
-                            }
-                            }
-                        </style>
-
-                        <div class="row">
-                            <div class="col-12 mb-2">
-                                <div class="product-info mx-2">
-                                    <div>
-                                        <span><b>SC1 :</b></span>
-                                        <span class="text-center"><t t-esc="format_value_with_unit(o.sc1, 'W')" /></span>
-                                    </div>
-                                    <div>
-                                        <span><b>SC2 :</b></span>
-                                        <span class="text-center"><t t-esc="format_value_with_unit(o.sc2, 'W')" /></span>
-                                    </div>
-                                    <div>
-                                        <span><b>SC3 :</b></span>
-                                        <span class="text-center"><t t-esc="format_value_with_unit(o.sc3, 'W')" /></span>
-                                    </div>
-                                    <div>
-                                        <span><b>SC4 :</b></span>
-                                        <span class="text-center"><t t-esc="format_value_with_unit(o.sc4, 'W')" /></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12 mb-2">
-                                <div class="product-info mx-2">
-                                    <div>
-                                        <span><b>Fan Çapı :</b></span>
-                                        <span class="text-center"><t t-esc="format_value_with_unit(o.fan_cap, 'mm')" /></span>
-                                    </div>
-                                    <div>
-                                        <span><b>Fan Adet :</b></span>
-                                        <span class="text-center"><t t-esc="format_value_with_unit(o.fan_adet, ' ')" /></span>
-                                    </div>
-                                    <div>
-                                        <span><b>Yüzey Alanı :</b></span>
-                                        <span class="text-center"><t t-esc="format_value_with_unit(o.yuzey, '&#13221;')" /></span>
-                                    </div>
-                                    <div>
-                                        <span><b>Lamel :</b></span>
-                                        <span class="text-center"><t t-esc="format_value_with_unit(o.hatve, 'mm')" /></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+   <template id="termo_desc" inherit_id="website_sale.products_item" name="Termo Description">
+    <xpath expr="//div[hasclass('oe_product_image')]" position="after">
+        <style>
+            @media (max-width: 767px) {
+                .red-background {
+                    display: block;
+                    background-color: red;
+                    height: 200px;
+                    width: 100%;
+                }
+            }
+        </style>
+        <div class="red-background">
+            <span>asasa</span>
+        </div>
+    </xpath>
+</template>
 
 
 
 
+    <!--    <template id="termo_desc" inherit_id="website_sale.products_item" name="Termo Description">-->
+    <!--        <xpath expr="//div[hasclass('o_wsale_product_information_text')]" position="after">-->
+    <!--            <style>-->
+    <!--                @media (max-width: 767px) {-->
+    <!--                .product-info {-->
+    <!--                display: block;-->
+    <!--                }-->
+    <!--                .product-container {-->
+    <!--                display: flex;-->
+    <!--                flex-direction: column;-->
+    <!--                }-->
+    <!--                .product-header {-->
+    <!--                display: flex;-->
+    <!--                align-items: center;-->
+    <!--                }-->
+    <!--                .product-image {-->
+    <!--                flex: 0 0 auto;-->
+    <!--                margin-right: 10px;-->
+    <!--                }-->
+    <!--                .product-details {-->
+    <!--                display: flex;-->
+    <!--                flex-direction: column;-->
+    <!--                }-->
+    <!--                }-->
+    <!--                @media (min-width: 768px) {-->
+    <!--                .product-info {-->
+    <!--                display: flex;-->
+    <!--                align-items: center;-->
+    <!--                justify-content: space-between;-->
+    <!--                margin-bottom: 10px;-->
+    <!--                }-->
+    <!--                .product-info > div {-->
+    <!--                flex: 1;-->
+    <!--                display: flex;-->
+    <!--                align-items: center;-->
+    <!--                }-->
+    <!--                .product-info > div > span + span {-->
+    <!--                margin-left: 10px;-->
+    <!--                }-->
+    <!--                .product-container {-->
+    <!--                display: block;-->
+    <!--                }-->
+    <!--                .product-details {-->
+    <!--                display: flex;-->
+    <!--                align-items: center;-->
+    <!--                }-->
+    <!--                }-->
+    <!--            </style>-->
+
+    <!--            <t t-foreach="product" t-as="o">-->
+    <!--                <t t-set="format_value_with_unit" t-value="lambda v, unit: ('-' if v in [-11, ''] else str(v) + ' ' + unit )"/>-->
+    <!--                <t t-set="format_value" t-value="lambda v: ' - ' if v == -11 else v"/>-->
+
+    <!--                <div class="product-container">-->
+    <!--                    <div class="product-header">-->
+    <!--                        <a t-att-href="product_href" class="oe_product_image_link d-block h-100 position-relative" itemprop="url" contenteditable="false">-->
+    <!--                            <t t-set="image_holder" t-value="product._get_image_holder()"/>-->
+    <!--                            <span t-field="image_holder.image_1920"-->
+    <!--                                  t-options="{'widget': 'image', 'itemprop': 'image',  'class': 'h-100 w-100 position-absolute'}"-->
+    <!--                                  class="oe_product_image_img_wrapper d-flex h-100 justify-content-center align-items-center position-absolute"/>-->
+
+    <!--                            <t t-set="bg_color" t-value="td_product['ribbon']['bg_color'] or ''"/>-->
+    <!--                            <t t-set="text_color" t-value="td_product['ribbon']['text_color']"/>-->
+    <!--                            <t t-set="bg_class" t-value="td_product['ribbon']['html_class']"/>-->
+    <!--                            <span t-attf-class="o_ribbon #{bg_class}" t-attf-style="#{text_color and ('color: %s; ' % text_color)}#{bg_color and 'background-color:' + bg_color}" t-out="td_product['ribbon']['html'] or ''"/>-->
+    <!--                        </a>-->
+    <!--                    </div>-->
+
+    <!--                    <div class="product-details">-->
+    <!--                        <div class="product-info">-->
+    <!--                            <t t-if="o.termo_tip_id.grup == '1'">-->
+    <!--                                <div class="row">-->
+    <!--                                    <div class="col-12 mb-2">-->
+    <!--                                        <div class="product-info mx-2">-->
+    <!--                                            <div>-->
+    <!--                                                <span><b>SC1 :</b></span>-->
+    <!--                                                <span class="text-center"><t t-esc="format_value_with_unit(o.sc1, 'W')" /></span>-->
+    <!--                                            </div>-->
+    <!--                                            <div>-->
+    <!--                                                <span><b>SC2 :</b></span>-->
+    <!--                                                <span class="text-center"><t t-esc="format_value_with_unit(o.sc2, 'W')" /></span>-->
+    <!--                                            </div>-->
+    <!--                                            <div>-->
+    <!--                                                <span><b>SC3 :</b></span>-->
+    <!--                                                <span class="text-center"><t t-esc="format_value_with_unit(o.sc3, 'W')" /></span>-->
+    <!--                                            </div>-->
+    <!--                                            <div>-->
+    <!--                                                <span><b>SC4 :</b></span>-->
+    <!--                                                <span class="text-center"><t t-esc="format_value_with_unit(o.sc4, 'W')" /></span>-->
+    <!--                                            </div>-->
+    <!--                                        </div>-->
+    <!--                                    </div>-->
+    <!--                                    <div class="col-12 mb-2">-->
+    <!--                                        <div class="product-info mx-2">-->
+    <!--                                            <div>-->
+    <!--                                                <span><b>Fan Çapı :</b></span>-->
+    <!--                                                <span class="text-center"><t t-esc="format_value_with_unit(o.fan_cap, 'mm')" /></span>-->
+    <!--                                            </div>-->
+    <!--                                            <div>-->
+    <!--                                                <span><b>Fan Adet :</b></span>-->
+    <!--                                                <span class="text-center"><t t-esc="format_value_with_unit(o.fan_adet, ' ')" /></span>-->
+    <!--                                            </div>-->
+    <!--                                            <div>-->
+    <!--                                                <span><b>Yüzey Alanı :</b></span>-->
+    <!--                                                <span class="text-center"><t t-esc="format_value_with_unit(o.yuzey, '&#13221;')" /></span>-->
+    <!--                                            </div>-->
+    <!--                                            <div>-->
+    <!--                                                <span><b>Lamel :</b></span>-->
+    <!--                                                <span class="text-center"><t t-esc="format_value_with_unit(o.hatve, 'mm')" /></span>-->
+    <!--                                            </div>-->
+    <!--                                        </div>-->
+    <!--                                    </div>-->
+    <!--                                </div>-->
+    <!--                            </t>-->
+
+    <!--                            <t t-elif="o.termo_tip_id.grup == '2'">-->
+    <!--                                <div class="row">-->
+    <!--                                    <div class="col-12 mb-2">-->
+    <!--                                        <div class="product-info mx-2">-->
+    <!--                                            <div>-->
+    <!--                                                <span><b>To / Te -35°C / -40°C :</b></span>-->
+    <!--                                                <span class="text-center"><t t-esc="format_value_with_unit(o.t1, 'W')" /></span>-->
+    <!--                                            </div>-->
+    <!--                                            <div>-->
+    <!--                                                <span><b>To / Te -40°C / -45°C :</b></span>-->
+    <!--                                                <span class="text-center"><t t-esc="format_value_with_unit(o.t2, 'W')" /></span>-->
+    <!--                                            </div>-->
+    <!--                                            <div>-->
+    <!--                                                <span><b>Fan Çapı :</b></span>-->
+    <!--                                                <span class="text-center"><t t-esc="format_value_with_unit(o.fan_cap, 'mm')" /></span>-->
+    <!--                                            </div>-->
+    <!--                                        </div>-->
+    <!--                                    </div>-->
+    <!--                                    <div class="col-12 mb-2">-->
+    <!--                                        <div class="product-info mx-2">-->
+    <!--                                            <div>-->
+    <!--                                                <span><b>Fan Adet :</b></span>-->
+    <!--                                                <span class="text-center"><t t-esc="format_value_with_unit(o.fan_adet, ' ')" /></span>-->
+    <!--                                            </div>-->
+    <!--                                            <div>-->
+    <!--                                                <span><b>Yüzey Alanı :</b></span>-->
+    <!--                                                <span class="text-center"><t t-esc="format_value_with_unit(o.yuzey, '&#13221;')" /></span>-->
+    <!--                                            </div>-->
+    <!--                                            <div>-->
+    <!--                                                <span><b>Lamel :</b></span>-->
+    <!--                                                <span class="text-center"><t t-esc="format_value_with_unit(o.hatve, 'mm')" /></span>-->
+    <!--                                            </div>-->
+    <!--                                        </div>-->
+    <!--                                    </div>-->
+    <!--                                </div>-->
+    <!--                            </t>-->
+
+    <!--                            <t t-elif="o.termo_tip_id.grup == '3'">-->
+    <!--                                <div class="row">-->
+    <!--                                    <div class="col-12 mb-2">-->
+    <!--                                        <div class="product-info mx-2">-->
+    <!--                                            <div>-->
+    <!--                                                <span><b>SC1 :</b></span>-->
+    <!--                                                <span class="text-center"><t t-esc="format_value_with_unit(o.sc1, 'W')" /></span>-->
+    <!--                                            </div>-->
+    <!--                                            <div>-->
+    <!--                                                <span><b>SC2 :</b></span>-->
+    <!--                                                <span class="text-center"><t t-esc="format_value_with_unit(o.sc2, 'W')" /></span>-->
+    <!--                                            </div>-->
+    <!--                                            <div>-->
+    <!--                                                <span><b>Fan Çapı :</b></span>-->
+    <!--                                                <span class="text-center"><t t-esc="format_value_with_unit(o.fan_cap, 'mm')" /></span>-->
+    <!--                                            </div>-->
+    <!--                                        </div>-->
+    <!--                                    </div>-->
+    <!--                                    <div class="col-12 mb-2">-->
+    <!--                                        <div class="product-info mx-2">-->
+    <!--                                            <div>-->
+    <!--                                                <span><b>Fan Adet :</b></span>-->
+    <!--                                                <span class="text-center"><t t-esc="format_value_with_unit(o.fan_adet, ' ')" /></span>-->
+    <!--                                            </div>-->
+    <!--                                            <div>-->
+    <!--                                                <span><b>Yüzey Alanı :</b></span>-->
+    <!--                                                <span class="text-center"><t t-esc="format_value_with_unit(o.yuzey, '&#13221;')" /></span>-->
+    <!--                                            </div>-->
+    <!--                                            <div>-->
+    <!--                                                <span><b>Lamel :</b></span>-->
+    <!--                                                <span class="text-center"><t t-esc="format_value_with_unit(o.hatve, 'mm')" /></span>-->
+    <!--                                            </div>-->
+    <!--                                        </div>-->
+    <!--                                    </div>-->
+    <!--                                </div>-->
+    <!--                            </t>-->
+
+    <!--                            <t t-if="o.termo_tip_id.grup in ['4', '5']">-->
+    <!--                                <div class="row">-->
+    <!--                                    <div class="col-12 mb-2">-->
+    <!--                                        <div class="product-info mx-2">-->
+    <!--                                            <div>-->
+    <!--                                                <span><b>Kapasite Yüksek Devir (H) :</b></span>-->
+    <!--                                                <span class="text-center"><t t-esc="format_value_with_unit(o.kapasite_yuksek_devir, 'W')" /></span>-->
+    <!--                                            </div>-->
+    <!--                                            <div>-->
+    <!--                                                <span><b>Kapasite Düşük Devir (H) :</b></span>-->
+    <!--                                                <span class="text-center"><t t-esc="format_value_with_unit(o.kapasite_dusuk_devir, 'W')" /></span>-->
+    <!--                                            </div>-->
+    <!--                                            <div>-->
+    <!--                                                <span><b>Fan Çapı :</b></span>-->
+    <!--                                                <span class="text-center"><t t-esc="format_value_with_unit(o.fan_cap, 'mm')" /></span>-->
+    <!--                                            </div>-->
+    <!--                                        </div>-->
+    <!--                                    </div>-->
+    <!--                                    <div class="col-12 mb-2">-->
+    <!--                                        <div class="product-info mx-2">-->
+    <!--                                            <div>-->
+    <!--                                                <span><b>Fan Adet :</b></span>-->
+    <!--                                                <span class="text-center"><t t-esc="format_value_with_unit(o.fan_adet, ' ')" /></span>-->
+    <!--                                            </div>-->
+    <!--                                            <div>-->
+    <!--                                                <span><b>Yüzey Alanı :</b></span>-->
+    <!--                                                <span class="text-center"><t t-esc="format_value_with_unit(o.yuzey, '&#13221;')" /></span>-->
+    <!--                                            </div>-->
+    <!--                                            <div>-->
+    <!--                                                <span><b>Lamel :</b></span>-->
+    <!--                                                <span class="text-center"><t t-esc="format_value_with_unit(o.hatve, 'mm')" /></span>-->
+    <!--                                            </div>-->
+    <!--                                        </div>-->
+    <!--                                    </div>-->
+    <!--                                </div>-->
+    <!--                            </t>-->
+    <!--                        </div>-->
+    <!--                    </div>-->
+    <!--                </div>-->
+    <!--            </t>-->
+    <!--        </xpath>-->
+    <!--    </template>-->
 
 
-
-
-
-
-                    </t>
-
-                    <t t-elif="o.termo_tip_id.grup == '2'">
-
-                         <style>
-                            @media (max-width: 767px) {
-                            .product-info {
-                            display: block;
-                            <!--                            margin-bottom: 1px; /* Boşluğu azaltmak için değeri değiştirdik */-->
-                            }
-                            }
-                            @media (min-width: 768px) {
-                            .product-info {
-                            display: flex;
-                            align-items: center;
-                            justify-content: space-between;
-                            margin-bottom: 10px;
-                            }
-                            .product-info > div {
-                            flex: 1;
-                            display: flex;
-                            align-items: center;
-                            }
-                            .product-info > div > span + span {
-                            margin-left: 10px;
-                            }
-                            }
-                        </style>
-
-
-
-                        <div class="row">
-                            <div class="col-12 mb-2">
-                                <div class="product-info mx-2">
-                                    <div>
-                                        <span><b>To / Te -35°C / -40°C :  :</b></span>
-                                        <span class="text-center"><t t-esc="format_value_with_unit(o.t1, 'W')" /></span>
-                                    </div>
-                                    <div>
-                                        <span><b>To / Te -40°C / -45°C : :</b></span>
-                                        <span class="text-center"><t t-esc="format_value_with_unit(o.t2, 'W')" /></span>
-                                    </div>
-                                    <div>
-                                        <span><b>Fan Çapı :</b></span>
-                                        <span class="text-center"><t t-esc="format_value_with_unit(o.fan_cap, 'mm')" /></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12 mb-2">
-                                <div class="product-info mx-2">
-                                    <div>
-                                        <span><b>Fan Adet :</b></span>
-                                        <span class="text-center"><t t-esc="format_value_with_unit(o.fan_adet, ' ')" /></span>
-                                    </div>
-                                    <div>
-                                        <span><b>Yüzey Alanı :</b></span>
-                                        <span class="text-center"><t t-esc="format_value_with_unit(o.yuzey, '&#13221;')" /></span>
-                                    </div>
-                                    <div>
-                                        <span><b>Lamel :</b></span>
-                                        <span class="text-center"><t t-esc="format_value_with_unit(o.hatve, 'mm')" /></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-
-                    </t>
-
-                    <t t-elif="o.termo_tip_id.grup == '3'">
-
-                         <style>
-                            @media (max-width: 767px) {
-                            .product-info {
-                            display: block;
-                            <!--                            margin-bottom: 1px; /* Boşluğu azaltmak için değeri değiştirdik */-->
-                            }
-                            }
-                            @media (min-width: 768px) {
-                            .product-info {
-                            display: flex;
-                            align-items: center;
-                            justify-content: space-between;
-                            margin-bottom: 10px;
-                            }
-                            .product-info > div {
-                            flex: 1;
-                            display: flex;
-                            align-items: center;
-                            }
-                            .product-info > div > span + span {
-                            margin-left: 10px;
-                            }
-                            }
-                        </style>
-                        <div class="row">
-                            <div class="col-12 mb-2">
-                                <div class="product-info mx-2">
-                                    <div>
-                                        <span><b>SC1  :</b></span>
-                                        <span class="text-center"><t t-esc="format_value_with_unit(o.sc1, 'W')" /></span>
-                                    </div>
-                                    <div>
-                                        <span><b>SC2 :</b></span>
-                                        <span class="text-center"><t t-esc="format_value_with_unit(o.sc2, 'W')" /></span>
-                                    </div>
-                                    <div>
-                                        <span><b>Fan Çapı :</b></span>
-                                        <span class="text-center"><t t-esc="format_value_with_unit(o.fan_cap, 'mm')" /></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12 mb-2">
-                                <div class="product-info mx-2">
-                                    <div>
-                                        <span><b>Fan Adet :</b></span>
-                                        <span class="text-center"><t t-esc="format_value_with_unit(o.fan_adet, ' ')" /></span>
-                                    </div>
-                                    <div>
-                                        <span><b>Yüzey Alanı :</b></span>
-                                        <span class="text-center"><t t-esc="format_value_with_unit(o.yuzey, '&#13221;')" /></span>
-                                    </div>
-                                    <div>
-                                        <span><b>Lamel :</b></span>
-                                        <span class="text-center"><t t-esc="format_value_with_unit(o.hatve, 'mm')" /></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </t>
-
-                    <t t-if="o.termo_tip_id.grup in ['4', '5']">
-
-                         <style>
-                            @media (max-width: 767px) {
-                            .product-info {
-                            display: block;
-                            <!--                            margin-bottom: 1px; /* Boşluğu azaltmak için değeri değiştirdik */-->
-                            }
-                            }
-                            @media (min-width: 768px) {
-                            .product-info {
-                            display: flex;
-                            align-items: center;
-                            justify-content: space-between;
-                            margin-bottom: 10px;
-                            }
-                            .product-info > div {
-                            flex: 1;
-                            display: flex;
-                            align-items: center;
-                            }
-                            .product-info > div > span + span {
-                            margin-left: 10px;
-                            }
-                            }
-                        </style>
-                          <div class="row">
-                            <div class="col-12 mb-2">
-                                <div class="product-info mx-2">
-                                    <div>
-                                        <span><b>Kapasite Yüksek Devir (H)  :</b></span>
-                                        <span class="text-center"><t t-esc="format_value_with_unit(o.kapasite_yuksek_devir, 'W')" /></span>
-                                    </div>
-                                    <div>
-                                        <span><b>Kapasite Düşük Devir (H) :</b></span>
-                                        <span class="text-center"><t t-esc="format_value_with_unit(o.kapasite_dusuk_devir, 'W')" /></span>
-                                    </div>
-                                    <div>
-                                        <span><b>Fan Çapı :</b></span>
-                                        <span class="text-center"><t t-esc="format_value_with_unit(o.fan_cap, 'mm')" /></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12 mb-2">
-                                <div class="product-info mx-2">
-                                    <div>
-                                        <span><b>Fan Adet :</b></span>
-                                        <span class="text-center"><t t-esc="format_value_with_unit(o.fan_adet, ' ')" /></span>
-                                    </div>
-                                    <div>
-                                        <span><b>Yüzey Alanı :</b></span>
-                                        <span class="text-center"><t t-esc="format_value_with_unit(o.yuzey, '&#13221;')" /></span>
-                                    </div>
-                                    <div>
-                                        <span><b>Lamel :</b></span>
-                                        <span class="text-center"><t t-esc="format_value_with_unit(o.hatve, 'mm')" /></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </t>
-                </div>
-            </t>
-        </xpath>
-    </template>
 
 
 

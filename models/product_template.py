@@ -54,6 +54,7 @@ class ProductTemplate(models.Model):
     hatve= fields.Float(string = "Hatve ", default = 6, store=True)
     kapasite = fields.Integer(string = "Kapasite ", default = 6, store=True)
     sutluk_uzunluk = fields.Char(string="Sütlük Uzunluk")
+    yan_uzunluk = fields.Char(string="Yan Uzunluk")
     boru_sayisi = fields.Char(string="Boru Sayısı")
     sutluk_tip = fields.Char(string = "Sütlük Tipi")
     sutluk_geometri = fields.Char(string = "Sütlük Geometri")
