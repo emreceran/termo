@@ -273,9 +273,9 @@
                                 <t t-if="o.termo_tip_id.grup in ['4', '5']">
                                     <div class="row">
                                         <div class="col-12 mb-2">
-                                            <div class="product-info mx-2">
+                                            <div class="product-info">
                                                 <div>
-                                                    <span><b>Kapasite Yüksek Devir (H) :</b></span>
+                                                    <span><b>Kapasite Yüksek Devir(H) :</b></span>
                                                     <span class="text-center"><t t-esc="format_value_with_unit(o.kapasite_yuksek_devir, 'W')" /></span>
                                                 </div>
                                                 <div>
@@ -289,7 +289,7 @@
                                             </div>
                                         </div>
                                         <div class="col-12 mb-2">
-                                            <div class="product-info mx-2">
+                                            <div class="product-info">
                                                 <div>
                                                     <span><b>Fan Adet :</b></span>
                                                     <span class="text-center"><t t-esc="format_value_with_unit(o.fan_adet, ' ')" /></span>
