@@ -33,6 +33,8 @@
         'views/tip_configure.xml',
         'views/urun_detay.xml',
         'views/urun_liste.xml',
+        # 'views/urun_secme_prod.xml',
+        'views/custom_filter_page.xml',
     ],
     # only loaded in demonstration mode
     'demo': [

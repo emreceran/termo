@@ -32,24 +32,42 @@ class Termo(http.Controller):
     def index(self, **kw):
         return "Hello, world"
 
-    @http.route('/termo/termo/urunler', auth='public')
-    def list(self, **kw):
-        urunler = request.env['product.template'].sudo().search([])
-        print("urunler")
-        print(urunler)
+    # @http.route('/termo/urunler', type='http', auth="public", website=True)
+    # def list(self, **kw):
+    #     urunler = request.env['product.template'].sudo().search([])
+    #     return http.request.render('termo.listing', {
+    #         'root': '/termo',
+    #         'objects': urunler,
+    #     })
 
-        yuzeyler = {}
-        for product in urunler:
-            yuzeyler[product.id] = (product.yuzey)
+    @http.route('/urun_secme_programi', type='http', auth="public", website=True)
+    def urun_secme_programi(self, **post):
+        products = request.env['product.template'].search([])
+        values = {
+            'products': products,
+        }
+        return http.request.render("termo.listing", values)
 
-        print(yuzeyler)
+    @http.route( '/termo/termo/urunler', type='http', auth="public", website=True)
+    def list(self, page=1, **kw):
+        Product = request.env['product.template'].sudo()
+        items_per_page = 50
+        offset = (page - 1) * items_per_page
+        total_products = Product.search_count([])
+        urunler = Product.search([], limit=items_per_page, offset=offset)
 
+        pager = request.website.pager(
+            url='/termo/urunler',
+            total=total_products,
+            page=page,
+            step=items_per_page
+        )
 
         return http.request.render('termo.listing', {
-            'root': '/termo/termo',
-            'yuzeyler': yuzeyler,
-            'objects': http.request.env['product.template'].search([]),
+            'objects': urunler,
+            'pager': pager,
         })
+
 
     @http.route('/termo/termo/objects/<model("product.template"):obj>', auth='public')
     def object(self, obj, **kw):

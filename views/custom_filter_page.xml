@@ -1,0 +1,80 @@
+<odoo>
+    <template id="custom_products_attributes" inherit_id="website_sale.products_attributes">
+        <xpath expr="//div[@id='wsale_products_attributes_collapse']" position="replace">
+            <div id="wsale_products_attributes_collapse"
+                 class=" position-relative">
+                <form t-if="attributes"  class="js_attributes position-relative mb-2" method="get">
+                    <input t-if="category" type="hidden" name="category" t-att-value="category.id" />
+                    <input type="hidden" name="search" t-att-value="search" />
+                    <input type="hidden" name="order" t-att-value="order"/>
+                    <a t-if="attrib_values" t-att-href="keep('/shop'+ ('/category/'+slug(category)) if category else None, attrib=0)" t-attf-class="btn btn-{{navClass}} d-flex py-1 mb-2">
+                        <small class="mx-auto"><b>Clear Filters</b></small>
+                        <i class="oi oi-close"/>
+                    </a>
+                    <t t-foreach="attributes" t-as="a">
+                        <div class="accordion-item nav-item mb-1" t-if="a.value_ids and len(a.value_ids) &gt; 1">
+                            <h6 class="mb-3 " style="background-color: #50565C;border:1px solid #0000FF;padding:10px; text-align:center; color:white;">
+                                <!--                            <h6 class="mb-3 " style="background-color: #0000FF;border:1px solid black;padding:10px; text-align:center; color:white;">-->
+                                <b class=" d-none d-lg-block"  t-field="a.name"/>
+
+                            </h6>
+                            <div t-attf-id="o_products_attributes_{{a.id}}" class="">
+                                <t t-if="a.display_type == 'select'">
+                                    <select class="form-select  mb-2 " style="border:1px solid #50565C;" name="attrib">
+                                        <!--                                    <select class="form-select css_attribute_select mb-2 custom-filter-checkbox" style="border:1px solid #50565C;" name="attrib">-->
+                                        <option value="" selected="true">-</option>
+                                        <t t-foreach="a.value_ids" t-as="v">
+                                            <option t-att-value="'%s-%s' % (a.id,v.id)" t-esc="v.name" t-att-selected="v.id in attrib_set" />
+                                        </t>
+                                    </select>
+                                </t>
+                                <t t-if="a.display_type == 'radio' or a.display_type == 'pills'">
+                                    <div class="flex-column mb-3">
+                                        <t t-foreach="a.value_ids" t-as="v">
+                                            <div class="form-check mb-1 custom-filter-checkbox">
+                                                <input type="checkbox" name="attrib" class="form-check-input" t-att-id="'%s-%s' % (a.id,v.id)" t-att-value="'%s-%s' % (a.id,v.id)" t-att-checked="'checked' if v.id in attrib_set else None"/>
+                                                <label class="form-check-label fw-normal" t-att-for="'%s-%s' % (a.id,v.id)" t-field="v.name"/>
+                                            </div>
+                                        </t>
+                                    </div>
+                                </t>
+                            </div>
+                        </div>
+                    </t>
+                </form>
+            </div>
+        </xpath>
+    </template>
+
+
+    <template id="custom_products_categories" inherit_id="website_sale.filmstrip_categories">
+        <xpath expr="//div[hasclass('o_wsale_filmstip_container')]" position="replace">
+            <div t-if="entries" class="o_wsale_filmstip_container d-flex align-items-stretch mb-2 overflow-hidden">
+                <div class="o_wsale_filmstip_wrapper pb-1 mb-2 overflow-auto">
+                    <ul class="o_wsale_filmstip d-flex align-items-stretch mb-0 list-unstyled overflow-visible">
+                        <t t-foreach="entries" t-as="c" t-if="c.image_128" t-set="atLeastOneImage" t-value="True"/>
+                        <t t-if="category.parent_id" t-set="backUrl" t-value="keep('/shop/category/' + slug(category.parent_id), category=0)"/>
+                        <t t-else="" t-set="backUrl" t-value="'/shop'"/>
+
+                        <li t-foreach="entries" t-as="c"
+                            t-attf-class="d-flex {{'pe-3' if not c_last else ''}}"
+                            t-att-data-link-href="keep('/shop/category/' + slug(c), category=0)">
+                            <input type="radio" t-attf-name="wsale_categories_top_radios_{{parentCategoryId}}" class="btn-check pe-none" t-att-id="c.id" t-att-value="c.id" t-att-checked="'true' if c.id == category.id else None"/>
+
+                            <div t-attf-class=" btn btn-{{navClass}} d-flex align-items-center {{'ps-2 pe-3' if c.image_128 else 'px-4'}} fs-6 fw-normal {{ 'border-primary' if c.id == category.id else '' }}"
+                                 t-att-for="c.id">
+<!--                                 style="background-color: #0000FF;border:1px solid #0000FF; text-align:center; color:white;"-->
+
+                                <div t-if="c.image_128"
+                                     t-attf-style="background-image:url('data:image/png;base64,#{c.image_128}')"
+                                     class="o_image_40_cover oe_img_bg o_bg_img_center rounded-3 me-3"
+                                     t-att-alt="c.name "/>
+                                <span t-field="c.name"/>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </xpath>
+    </template>
+</odoo>

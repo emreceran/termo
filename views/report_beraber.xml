@@ -84,7 +84,7 @@
                             <th scope="row">W</th>
                             <td><t t-esc="format_value_with_unit(o.W, 'mm')"/><span> mm</span></td>
                             <th scope="row">W2</th>
-                            <td><t t-esc="format_value_with_unit(o.W, 'mm'2)"/><span> mm</span></td>
+                            <td><t t-esc="format_value_with_unit(o.W, 'mm')"/><span> mm</span></td>
                         </tr>
                         <tr>
                             <th scope="row">H1</th>

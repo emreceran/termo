@@ -72,6 +72,11 @@ class ProductTemplate(models.Model):
 
     precomputed_values = fields.Text(string="Precomputed Values")
 
+    def _get_suitable_image_size(self, columns, x_size, y_size):
+        if x_size == 1 and y_size == 1 and columns >= 3:
+            return 'image_512'
+        return 'image_1024'
+
 
     def write_precomputed_values(self):
         for record in self:
