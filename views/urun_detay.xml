@@ -324,10 +324,10 @@
                         <table class="table" style="text-align:left; padding:0; margin-bottom:0;">
                             <tbody style="line-height:1.5;">
                                 <tr>
-                                    <th scope="row">YÜKSEK DEVİR HAVA DEBİSİ</th>
-                                    <td><t t-esc="format_value_with_unit(o.hava_debisi_yuksek_devir, 'Watt')"/></td>
-                                    <th scope="row">Düşük DEVİR HAVA DEBİSİ</th>
-                                    <td><t t-esc="format_value_with_unit(o.hava_debisi_dusuk_devir, 'Watt')"/></td>
+                                    <th scope="row">Kapasite Yüksek Devir(H) :</th>
+                                    <td><t t-esc="format_value_with_unit(o.kapasite_yuksek_devir, 'w')"/></td>
+                                    <th scope="row">Kapasite Düşük Devir (H) :</th>
+                                    <td><t t-esc="format_value_with_unit(o.kapasite_yuksek_devir, 'w')"/></td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Hava Giriş Sıcaklığı</th>

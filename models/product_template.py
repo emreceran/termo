@@ -30,8 +30,8 @@ class ProductTemplate(models.Model):
     hava_debisi = fields.Integer(string = "Hava Debisi m³/h", default = 0, store=True)
 
     #KONDENSER FİELDS
-    kapasite_yuksek_devir = fields.Integer(string="Kapasite YÜKSEK DEVİR(H) ", default=0, store=True)
-    kapasite_dusuk_devir = fields.Integer(string="KapasiteDÜŞÜK DEVİR (L) ", default=0, store=True)
+    kapasite_yuksek_devir = fields.Float(string="Kapasite YÜKSEK DEVİR(H) ", default=0, store=True)
+    kapasite_dusuk_devir = fields.Float(string="KapasiteDÜŞÜK DEVİR (L) ", default=0, store=True)
     hava_debisi_yuksek_devir = fields.Integer(string="YÜKSEK DEVİR HAVA DEBİSİ m3/h", default=0, store=True)
     hava_debisi_dusuk_devir = fields.Integer(string="Düşük DEVİR HAVA DEBİSİ m3/h", default=0, store=True)
     kondenser_giris_cap = fields.Char(string="KONDENSER  GİRİŞ  KOLLEKTÖR  ÇAPI mm / inc")
