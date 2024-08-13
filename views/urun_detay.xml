@@ -83,7 +83,7 @@
                                 </tr>
                                 <tr>
                                     <th scope="row">Lamel Aralığı</th>
-                                    <td><t t-esc="format_value_with_unit(o.hatve,' ')"/></td>
+                                    <td><t t-esc="format_value_with_unit(o.hatve,'mm ')"/></td>
                                     <th scope="row">Isı Transfer Yüzey Alanı</th>
                                     <td><t t-esc="format_value_with_unit(o.yuzey,'&#13217;')"/></td>
 
@@ -91,10 +91,8 @@
                                 <tr>
                                     <th scope="row">Fan Çapı</th>
                                     <td><span>&#248;</span> <t t-esc="format_value_with_unit(o.fan_cap,'mm')"/></td>
-
                                     <th scope="row">Fan Sayısı</th>
-                                    <td><t t-esc="format_value_with_unit(o.fan_adet,' ')"/></td>
-
+                                    <td><t t-esc="format_value_with_unit(o.fan_adet,'Adet')"/></td>
                                 </tr>
 
                             </tbody>
@@ -170,7 +168,7 @@
                                 </tr>
                                 <tr>
                                     <th scope="row">Lamel Aralığı</th>
-                                    <td><t t-esc="format_value_with_unit(o.hatve,' ')"/></td>
+                                    <td><t t-esc="format_value_with_unit(o.hatve,'mm')"/></td>
                                     <th scope="row">Isı Transfer Yüzey Alanı</th>
                                     <td><t t-esc="format_value_with_unit(o.yuzey,'&#13221;/h')"/></td>
 
@@ -180,7 +178,7 @@
                                     <td><span>&#248;</span> <t t-esc="format_value_with_unit(o.fan_cap,'mm')"/></td>
 
                                     <th scope="row">Fan Sayısı</th>
-                                    <td><t t-esc="format_value_with_unit(o.fan_adet,' ')"/></td>
+                                    <td><t t-esc="format_value_with_unit(o.fan_adet,'Adet')"/></td>
 
                                 </tr>
 
@@ -265,7 +263,7 @@
                                 </tr>
                                 <tr>
                                     <th scope="row">Lamel Aralığı</th>
-                                    <td><t t-esc="format_value_with_unit(o.hatve,' ')"/></td>
+                                    <td><t t-esc="format_value_with_unit(o.hatve,'mm')"/></td>
                                     <th scope="row">Isı Transfer Yüzey Alanı</th>
                                     <td><t t-esc="format_value_with_unit(o.yuzey,'&#13221;/h')"/></td>
 
@@ -275,7 +273,7 @@
                                     <td><span>&#248;</span> <t t-esc="format_value_with_unit(o.fan_cap,'mm')"/></td>
 
                                     <th scope="row">Fan Sayısı</th>
-                                    <td><t t-esc="format_value_with_unit(o.fan_adet,' ')"/></td>
+                                    <td><t t-esc="format_value_with_unit(o.fan_adet,'Adet')"/></td>
 
                                 </tr>
 
@@ -345,7 +343,7 @@
                                 </tr>
                                 <tr>
                                     <th scope="row">Lamel Aralığı</th>
-                                    <td><t t-esc="format_value_with_unit(o.hatve,' ')"/></td>
+                                    <td><t t-esc="format_value_with_unit(o.hatve,'mm')"/></td>
                                     <th scope="row">Isı Transfer Yüzey Alanı</th>
                                     <td><t t-esc="format_value_with_unit(o.yuzey,'&#13221;/h')"/></td>
 
@@ -355,7 +353,7 @@
                                     <td><span>&#248;</span> <t t-esc="format_value_with_unit(o.fan_cap,'mm')"/></td>
 
                                     <th scope="row">Fan Sayısı</th>
-                                    <td><t t-esc="format_value_with_unit(o.fan_adet,' ')"/></td>
+                                    <td><t t-esc="format_value_with_unit(o.fan_adet,'Adet')"/></td>
 
                                 </tr>
                                 <tr>
@@ -385,7 +383,6 @@
                                     <td><t t-esc="format_value_with_unit(o.H1, 'mm')"/></td>
                                     <th scope="row">W1</th>
                                     <td><t t-esc="format_value_with_unit(o.W1, 'mm')"/></td>
-
                                     <th scope="row">L1</th>
                                     <td><t t-esc="format_value_with_unit(o.L1, 'mm')"/></td>
                                 </tr>

@@ -29,9 +29,9 @@
                                     </select>
                                 </t>
                                 <t t-if="a.display_type == 'radio' or a.display_type == 'pills'">
-                                    <div class="flex-column mb-3">
+                                    <div class="flex-column mb-3" style="height: 10em; overflow: auto;">
                                         <t t-foreach="a.value_ids" t-as="v">
-                                            <div class="form-check mb-1 custom-filter-checkbox">
+                                            <div class="form-check mb-1 custom-filter-checkbox" >
                                                 <input type="checkbox" name="attrib" class="form-check-input" t-att-id="'%s-%s' % (a.id,v.id)" t-att-value="'%s-%s' % (a.id,v.id)" t-att-checked="'checked' if v.id in attrib_set else None"/>
                                                 <label class="form-check-label fw-normal" t-att-for="'%s-%s' % (a.id,v.id)" t-field="v.name"/>
                                             </div>

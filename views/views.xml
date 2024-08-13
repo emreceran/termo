@@ -5,16 +5,16 @@
 
 
 
-<!--        <record id="termo_product_template_form" model="ir.ui.view">-->
-<!--            <field name="name">product.template.termo.form.inherit</field>-->
-<!--            <field name="model">product.template</field>-->
-<!--            <field name="inherit_id" ref="product.product_template_form_view" />-->
-<!--            <field name="arch" type="xml">-->
-<!--                <xpath expr="//page[last()]" position="after">-->
+        <!--        <record id="termo_product_template_form" model="ir.ui.view">-->
+        <!--            <field name="name">product.template.termo.form.inherit</field>-->
+        <!--            <field name="model">product.template</field>-->
+        <!--            <field name="inherit_id" ref="product.product_template_form_view" />-->
+        <!--            <field name="arch" type="xml">-->
+        <!--                <xpath expr="//page[last()]" position="after">-->
 
-<!--                </xpath>-->
-<!--            </field>-->
-<!--        </record>-->
+        <!--                </xpath>-->
+        <!--            </field>-->
+        <!--        </record>-->
 
 
 
@@ -25,16 +25,16 @@
             <field name="arch" type="xml">
                 <xpath expr="//header" position="inside">
 
-<!--                    <button string="Görsellerigüncelle" type="object" name="onchange_termo_tip_id"/>-->
+                    <!--                    <button string="Görsellerigüncelle" type="object" name="onchange_termo_tip_id"/>-->
 
-                     <button string="Variantları sil" type="object" name="clear_existing_variants"/>
+                    <button string="Variantları sil" type="object" name="clear_existing_variants"/>
                     <button string="Varyantları Oluştur " type="object" name="write_precomputed_values"/>
                     <button string="Variantları kontrol" type="object" name="check_precomputed_values"/>
                     <button string="Variantları Yaz" type="object" name="direct_write_precomputed_values"/>
-<!--                    <button string="Variantları sql" type="object" name="update_precomputed_values"/>-->
+                    <!--                    <button string="Variantları sql" type="object" name="update_precomputed_values"/>-->
 
 
-<!--                    <button string="VARYANTLARI YAZ " type="object" name="read_precomputed_values"/>-->
+                    <!--                    <button string="VARYANTLARI YAZ " type="object" name="read_precomputed_values"/>-->
 
                 </xpath>
             </field>
@@ -71,14 +71,14 @@
             <field name="arch" type="xml">
                 <xpath expr="//header" position="inside">
 
-<!--                    <button string="Görsellerigüncelle" type="object" name="onchange_termo_tip_id"/>-->
+                    <!--                    <button string="Görsellerigüncelle" type="object" name="onchange_termo_tip_id"/>-->
                     <button string="Variantları sil" type="object" name="clear_existing_variants"/>
                     <button string="Varyantları Oluştur " type="object" name="write_precomputed_values"/>
                     <button string="Variantları kontrol" type="object" name="check_precomputed_values"/>
                     <button string="Variantları Yaz" type="object" name="direct_write_precomputed_values"/>
-<!--                    <button string="Variantları sql" type="object" name="update_precomputed_values"/>-->
+                    <!--                    <button string="Variantları sql" type="object" name="update_precomputed_values"/>-->
 
-<!--                    <button string="VARYANTLARI YAZ " type="object" name="read_precomputed_values"/>-->
+                    <!--                    <button string="VARYANTLARI YAZ " type="object" name="read_precomputed_values"/>-->
                 </xpath>
                 <xpath expr="//page[last()]" position="after">
                     <page name="termo" string="Thermo">
@@ -86,12 +86,12 @@
                         <group>
                             <group>
                                 <field name="termo_tip_id"/>
-<!--                                <field name="termo_filtre" widget="many2many_tags"/>-->
-<!--                                <field name="public_categ_ids" widget="many2many_tags"/>-->
+                                <!--                                <field name="termo_filtre" widget="many2many_tags"/>-->
+                                <!--                                <field name="public_categ_ids" widget="many2many_tags"/>-->
 
-<!--                                <field name="precomputed_values" />-->
-<!--                                <field name="attribute_line_ids" />-->
-<!--                                <field name="filtre_grubu_id" />-->
+                                <!--                                <field name="precomputed_values" />-->
+                                <!--                                <field name="attribute_line_ids" />-->
+                                <!--                                <field name="filtre_grubu_id" />-->
                                 <field name="yuzey" />
                                 <field name="sutluk_uzunluk" />
                                 <field name="boru_sayisi" />
@@ -138,6 +138,25 @@
             </field>
         </record>
 
+        <record id="view_product_template_search_inherit" model="ir.ui.view">
+            <field name="name">product.template.search.inherit.website_parent_categ</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_search_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//filter[@name='filter_to_sell']" position="after">
+                    <filter string="Evaporator" name="filter_evaporator" domain="[('termo_group', '=', 'Evaporator')]" />
+                    <filter string="Kondenser" name="filter_condenser" domain="[('termo_group', '=', 'Kondenser')]" />
+                    <filter string="Vitrin" name="filter_vitrin" domain="[('termo_group', '=', 'Vitrin')]" />
+                </xpath>
+                <xpath expr="//filter[@name='categ_id']" position="after">
+                    <filter string="Termo Grup" name="group_termo_group" context="{'group_by':'termo_group'}"/>
+                </xpath>
+            </field>
+        </record>
+
+
+
+
 
         <record id="termo_product_template_list" model="ir.ui.view">
             <field name="name">product.template.termo.list.inherit</field>
@@ -146,6 +165,7 @@
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='name']" position="after">
                     <field name="termo_tip_id" />
+                    <field name="website_parent_categ" optional="hide" />
                     <field name="termo_filtre" optional="hide" widget="many2many_tags"/>
                     <field name="public_categ_ids" optional="hide" widget="many2many_tags"/>
                     <field name="precomputed_values" optional="hide" />

@@ -12,8 +12,8 @@ class ProductTemplate(models.Model):
     _inherit = "product.template"
 
 
-    yuzey = fields.Float(string = "Yüzey", default = 0, store=True)
-    boru_hacmi = fields.Float(string = "Boru Hacmi", default = 0, store=True)
+    yuzey = fields.Integer(string = "Yüzey", default = 0, store=True)
+    boru_hacmi = fields.Integer(string = "Boru Hacmi", default = 0, store=True)
     fan_adet = fields.Integer(string="Fan Adeti", default=0, store=True)
     fan_cap = fields.Integer(string="Fan Çapı", default=0, store=True)
 
@@ -21,7 +21,7 @@ class ProductTemplate(models.Model):
     t1 = fields.Integer (string = "To / Te -35°C/-40°C W", default=None)
     t2 = fields.Integer (string = "To / Te -40°C/-45°C W", default = 0, store=True)
     sc1 = fields.Integer (string = "SC1 10°C/0°C W", default = 0, store=True)
-    sc2 = fields.Float (string = "SC2 0°C/- 8°C W", default = 0, store=True)
+    sc2 = fields.Integer (string = "SC2 0°C/- 8°C W", default = 0, store=True)
     sc3 = fields.Integer (string = "SC3 - 18°C/ - 25°C W", default = 0, store=True)
     sc4 = fields.Integer (string = "SC4 - 25°C/ - 31°C W", default = 0, store=True)
     rezidans_t1 = fields.Char(string="REzidans T1 Batarya Coil")
@@ -30,10 +30,10 @@ class ProductTemplate(models.Model):
     hava_debisi = fields.Integer(string = "Hava Debisi m³/h", default = 0, store=True)
 
     #KONDENSER FİELDS
-    kapasite_yuksek_devir = fields.Float(string="Kapasite YÜKSEK DEVİR(H) ", default=0, store=True)
-    kapasite_dusuk_devir = fields.Float(string="KapasiteDÜŞÜK DEVİR (L) ", default=0, store=True)
-    hava_debisi_yuksek_devir = fields.Float(string="YÜKSEK DEVİR HAVA DEBİSİ m3/h", default=0, store=True)
-    hava_debisi_dusuk_devir = fields.Float(string="Düşük DEVİR HAVA DEBİSİ m3/h", default=0, store=True)
+    kapasite_yuksek_devir = fields.Integer(string="Kapasite YÜKSEK DEVİR(H) ", default=0, store=True)
+    kapasite_dusuk_devir = fields.Integer(string="KapasiteDÜŞÜK DEVİR (L) ", default=0, store=True)
+    hava_debisi_yuksek_devir = fields.Integer(string="YÜKSEK DEVİR HAVA DEBİSİ m3/h", default=0, store=True)
+    hava_debisi_dusuk_devir = fields.Integer(string="Düşük DEVİR HAVA DEBİSİ m3/h", default=0, store=True)
     kondenser_giris_cap = fields.Char(string="KONDENSER  GİRİŞ  KOLLEKTÖR  ÇAPI mm / inc")
     kondenser_cikis_cap = fields.Char(string="KONDENSER  ÇIKIŞ KOLLEKTÖR  ÇAPI mm / inc")
 
@@ -51,7 +51,7 @@ class ProductTemplate(models.Model):
     LA = fields.Integer(string = "LA", default = 0, store=True)
 
     lamel_aralik= fields.Integer(string = "Lamel Aralığı", default = 4, store=True)
-    hatve= fields.Float(string = "Hatve ", default = 6, store=True)
+    hatve= fields.Integer(string = "Hatve ", default = 6, store=True)
     kapasite = fields.Integer(string = "Kapasite ", default = 6, store=True)
     sutluk_uzunluk = fields.Char(string="Sütlük Uzunluk")
     yan_uzunluk = fields.Char(string="Yan Uzunluk")
@@ -67,15 +67,38 @@ class ProductTemplate(models.Model):
     image_1920 =fields.Image(related="termo_tip_id.gorsel")
     image_128 =fields.Image(related="termo_tip_id.gorsel")
 
-    oda_sicakligi = fields.Float(string = "Oda Sıcaklığı ", compute="_value_pc", default = 6, store=True)
-    evaporasyon_sicakligi = fields.Float(string = "Evaporasyon Sıcaklığı ", compute="_value_pc", default = 6, store=True)
+    oda_sicakligi = fields.Integer(string = "Oda Sıcaklığı ", compute="_value_pc", default = 6, store=True)
+    evaporasyon_sicakligi = fields.Integer(string = "Evaporasyon Sıcaklığı ", compute="_value_pc", default = 6, store=True)
 
     precomputed_values = fields.Text(string="Precomputed Values")
+    website_parent_categ = fields.Char(string = "Ürün Üst Kategorisi ", compute="_compute_parent_categ", store=True )
+
+    termo_group = fields.Char(string="Termo Grup", compute="_compute_termo_group", store=True)
+
+    @api.depends('termo_tip_id.grup')
+    def _compute_termo_group(self):
+        for record in self:
+            if record.termo_tip_id.grup in ['1', '2', '3']:
+                record.termo_group = 'Evaporator'
+            elif record.termo_tip_id.grup in ['4', '5']:
+                record.termo_group = 'Kondenser'
+            else:
+                record.termo_group = 'Vitrin'
+
 
     def _get_suitable_image_size(self, columns, x_size, y_size):
         if x_size == 1 and y_size == 1 and columns >= 3:
             return 'image_512'
         return 'image_1024'
+
+    @api.depends('public_categ_ids')
+    def _compute_parent_categ(self):
+        for record in self:
+            liste = [record.public_categ_ids][0]
+            if liste.parent_id:
+                record.website_parent_categ = liste.parent_id.name
+            else:
+                record.website_parent_categ = liste.name
 
 
     def write_precomputed_values(self):
