@@ -373,13 +373,17 @@ class ProductTemplate(models.Model):
             if record.hatve == 6:
                 record.kapasite = record.sc2
                 record.oda_sicakligi = 0
-                record.evaporasyon_sicakligi = 8
+                record.evaporasyon_sicakligi = -8
             elif record.hatve == 8:
                 record.kapasite = record.sc3
                 record.oda_sicakligi = -18
                 record.evaporasyon_sicakligi = 25
             elif record.hatve == 10:
                 record.kapasite = record.sc4
-                record.oda_sicakligi = -25
-                record.evaporasyon_sicakligi = 31
+                record.oda_sicakligi = -18
+                record.evaporasyon_sicakligi = 25
+            elif record.hatve == 4:
+                record.kapasite = record.sc1
+                record.oda_sicakligi = 0
+                record.evaporasyon_sicakligi = -8
 

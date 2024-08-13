@@ -18,14 +18,14 @@
                     <span t-field="image_holder.image_1920"
                           t-options="{'widget': 'image', 'itemprop': 'image'}"
                           class="d-flex justify-content-center align-items-center position-relative"  />
-<!--                          class="oe_product_image_img_wrapper d-flex justify-content-center align-items-center position-relative"-->
-<!--                          style="display: block;  max-width: 75%;  height: auto;"-->
+                    <!--                          class="oe_product_image_img_wrapper d-flex justify-content-center align-items-center position-relative"-->
+                    <!--                          style="display: block;  max-width: 75%;  height: auto;"-->
 
 
-<!--                    <t t-set="bg_color" t-value="td_product['ribbon']['bg_color'] or ''"/>-->
-<!--                    <t t-set="text_color" t-value="td_product['ribbon']['text_color']"/>-->
-<!--                    <t t-set="bg_class" t-value="td_product['ribbon']['html_class']"/>-->
-<!--                    <span t-attf-class="o_ribbon #{bg_class}" t-attf-style="#{text_color and ('color: %s; ' % text_color)}#{bg_color and 'background-color:' + bg_color}" t-out="td_product['ribbon']['html'] or ''"/>-->
+                    <!--                    <t t-set="bg_color" t-value="td_product['ribbon']['bg_color'] or ''"/>-->
+                    <!--                    <t t-set="text_color" t-value="td_product['ribbon']['text_color']"/>-->
+                    <!--                    <t t-set="bg_class" t-value="td_product['ribbon']['html_class']"/>-->
+                    <!--                    <span t-attf-class="o_ribbon #{bg_class}" t-attf-style="#{text_color and ('color: %s; ' % text_color)}#{bg_color and 'background-color:' + bg_color}" t-out="td_product['ribbon']['html'] or ''"/>-->
                 </a>
             </div>
         </xpath>
@@ -41,14 +41,30 @@
                 <!--                </t>-->
 
                 <!-- 2. Koşul: EVAPORATÖR veya üst kategorisi -->
-                <t t-if="product.filtre_grubu_id.name in ['1', '2', '3']">
+                <t t-if="o.termo_tip_id.grup == '1'">
                     <div>
                         <p class="" style="background-color:grey; padding:10px; line-height:2">  Kapasite Bilgileri </p>
                         <table class="table" style="text-align:left; padding:0; margin-bottom:0;">
                             <tbody style="line-height:1.5;">
                                 <tr>
-                                    <th scope="row">Kapasite</th>
-                                    <td><t t-esc="format_value_with_unit(o.kapasite, 'Watt')"/></td>
+                                    <th scope="row">SC1</th>
+                                    <td><t t-esc="format_value_with_unit(o.sc1, 'w')"/></td>
+                                    <th scope="row">SC2</th>
+                                    <td><t t-esc="format_value_with_unit(o.sc2,'w')"/></td>
+
+                                </tr>
+
+                                <tr>
+                                    <th scope="row">SC3</th>
+                                    <td><t t-esc="format_value_with_unit(o.sc3, 'w')"/></td>
+                                    <th scope="row">SC4</th>
+                                    <td><t t-esc="format_value_with_unit(o.sc4,'w')"/></td>
+
+                                </tr>
+
+                                <tr>
+                                    <th scope="row">Fan Devri</th>
+                                    <td>1400 rpm</td>
                                     <th scope="row">Hava Debisi</th>
                                     <td><t t-esc="format_value_with_unit(o.hava_debisi,'&#13221;/h')"/></td>
 
@@ -69,7 +85,7 @@
                                     <th scope="row">Lamel Aralığı</th>
                                     <td><t t-esc="format_value_with_unit(o.hatve,' ')"/></td>
                                     <th scope="row">Isı Transfer Yüzey Alanı</th>
-                                    <td><t t-esc="format_value_with_unit(o.yuzey,'&#13221;/h')"/></td>
+                                    <td><t t-esc="format_value_with_unit(o.yuzey,'&#13217;')"/></td>
 
                                 </tr>
                                 <tr>
@@ -80,12 +96,7 @@
                                     <td><t t-esc="format_value_with_unit(o.fan_adet,' ')"/></td>
 
                                 </tr>
-                                <tr>
-                                    <th scope="row">Fan Devri</th>
-                                    <td>1400 rpm</td>
-                                    <th></th>
-                                    <td></td>
-                                </tr>
+
                             </tbody>
                         </table>
                     </div>
@@ -123,6 +134,190 @@
                         </table>
                     </div>
                 </t>
+
+                <t t-if="o.termo_tip_id.grup == '2'">
+                    <div>
+                        <p class="" style="background-color:grey; padding:10px; line-height:2">  Kapasite Bilgileri </p>
+                        <table class="table" style="text-align:left; padding:0; margin-bottom:0;">
+                            <tbody style="line-height:1.5;">
+                                <tr>
+
+                                    <th scope="row">To / Te -35°C / -40°C :</th>
+                                    <td><t t-esc="format_value_with_unit(o.t1, 'w')"/></td>
+                                    <th scope="row">To / Te -40°C / -45°C :</th>
+                                    <td><t t-esc="format_value_with_unit(o.t2,'w')"/></td>
+
+                                </tr>
+                                <tr>
+
+                                    <th scope="row">Fan Devri</th>
+                                    <td>1400 rpm</td>
+                                    <th scope="row">Hava Debisi</th>
+                                    <td><t t-esc="format_value_with_unit(o.hava_debisi,'&#13221;/h')"/></td>
+
+                                </tr>
+                                <tr>
+                                    <th scope="row">Oda Sıcaklığı</th>
+                                    <td><t t-esc="format_value_with_unit(o.oda_sicakligi,'&#8451;')"/></td>
+                                    <th scope="row">Evaporasyon Sıcaklığı</th>
+                                    <td><t t-esc="format_value_with_unit(o.evaporasyon_sicakligi,'&#8451;')"/></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Akışkan</th>
+                                    <td>R404A</td>
+                                    <th scope="row">Test Basıncı</th>
+                                    <td>32 bar</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Lamel Aralığı</th>
+                                    <td><t t-esc="format_value_with_unit(o.hatve,' ')"/></td>
+                                    <th scope="row">Isı Transfer Yüzey Alanı</th>
+                                    <td><t t-esc="format_value_with_unit(o.yuzey,'&#13221;/h')"/></td>
+
+                                </tr>
+                                <tr>
+                                    <th scope="row">Fan Çapı</th>
+                                    <td><span>&#248;</span> <t t-esc="format_value_with_unit(o.fan_cap,'mm')"/></td>
+
+                                    <th scope="row">Fan Sayısı</th>
+                                    <td><t t-esc="format_value_with_unit(o.fan_adet,' ')"/></td>
+
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                        <p class="" style="background-color:grey; padding:10px; line-height:2">  Ölçüler </p>
+                        <table class="table text-left" >
+                            <!--                        <table class="table mx-1 text-left" style="table-layout: fixed;">-->
+                            <tbody style="line-height:1.5;">
+
+                                <tr>
+                                    <th scope="row">H</th>
+                                    <td><t t-esc="format_value_with_unit(o.H, 'mm')"/></td>
+                                    <th scope="row">L</th>
+                                    <td><t t-esc="format_value_with_unit(o.L, 'mm')"/></td>
+                                    <th scope="row">W</th>
+                                    <td><t t-esc="format_value_with_unit(o.W, 'mm')"/></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">H1</th>
+                                    <td><t t-esc="format_value_with_unit(o.H1, 'mm')"/></td>
+                                    <th scope="row">L1</th>
+                                    <td><t t-esc="format_value_with_unit(o.L1, 'mm')"/></td>
+                                    <th scope="row">W1</th>
+                                    <td><t t-esc="format_value_with_unit(o.W1, 'mm')"/></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">LA</th>
+                                    <td><t t-esc="format_value_with_unit(o.LA, 'mm')"/></td>
+                                    <th scope="row">W2</th>
+                                    <td><t t-esc="format_value_with_unit(o.W2, 'mm')"/></td>
+                                    <th scope="row">W3</th>
+                                    <td><t t-esc="format_value_with_unit(o.W3, 'mm')"/></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </t>
+
+                <t t-if="o.termo_tip_id.grup == '3'">
+                    <div>
+                        <p class="" style="background-color:grey; padding:10px; line-height:2">  Kapasite Bilgileri </p>
+                        <table class="table" style="text-align:left; padding:0; margin-bottom:0;">
+                            <tbody style="line-height:1.5;">
+
+                                <tr>
+                                    <th scope="row">SC1</th>
+                                    <td><t t-esc="format_value_with_unit(o.sc1, 'w')"/></td>
+                                    <th scope="row">SC2</th>
+                                    <td><t t-esc="format_value_with_unit(o.sc2,'w')"/></td>
+
+                                </tr>
+
+                                <tr>
+                                    <th scope="row">SC3</th>
+                                    <td><t t-esc="format_value_with_unit(o.sc3, 'w')"/></td>
+                                    <th scope="row">SC4</th>
+                                    <td><t t-esc="format_value_with_unit(o.sc4,'w')"/></td>
+
+                                </tr>
+
+                                <tr>
+                                    <th scope="row">Fan Devri</th>
+                                    <td>1400 rpm</td>
+                                    <th scope="row">Hava Debisi</th>
+                                    <td><t t-esc="format_value_with_unit(o.hava_debisi,'&#13221;/h')"/></td>
+
+                                </tr>
+                                <tr>
+                                    <th scope="row">Oda Sıcaklığı</th>
+                                    <td><t t-esc="format_value_with_unit(o.oda_sicakligi,'&#8451;')"/></td>
+                                    <th scope="row">Evaporasyon Sıcaklığı</th>
+                                    <td><t t-esc="format_value_with_unit(o.evaporasyon_sicakligi,'&#8451;')"/></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Akışkan</th>
+                                    <td>R404A</td>
+                                    <th scope="row">Test Basıncı</th>
+                                    <td>32 bar</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Lamel Aralığı</th>
+                                    <td><t t-esc="format_value_with_unit(o.hatve,' ')"/></td>
+                                    <th scope="row">Isı Transfer Yüzey Alanı</th>
+                                    <td><t t-esc="format_value_with_unit(o.yuzey,'&#13221;/h')"/></td>
+
+                                </tr>
+                                <tr>
+                                    <th scope="row">Fan Çapı</th>
+                                    <td><span>&#248;</span> <t t-esc="format_value_with_unit(o.fan_cap,'mm')"/></td>
+
+                                    <th scope="row">Fan Sayısı</th>
+                                    <td><t t-esc="format_value_with_unit(o.fan_adet,' ')"/></td>
+
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                        <p class="" style="background-color:grey; padding:10px; line-height:2">  Ölçüler </p>
+                        <table class="table text-left" >
+                            <!--                        <table class="table mx-1 text-left" style="table-layout: fixed;">-->
+                            <tbody style="line-height:1.5;">
+
+                                <tr>
+                                    <th scope="row">H</th>
+                                    <td><t t-esc="format_value_with_unit(o.H, 'mm')"/></td>
+                                    <th scope="row">L</th>
+                                    <td><t t-esc="format_value_with_unit(o.L, 'mm')"/></td>
+                                    <th scope="row">W</th>
+                                    <td><t t-esc="format_value_with_unit(o.W, 'mm')"/></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">H1</th>
+                                    <td><t t-esc="format_value_with_unit(o.H1, 'mm')"/></td>
+                                    <th scope="row">L1</th>
+                                    <td><t t-esc="format_value_with_unit(o.L1, 'mm')"/></td>
+                                    <th scope="row">W1</th>
+                                    <td><t t-esc="format_value_with_unit(o.W1, 'mm')"/></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">LA</th>
+                                    <td><t t-esc="format_value_with_unit(o.LA, 'mm')"/></td>
+                                    <th scope="row">W2</th>
+                                    <td><t t-esc="format_value_with_unit(o.W2, 'mm')"/></td>
+                                    <th scope="row">W3</th>
+                                    <td><t t-esc="format_value_with_unit(o.W3, 'mm')"/></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </t>
+
+
 
                 <!-- 3. Koşul: KONDENSER veya üst kategorisi -->
                 <t t-if="product.filtre_grubu_id.name in ['4', '5']">

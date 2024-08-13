@@ -12,15 +12,15 @@
                         <i class="oi oi-close"/>
                     </a>
                     <t t-foreach="attributes" t-as="a">
-                        <div class="accordion-item nav-item mb-1" t-if="a.value_ids and len(a.value_ids) &gt; 1">
-                            <h6 class="mb-3 " style="background-color: #50565C;border:1px solid #0000FF;padding:10px; text-align:center; color:white;">
+                        <div class="accordion-item nav-item mb-3" t-if="a.value_ids and len(a.value_ids) &gt; 1">
+                            <h6 class="mb-0 " style="background-color: #50565C;border:1px solid #0000FF;padding:8px; text-align:center; color:white;">
                                 <!--                            <h6 class="mb-3 " style="background-color: #0000FF;border:1px solid black;padding:10px; text-align:center; color:white;">-->
                                 <b class=" d-none d-lg-block"  t-field="a.name"/>
 
                             </h6>
-                            <div t-attf-id="o_products_attributes_{{a.id}}" class="">
+                            <div t-attf-id="o_products_attributes_{{a.id}}" class="" style="margin-top:0;">
                                 <t t-if="a.display_type == 'select'">
-                                    <select class="form-select  mb-2 " style="border:1px solid #50565C;" name="attrib">
+                                    <select class="form-select   " style="border:1px solid #50565C; border-radius:0 0 0.25rem 0.25rem;" name="attrib">
                                         <!--                                    <select class="form-select css_attribute_select mb-2 custom-filter-checkbox" style="border:1px solid #50565C;" name="attrib">-->
                                         <option value="" selected="true">-</option>
                                         <t t-foreach="a.value_ids" t-as="v">
@@ -62,6 +62,7 @@
                             <input type="radio" t-attf-name="wsale_categories_top_radios_{{parentCategoryId}}" class="btn-check pe-none" t-att-id="c.id" t-att-value="c.id" t-att-checked="'true' if c.id == category.id else None"/>
 
                             <div t-attf-class=" btn btn-{{navClass}} d-flex align-items-center {{'ps-2 pe-3' if c.image_128 else 'px-4'}} fs-6 fw-normal {{ 'border-primary' if c.id == category.id else '' }}"
+                                 style=";border:1px solid #50565C ; "
                                  t-att-for="c.id">
 <!--                                 style="background-color: #0000FF;border:1px solid #0000FF; text-align:center; color:white;"-->
 
