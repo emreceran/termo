@@ -445,7 +445,9 @@
             <t t-call="termo.termo_customized_footer"/>
 
             <t t-foreach="docs" t-as="o">
-                <t t-set="format_value_with_unit" t-value="lambda v, unit: ('-' if v in [-11, ''] else str(v) + ' ' + unit )"/>
+                <t t-set="format_value_with_unit" t-value="lambda v, unit: ('-' if v in [-11, ''] else '{:.2f}'.format(v).rstrip('0').rstrip('.') + ' ' + unit )"/>
+
+<!--                <t t-set="format_value_with_unit" t-value="lambda v, unit: ('-' if v in [-11, ''] else str(v) + ' ' + unit )"/>-->
                 <t t-set="format_value" t-value="lambda v: '-' if v == -11 else v"/>
                 <t t-call="web.external_layout">
 
