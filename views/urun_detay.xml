@@ -334,9 +334,9 @@
                                 </tr>
                                 <tr>
                                     <th scope="row">Hava Giriş Sıcaklığı</th>
-                                    <td><t t-esc="format_value_with_unit(o.oda_sicakligi,'&#8451;')"/></td>
+                                    <td><t t-esc="format_value_with_unit('25','&#8451;')"/></td>
                                     <th scope="row">Kondenzasyon Sıcaklığı</th>
-                                    <td><t t-esc="format_value_with_unit(o.evaporasyon_sicakligi,'&#8451;')"/></td>
+                                    <td><t t-esc="format_value_with_unit('40','&#8451;')"/></td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Akışkan</th>

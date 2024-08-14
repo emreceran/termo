@@ -403,13 +403,14 @@
                             <th scope="row">Fan Devri</th>
                             <td>1400 rpm</td>
                             <th scope="row">Hava Debisi</th>
-                            <td><t t-esc="format_value(o.hava_debisi_yuksek_devir)"/></td>
+                            <td><t t-esc="format_value_with_unit(o.hava_debisi_yuksek_devir,'&#13221;/h')"/></td>
+
                         </tr>
                         <tr>
                             <th scope="row">Hava Giriş Sıcaklığı</th>
-                            <td><t t-esc="format_value(o.oda_sicakligi)"/></td>
+                            <td><t t-esc="format_value_with_unit('25','&#8451;')"/></td>
                             <th scope="row">Kondenzasyon Sıcaklığı</th>
-                            <td><t t-esc="format_value(o.evaporasyon_sicakligi)"/></td>
+                            <td><t t-esc="format_value_with_unit('40','&#8451;')"/></td>
                         </tr>
                         <tr>
                             <th scope="row">Akışkan</th>
@@ -447,7 +448,7 @@
             <t t-foreach="docs" t-as="o">
                 <t t-set="format_value_with_unit" t-value="lambda v, unit: ('-' if v in [-11, ''] else '{:.2f}'.format(float(v)).rstrip('0').rstrip('.') + ' ' + unit if isinstance(v, (int, float)) else str(v) + ' ' + unit)"/>
 
-<!--                <t t-set="format_value_with_unit" t-value="lambda v, unit: ('-' if v in [-11, ''] else str(v) + ' ' + unit )"/>-->
+                <!--                <t t-set="format_value_with_unit" t-value="lambda v, unit: ('-' if v in [-11, ''] else str(v) + ' ' + unit )"/>-->
                 <t t-set="format_value" t-value="lambda v: '-' if v == -11 else v"/>
                 <t t-call="web.external_layout">
 
