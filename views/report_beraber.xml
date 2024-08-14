@@ -155,12 +155,7 @@
                             <th scope="row">Fan Sayısı</th>
                             <td><t t-esc="format_value_with_unit(o.fan_adet,'Adet')"/></td>
                         </tr>
-                        <tr>
-                            <th scope="row">Fan Devri</th>
-                            <td>1400 rpm</td>
-                            <th></th>
-                            <td></td>
-                        </tr>
+
                     </tbody>
                 </table>
             </div>
@@ -251,12 +246,7 @@
                             <th scope="row">Fan Sayısı</th>
                             <td><t t-esc="format_value_with_unit(o.fan_adet,'Adet')"/></td>
                         </tr>
-                        <tr>
-                            <th scope="row">Fan Devri</th>
-                            <td>1400 rpm</td>
-                            <th></th>
-                            <td></td>
-                        </tr>
+
                     </tbody>
                 </table>
             </div>
@@ -354,12 +344,7 @@
                             <th scope="row">Fan Sayısı</th>
                             <td><t t-esc="format_value_with_unit(o.fan_adet,'Adet')"/></td>
                         </tr>
-                        <tr>
-                            <th scope="row">Fan Devri</th>
-                            <td>1400 rpm</td>
-                            <th></th>
-                            <td></td>
-                        </tr>
+
                     </tbody>
                 </table>
             </div>
@@ -408,14 +393,14 @@
                     <tbody style="line-height:1.5;">
 
                         <tr>
-                                    <th scope="row">Kapasite Yüksek Devir(H) :</th>
-                                    <td><t t-esc="format_value_with_unit(o.kapasite_yuksek_devir, 'w')"/></td>
-                                    <th scope="row">Kapasite Düşük Devir (H) :</th>
-                                    <td><t t-esc="format_value_with_unit(o.kapasite_yuksek_devir, 'w')"/></td>
-                                </tr>
+                            <th scope="row">Kapasite Yüksek Devir(H) :</th>
+                            <td><t t-esc="format_value_with_unit(o.kapasite_yuksek_devir, 'w')"/></td>
+                            <th scope="row">Kapasite Düşük Devir (H) :</th>
+                            <td><t t-esc="format_value_with_unit(o.kapasite_yuksek_devir, 'w')"/></td>
+                        </tr>
 
                         <tr>
-                             <th scope="row">Fan Devri</th>
+                            <th scope="row">Fan Devri</th>
                             <td>1400 rpm</td>
                             <th scope="row">Hava Debisi</th>
                             <td><t t-esc="format_value(o.hava_debisi_yuksek_devir)"/></td>

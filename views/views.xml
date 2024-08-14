@@ -84,33 +84,52 @@
                     <page name="termo" string="Thermo">
 
                         <group>
-                            <group>
+                            <group string="Genel Bilgiler">
+                                <field name="product_top_type"/>
                                 <field name="termo_tip_id"/>
-                                <!--                                <field name="termo_filtre" widget="many2many_tags"/>-->
-                                <!--                                <field name="public_categ_ids" widget="many2many_tags"/>-->
 
-                                <!--                                <field name="precomputed_values" />-->
-                                <!--                                <field name="attribute_line_ids" />-->
-                                <!--                                <field name="filtre_grubu_id" />-->
+                            </group>
+
+                            <group string="Genel Yeknik Bilgiler">
                                 <field name="yuzey" />
-                                <field name="sutluk_uzunluk" />
-                                <field name="boru_sayisi" />
-                                <field name="yuzey" />
-                                <field name="sutluk_tip" />
-                                <field name="t1" />
-                                <field name="t2" />
+                                <field name="boru_hacmi" />
+                                <field name="fan_adet" />
+                                <field name="fan_cap" />
+                                <field name="hatve" />
+
+                            </group>
+
+
+
+                            <group string="Evaporatör Bilgileri" >
+
                                 <field name="sc1" />
                                 <field name="sc2" />
                                 <field name="sc3" />
                                 <field name="sc4" />
-                                <field name="fan_adet" />
-                                <field name="fan_cap" />
+                                <field name="t1" />
+                                <field name="t2" />
+                                <field name="rezidans_t1" />
+                                <field name="rezidans_t2_batarya" />
+                                <field name="rezidans_t2_tava" />
                                 <field name="hava_debisi" />
-
 
                             </group>
 
-                            <group>
+                            <group string="Kondanser Bilgileri">
+
+                                <field name="kapasite_yuksek_devir"/>
+                                <field name="kapasite_dusuk_devir"/>
+                                <field name="hava_debisi_yuksek_devir"/>
+                                <field name="hava_debisi_dusuk_devir"/>
+                                <field name="kondenser_giris_cap"/>
+                                <field name="kondenser_cikis_cap"/>
+
+                            </group>
+
+
+
+                            <group string="Teknik Bilgiler">
                                 <field name="H" />
                                 <field name="L" />
                                 <field name="W" />
@@ -120,17 +139,19 @@
                                 <field name="W2" />
                                 <field name="W3" />
                                 <field name="LA" />
-                                <field name="hatve" />
-                            </group>
-
-                            <group>
-
-                                <field name="kapasite_yuksek_devir"/>
-                                <field name="kapasite_dusuk_devir"/>
-                                <field name="hava_debisi_yuksek_devir"/>
-                                <field name="hava_debisi_dusuk_devir"/>
 
                             </group>
+
+                            <group string="Sütlük Bilgileri" >
+                                <field name="sutluk_uzunluk" />
+                                <field name="yan_uzunluk" />
+                                <field name="boru_sayisi" />
+                                <field name="sutluk_tip" />
+                                <field name="sutluk_geometri" />
+
+                            </group>
+
+
                         </group>
 
                     </page>
@@ -164,7 +185,7 @@
             <field name="inherit_id" ref="product.product_template_tree_view" />
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='name']" position="after">
-                    <field name="termo_tip_id" />
+                    <field name="termo_tip_id" optional="hide" />
                     <field name="website_parent_categ" optional="hide" />
                     <field name="termo_filtre" optional="hide" widget="many2many_tags"/>
                     <field name="public_categ_ids" optional="hide" widget="many2many_tags"/>
@@ -176,12 +197,25 @@
                     <field name="fan_adet" />
                     <field name="fan_cap" />
                     <field name="hatve" />
-                    <field name="t1" />
-                    <field name="t2" />
-                    <field name="sc1" />
-                    <field name="sc2" />
-                    <field name="sc3" />
-                    <field name="sc4" />
+                    <field name="t1" optional="show"/>
+                    <field name="t2" optional="show"/>
+                    <field name="sc1" optional="show"/>
+                    <field name="sc2" optional="show"/>
+                    <field name="sc3" optional="show"/>
+                    <field name="sc4" optional="show"/>
+                    <field name="kapasite_yuksek_devir" optional="show"/>
+                    <field name="kapasite_dusuk_devir" optional="show"/>
+                    <field name="hava_debisi_yuksek_devir" optional="show"/>
+                    <field name="hava_debisi_dusuk_devir" optional="show"/>
+                    <field name="kondenser_giris_cap" optional="show"/>
+                    <field name="kondenser_cikis_cap" optional="show"/>
+                    <field name="sutluk_uzunluk" optional="show"/>
+                    <field name="yan_uzunluk" optional="show"/>
+                    <field name="boru_sayisi" optional="show"/>
+                    <field name="sutluk_tip" optional="show"/>
+                    <field name="sutluk_geometri" optional="show"/>
+
+
                 </xpath>
 
                 <xpath expr="//field[@name='default_code']" position="attributes">
