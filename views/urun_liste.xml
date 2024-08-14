@@ -155,19 +155,16 @@
                                     <div class="row">
                                         <div class="col-12 mb-2">
                                             <div class="product-info mx-2">
-                                                <div>
+                                                <div class="d-flex justify-content-between">
                                                     <span><b>SC1 :</b></span>
                                                     <span class="text-center"><t t-esc="format_value_with_unit(o.sc1, 'W')" /></span>
-                                                </div>
-                                                <div>
+
                                                     <span><b>SC2 :</b></span>
                                                     <span class="text-center"><t t-esc="format_value_with_unit(o.sc2, 'W')" /></span>
-                                                </div>
-                                                <div>
+
                                                     <span><b>SC3 :</b></span>
                                                     <span class="text-center"><t t-esc="format_value_with_unit(o.sc3, 'W')" /></span>
-                                                </div>
-                                                <div>
+
                                                     <span><b>SC4 :</b></span>
                                                     <span class="text-center"><t t-esc="format_value_with_unit(o.sc4, 'W')" /></span>
                                                 </div>
@@ -175,19 +172,16 @@
                                         </div>
                                         <div class="col-12 mb-2">
                                             <div class="product-info mx-2">
-                                                <div>
+                                                 <div class="d-flex justify-content-between">
                                                     <span><b>Fan Çapı :</b></span>
                                                     <span class="text-center"><t t-esc="format_value_with_unit(o.fan_cap, 'mm')" /></span>
-                                                </div>
-                                                <div>
+
                                                     <span><b>Fan Adet :</b></span>
                                                     <span class="text-center"><t t-esc="format_value_with_unit(o.fan_adet, ' ')" /></span>
-                                                </div>
-                                                <div>
+
                                                     <span><b>Yüzey Alanı :</b></span>
                                                     <span class="text-center"><t t-esc="format_value_with_unit(o.yuzey, '&#13221;')" /></span>
-                                                </div>
-                                                <div>
+
                                                     <span><b>Lamel :</b></span>
                                                     <span class="text-center"><t t-esc="format_value_with_unit(o.hatve, 'mm')" /></span>
                                                 </div>
@@ -200,15 +194,13 @@
                                     <div class="row">
                                         <div class="col-12 mb-2">
                                             <div class="product-info mx-2">
-                                                <div>
+                                                 <div class="d-flex justify-content-between">
                                                     <span><b>To / Te -35°C / -40°C :</b></span>
                                                     <span class="text-center"><t t-esc="format_value_with_unit(o.t1, 'W')" /></span>
-                                                </div>
-                                                <div>
+
                                                     <span><b>To / Te -40°C / -45°C :</b></span>
                                                     <span class="text-center"><t t-esc="format_value_with_unit(o.t2, 'W')" /></span>
-                                                </div>
-                                                <div>
+
                                                     <span><b>Fan Çapı :</b></span>
                                                     <span class="text-center"><t t-esc="format_value_with_unit(o.fan_cap, 'mm')" /></span>
                                                 </div>
@@ -216,15 +208,13 @@
                                         </div>
                                         <div class="col-12 mb-2">
                                             <div class="product-info mx-2">
-                                                <div>
+                                                 <div class="d-flex justify-content-between">
                                                     <span><b>Fan Adet :</b></span>
                                                     <span class="text-center"><t t-esc="format_value_with_unit(o.fan_adet, ' ')" /></span>
-                                                </div>
-                                                <div>
+
                                                     <span><b>Yüzey Alanı :</b></span>
                                                     <span class="text-center"><t t-esc="format_value_with_unit(o.yuzey, '&#13221;')" /></span>
-                                                </div>
-                                                <div>
+
                                                     <span><b>Lamel :</b></span>
                                                     <span class="text-center"><t t-esc="format_value_with_unit(o.hatve, 'mm')" /></span>
                                                 </div>
@@ -237,15 +227,13 @@
                                     <div class="row">
                                         <div class="col-12 mb-2">
                                             <div class="product-info mx-2">
-                                                <div>
+                                                 <div class="d-flex justify-content-between">
                                                     <span><b>SC1 :</b></span>
                                                     <span class="text-center"><t t-esc="format_value_with_unit(o.sc1, 'W')" /></span>
-                                                </div>
-                                                <div>
+
                                                     <span><b>SC2 :</b></span>
                                                     <span class="text-center"><t t-esc="format_value_with_unit(o.sc2, 'W')" /></span>
-                                                </div>
-                                                <div>
+
                                                     <span><b>Fan Çapı :</b></span>
                                                     <span class="text-center"><t t-esc="format_value_with_unit(o.fan_cap, 'mm')" /></span>
                                                 </div>
@@ -253,15 +241,13 @@
                                         </div>
                                         <div class="col-12 mb-2">
                                             <div class="product-info mx-2">
-                                                <div>
+                                                 <div class="d-flex justify-content-between">
                                                     <span><b>Fan Adet :</b></span>
                                                     <span class="text-center"><t t-esc="format_value_with_unit(o.fan_adet, ' ')" /></span>
-                                                </div>
-                                                <div>
+
                                                     <span><b>Yüzey Alanı :</b></span>
                                                     <span class="text-center"><t t-esc="format_value_with_unit(o.yuzey, '&#13221;')" /></span>
-                                                </div>
-                                                <div>
+
                                                     <span><b>Lamel :</b></span>
                                                     <span class="text-center"><t t-esc="format_value_with_unit(o.hatve, 'mm')" /></span>
                                                 </div>
@@ -272,17 +258,15 @@
 
                                 <t t-if="o.termo_tip_id.grup in ['4', '5']">
                                     <div class="row">
-                                        <div class="col-12 mb-2">
+                                        <div class="mb-2">
                                             <div class="product-info">
-                                                <div>
+                                                 <div class="d-flex justify-content-between">
                                                     <span><b>Kapasite Yüksek Devir(H) :</b></span>
                                                     <span class="text-center"><t t-esc="format_value_with_unit(o.kapasite_yuksek_devir, 'W')" /></span>
-                                                </div>
-                                                <div>
+
                                                     <span><b>Kapasite Düşük Devir (H) :</b></span>
                                                     <span class="text-center"><t t-esc="format_value_with_unit(o.kapasite_dusuk_devir, 'W')" /></span>
-                                                </div>
-                                                <div>
+
                                                     <span><b>Fan Çapı :</b></span>
                                                     <span class="text-center"><t t-esc="format_value_with_unit(o.fan_cap, 'mm')" /></span>
                                                 </div>
@@ -290,15 +274,13 @@
                                         </div>
                                         <div class="col-12 mb-2">
                                             <div class="product-info">
-                                                <div>
+                                                 <div class="d-flex justify-content-between">
                                                     <span><b>Fan Adet :</b></span>
                                                     <span class="text-center"><t t-esc="format_value_with_unit(o.fan_adet, ' ')" /></span>
-                                                </div>
-                                                <div>
+
                                                     <span><b>Yüzey Alanı :</b></span>
                                                     <span class="text-center"><t t-esc="format_value_with_unit(o.yuzey, '&#13221;')" /></span>
-                                                </div>
-                                                <div>
+
                                                     <span><b>Lamel :</b></span>
                                                     <span class="text-center"><t t-esc="format_value_with_unit(o.hatve, 'mm')" /></span>
                                                 </div>
