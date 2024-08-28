@@ -15,15 +15,15 @@
                             </h2>
                         </div>
 
-<!--                        <p class="alert alert-info mt-3" role="status">-->
-<!--                            <a role="button" t-att-href='order.partner_id.signup_prepare() and order.partner_id.with_context(relative_url=True).signup_url' class='btn btn-primary'>Sign Up</a>-->
-<!--                            to follow your order.-->
-<!--                        </p>-->
-<!--                        <div class="oe_structure clearfix mt-3" id="oe_structure_website_sale_confirmation_1"/>-->
+                        <!--                        <p class="alert alert-info mt-3" role="status">-->
+                        <!--                            <a role="button" t-att-href='order.partner_id.signup_prepare() and order.partner_id.with_context(relative_url=True).signup_url' class='btn btn-primary'>Sign Up</a>-->
+                        <!--                            to follow your order.-->
+                        <!--                        </p>-->
+                        <!--                        <div class="oe_structure clearfix mt-3" id="oe_structure_website_sale_confirmation_1"/>-->
 
-<!--                        <t t-call="website_sale.payment_confirmation_status"/>-->
+                        <!--                        <t t-call="website_sale.payment_confirmation_status"/>-->
 
-<!--                        <div class="oe_structure mt-3" id="oe_structure_website_sale_confirmation_2"/>-->
+                        <!--                        <div class="oe_structure mt-3" id="oe_structure_website_sale_confirmation_2"/>-->
                     </div>
                 </div>
                 <div class="col-12 col-xl-auto">
@@ -64,38 +64,66 @@
         </xpath>
     </template>
 
-<!--    <template id="payment_footer_inherit" inherit_id="website_sale.payment_footer">-->
-<!--        <xpath expr="//div[@id='payment_method']" position="replace">-->
-<!--            <div name="o_checkbox_container"-->
-<!--             class="form-check mt-2 o_accept_tc_button"/>-->
-<!--        <div class="float-start mt-2">-->
-<!--            <a role="button" href="/shop/cart" class="btn btn-secondary">-->
-<!--                <i class="fa fa-chevron-left"/> Return to Cart-->
-<!--            </a>-->
-<!--        </div>-->
-<!--        <div class="float-end mt-2">-->
-<!--            <button name="o_payment_submit_button"-->
-<!--                    type="submit"-->
-<!--                    class="btn btn-primary"-->
-<!--                    disabled="true"-->
-<!--                    data-icon-class="fa-chevron-right">-->
-<!--                <t t-esc="submit_button_label"/> <i class="fa fa-chevron-right"/>-->
-<!--            </button>-->
-<!--        </div>-->
-<!--        </xpath>-->
-<!--    </template>-->
+    <!--    <template id="payment_footer_inherit" inherit_id="website_sale.payment_footer">-->
+    <!--        <xpath expr="//div[@id='payment_method']" position="replace">-->
+    <!--            <div name="o_checkbox_container"-->
+    <!--             class="form-check mt-2 o_accept_tc_button"/>-->
+    <!--        <div class="float-start mt-2">-->
+    <!--            <a role="button" href="/shop/cart" class="btn btn-secondary">-->
+    <!--                <i class="fa fa-chevron-left"/> Return to Cart-->
+    <!--            </a>-->
+    <!--        </div>-->
+    <!--        <div class="float-end mt-2">-->
+    <!--            <button name="o_payment_submit_button"-->
+    <!--                    type="submit"-->
+    <!--                    class="btn btn-primary"-->
+    <!--                    disabled="true"-->
+    <!--                    data-icon-class="fa-chevron-right">-->
+    <!--                <t t-esc="submit_button_label"/> <i class="fa fa-chevron-right"/>-->
+    <!--            </button>-->
+    <!--        </div>-->
+    <!--        </xpath>-->
+    <!--    </template>-->
 
 
     <template id="your_template_inherit" inherit_id="website_sale.products">
-        <xpath expr="//div[hasclass('o_wsale_products_grid_before_rail')]" position="attributes">
-            <attribute name="style">position:fixed; left:10px; width:300px; overflow-y: auto; max-height: 100vh;</attribute>
+        <xpath expr="//aside[@id='products_grid_before']" position="attributes">
+            <attribute name="style">
+                position: fixed;
+                left: 0;
+                width: 30%;
+
+                overflow-x: hidden;
+                max-height: calc(100vh - 50px); /* Ekran yüksekliğini footer'dan uzak tutmak için 50px azaldı */
+                padding-right: 10px;
+                margin-right: 10px;
+                bottom: 0; /* Div'in alt sınırını belirlemek için */
+            </attribute>
+            <!--       <attribute name="class" remove=" position-sticky col-3 px-3" add="col-6" separator=" "/>-->
         </xpath>
     </template>
+
+    <!--    <template id="your_template_inherit" inherit_id="website_sale.products">-->
+    <!--    <xpath expr="//div[hasclass('o_wsale_products_grid_before_rail')]" position="attributes">-->
+    <!--        <attribute name="style">-->
+    <!--            position: relative;-->
+    <!--            left: 0;-->
+    <!--            width: 100%;-->
+    <!--            background-color: gray;-->
+    <!--            overflow-x: hidden;-->
+    <!--            max-height: calc(100vh - 50px); /* Ekran yüksekliğini footer'dan uzak tutmak için 50px azaldı */-->
+    <!--            padding-right: 10px;-->
+    <!--            margin-right: 10px;-->
+    <!--            bottom: 0; /* Div'in alt sınırını belirlemek için */-->
+    <!--        </attribute>-->
+    <!--    </xpath>-->
+    <!--</template>-->
+
 
     <template id="custom_products_attributes" inherit_id="website_sale.products_attributes">
         <xpath expr="//div[@id='wsale_products_attributes_collapse']" position="replace">
             <div id="wsale_products_attributes_collapse"
-                 class=" position-absolute" style="width:50%; right:10px;">
+                 class=" position-absolute" style="width:70%; right:10px;">
                 <form t-if="attributes"  class="js_attributes position-relative mb-2" method="get">
                     <input t-if="category" type="hidden" name="category" t-att-value="category.id" />
                     <input type="hidden" name="search" t-att-value="search" />
