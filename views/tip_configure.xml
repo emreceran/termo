@@ -209,36 +209,37 @@
         </record>
 
         <menuitem sequence="0" id="menu_termo" name="Termo"/>
+        <menuitem sequence="0" id="menu_termo_teknik" name="Teknik Menü" parent="menu_termo"/>
 
         <menuitem id="termo_filtre_grubu_menu"
                   name="Filtre Grupları"
-                  parent="menu_termo"
+                  parent="menu_termo_teknik"
                   sequence="5"
                   action="termo_filtre_grubu_configuration_action"/>
 
         <menuitem id="termo_web_grubu_menu"
                   name="Filtre Grupları"
-                  parent="menu_termo"
+                  parent="menu_termo_teknik"
                   sequence="5"
                   action="termo_web_grubu_configuration_action"/>
 
 
         <menuitem id="termo_tip_menu"
                   name="Ürün Tipleri"
-                  parent="menu_termo"
+                  parent="menu_termo_teknik"
                   sequence="0"
                   action="termo_tip_configuration_action"/>
 
         <menuitem id="termo_seri_menu"
                   name="Ürün Serileri"
-                  parent="menu_termo"
+                  parent="menu_termo_teknik"
                   sequence="1"
                   action="termo_seri_configuration_action"/>
 
 
         <menuitem id="termo_filtre_menu"
                   name="Ürün Filtreleri"
-                  parent="menu_termo"
+                  parent="menu_termo_teknik"
                   sequence="1"
                   action="product.attribute_action"/>
 
@@ -248,6 +249,22 @@
                   parent="menu_termo"
                   sequence="2"
                   action="product_template_action_kopya"/>
+
+        <menuitem id="termo_urun_pricelist_menu"
+                  name="Fiyat Listeleri"
+                  parent="menu_termo"
+                  sequence="3"
+                  action="product.product_pricelist_action2"/>
+
+
+        <menuitem id="termo_urun_musteriler_menu"
+                  name="Müşteriler "
+                  parent="menu_termo"
+                  sequence="4"
+                  action="account.res_partner_action_customer"/>
+
+
+
 
 
 

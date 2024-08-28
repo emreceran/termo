@@ -41,4 +41,9 @@
     'demo': [
         'demo/demo.xml',
     ],
+
+    'images': ['static/description/termologo.png'],
+    'installable': True,
+    'application': True,
+    'auto_install': False,
 }
