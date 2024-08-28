@@ -2,6 +2,9 @@ id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_termo_internal,termo.tip.internal,model_termo_tip,base.group_user,1,1,1,1
 access_termo_portal,termo.tip.portal,model_termo_tip,base.group_portal,1,1,1,1
 access_termo_public,termo.tip.public,model_termo_tip,base.group_public,1,1,1,1
+access_termo_seri_internal,termo.seri.internal,model_termo_seri,base.group_user,1,1,1,1
+access_termo_seri_portal,termo.seri.portal,model_termo_seri,base.group_portal,1,1,1,1
+access_termo_seri_public,termo.seri.public,model_termo_seri,base.group_public,1,1,1,1
 access_termo_filtreler,termo.filtreler.internal,model_termo_filtreler,base.group_user,1,1,1,1
 access_termo_filtre,termo.filtre.internal,model_termo_filtre,base.group_user,1,1,1,1
 access_termo_filtre_grubu_inernal,termo.filtre_grubu.internal,model_termo_filtre_grubu,base.group_user,1,1,1,1

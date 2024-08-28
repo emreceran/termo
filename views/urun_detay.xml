@@ -72,12 +72,7 @@
                                     <td><t t-esc="format_value_with_unit(o.hava_debisi,'&#13221;/h')"/></td>
 
                                 </tr>
-                                <tr>
-                                    <th scope="row">Oda Sıcaklığı</th>
-                                    <td><t t-esc="format_value_with_unit(o.oda_sicakligi,'&#8451;')"/></td>
-                                    <th scope="row">Evaporasyon Sıcaklığı</th>
-                                    <td><t t-esc="format_value_with_unit(o.evaporasyon_sicakligi,'&#8451;')"/></td>
-                                </tr>
+
                                 <tr>
                                     <th scope="row">Akışkan</th>
                                     <td>R404A</td>
@@ -157,12 +152,7 @@
                                     <td><t t-esc="format_value_with_unit(o.hava_debisi,'&#13221;/h')"/></td>
 
                                 </tr>
-                                <tr>
-                                    <th scope="row">Oda Sıcaklığı</th>
-                                    <td><t t-esc="format_value_with_unit(o.oda_sicakligi,'&#8451;')"/></td>
-                                    <th scope="row">Evaporasyon Sıcaklığı</th>
-                                    <td><t t-esc="format_value_with_unit(o.evaporasyon_sicakligi,'&#8451;')"/></td>
-                                </tr>
+
                                 <tr>
                                     <th scope="row">Akışkan</th>
                                     <td>R404A</td>
@@ -252,12 +242,7 @@
                                     <td><t t-esc="format_value_with_unit(o.hava_debisi,'&#13221;/h')"/></td>
 
                                 </tr>
-                                <tr>
-                                    <th scope="row">Oda Sıcaklığı</th>
-                                    <td><t t-esc="format_value_with_unit(o.oda_sicakligi,'&#8451;')"/></td>
-                                    <th scope="row">Evaporasyon Sıcaklığı</th>
-                                    <td><t t-esc="format_value_with_unit(o.evaporasyon_sicakligi,'&#8451;')"/></td>
-                                </tr>
+
                                 <tr>
                                     <th scope="row">Akışkan</th>
                                     <td>R404A</td>

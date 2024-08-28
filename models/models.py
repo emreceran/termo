@@ -51,6 +51,14 @@ class filtreler(models.Model):
     name = fields.Char(string='Ürün Filtresi', required=True, translate=True)
 
 
+class UrunSeri(models.Model):
+    _name = "termo.seri"
+    _description = 'Ürün Serisi'
+
+    active = fields.Boolean('Active', default=True)
+    name = fields.Char(string='Ürün Serisi', required=True, translate=True)
+
+
 class filtregrubu(models.Model):
     _name = "termo.filtre_grubu"
     _description = 'Filtre Grupları'

@@ -1,8 +1,101 @@
 <odoo>
+
+    <template id="custom_confirmation_inherit" inherit_id="website_sale.confirmation">
+        <!-- Remove the h3 and table immediately following the div with id oe_structure_website_sale_confirmation_1 -->
+
+        <xpath expr="//div[hasclass('row')]" position="replace">
+            <div class="row">
+                <div class="col-12 col-xl">
+                    <div class="oe_cart">
+                        <t t-set="payment_tx_id" t-value="order.get_portal_last_transaction()"/>
+
+                        <div class="thanks_msg">
+                            <h2> Siparişiniz alınmıştır. Çıktı almak için yandaki bağlantıya tıklayabilirsiniz.
+                                <a role="button" class="btn btn-primary d-none d-md-inline-block" href="/shop/print" target="_blank" aria-label="Print" title="Print"><i class="fa fa-print"></i> Print</a>
+                            </h2>
+                        </div>
+
+<!--                        <p class="alert alert-info mt-3" role="status">-->
+<!--                            <a role="button" t-att-href='order.partner_id.signup_prepare() and order.partner_id.with_context(relative_url=True).signup_url' class='btn btn-primary'>Sign Up</a>-->
+<!--                            to follow your order.-->
+<!--                        </p>-->
+<!--                        <div class="oe_structure clearfix mt-3" id="oe_structure_website_sale_confirmation_1"/>-->
+
+<!--                        <t t-call="website_sale.payment_confirmation_status"/>-->
+
+<!--                        <div class="oe_structure mt-3" id="oe_structure_website_sale_confirmation_2"/>-->
+                    </div>
+                </div>
+                <div class="col-12 col-xl-auto">
+                    <t t-set="website_sale_order" t-value="order"/>
+                    <t t-call="website_sale.cart_summary">
+                        <t t-set="hide_promotions" t-value="1"/>
+                    </t>
+                </div>
+            </div>
+        </xpath>
+    </template>
+
+    <!--    <template id="custom_aside_inherit" inherit_id="website_sale.products">-->
+
+    <!--        <xpath expr="//aside[@id='products_grid_before']" position="attributes">-->
+    <!--                <attribute name="class" remove="position-sticky"  add="bg-dark" separator=" "/>-->
+    <!--        </xpath>-->
+
+    <!--        <xpath expr="//aside[@id='products_grid_before']" position="attributes">-->
+    <!--                <attribute name="class" remove="col-3"  add="col-5" separator=" "/>-->
+    <!--        </xpath>-->
+    <!--        <xpath expr="//aside[@id='products_grid_before']" position="attributes">-->
+    <!--                <attribute name="style" add="position:fixed; left:0;"   separator=" "/>-->
+    <!--        </xpath>-->
+
+
+    <!--    </template>-->
+
+    <template id="payment_inherit" inherit_id="website_sale.payment">
+        <xpath expr="//div[@id='payment_method']" position="replace">
+            <div t-if="providers or tokens" id="payment_method" class="mt-3">
+
+                <t t-call="payment.checkout">
+                    <t t-set="footer_template_id" t-value="'website_sale.payment_footer'"/>
+                    <t t-set="submit_button_label">İşleme Devam</t>
+                </t>
+            </div>
+        </xpath>
+    </template>
+
+<!--    <template id="payment_footer_inherit" inherit_id="website_sale.payment_footer">-->
+<!--        <xpath expr="//div[@id='payment_method']" position="replace">-->
+<!--            <div name="o_checkbox_container"-->
+<!--             class="form-check mt-2 o_accept_tc_button"/>-->
+<!--        <div class="float-start mt-2">-->
+<!--            <a role="button" href="/shop/cart" class="btn btn-secondary">-->
+<!--                <i class="fa fa-chevron-left"/> Return to Cart-->
+<!--            </a>-->
+<!--        </div>-->
+<!--        <div class="float-end mt-2">-->
+<!--            <button name="o_payment_submit_button"-->
+<!--                    type="submit"-->
+<!--                    class="btn btn-primary"-->
+<!--                    disabled="true"-->
+<!--                    data-icon-class="fa-chevron-right">-->
+<!--                <t t-esc="submit_button_label"/> <i class="fa fa-chevron-right"/>-->
+<!--            </button>-->
+<!--        </div>-->
+<!--        </xpath>-->
+<!--    </template>-->
+
+
+    <template id="your_template_inherit" inherit_id="website_sale.products">
+        <xpath expr="//div[hasclass('o_wsale_products_grid_before_rail')]" position="attributes">
+            <attribute name="style">position:fixed; left:10px; width:300px; overflow-y: auto; max-height: 100vh;</attribute>
+        </xpath>
+    </template>
+
     <template id="custom_products_attributes" inherit_id="website_sale.products_attributes">
         <xpath expr="//div[@id='wsale_products_attributes_collapse']" position="replace">
             <div id="wsale_products_attributes_collapse"
-                 class=" position-relative">
+                 class=" position-absolute" style="width:50%; right:10px;">
                 <form t-if="attributes"  class="js_attributes position-relative mb-2" method="get">
                     <input t-if="category" type="hidden" name="category" t-att-value="category.id" />
                     <input type="hidden" name="search" t-att-value="search" />
@@ -15,7 +108,7 @@
                         <div class="accordion-item nav-item mb-3" t-if="a.value_ids and len(a.value_ids) &gt; 1">
                             <h6 class="mb-0 " style="background-color: #50565C;border:1px solid #0000FF;padding:8px; text-align:center; color:white;">
                                 <!--                            <h6 class="mb-3 " style="background-color: #0000FF;border:1px solid black;padding:10px; text-align:center; color:white;">-->
-                                <b class=" d-none d-lg-block"  t-field="a.name"/>
+                                <b class=" d-none d-lg-block"  style="font-size:0.8em;" t-field="a.name"/>
 
                             </h6>
                             <div t-attf-id="o_products_attributes_{{a.id}}" class="" style="margin-top:0;">
@@ -29,11 +122,11 @@
                                     </select>
                                 </t>
                                 <t t-if="a.display_type == 'radio' or a.display_type == 'pills'">
-                                    <div class="flex-column mb-3" style="height: 10em; overflow: auto;">
+                                    <div class="flex-column mb-3" style="height: 6.5em; overflow: auto;">
                                         <t t-foreach="a.value_ids" t-as="v">
                                             <div class="form-check mb-1 custom-filter-checkbox" >
                                                 <input type="checkbox" name="attrib" class="form-check-input" t-att-id="'%s-%s' % (a.id,v.id)" t-att-value="'%s-%s' % (a.id,v.id)" t-att-checked="'checked' if v.id in attrib_set else None"/>
-                                                <label class="form-check-label fw-normal" t-att-for="'%s-%s' % (a.id,v.id)" t-field="v.name"/>
+                                                <label class="form-check-label fw-normal" style="font-size:0.8em;" t-att-for="'%s-%s' % (a.id,v.id)" t-field="v.name"/>
                                             </div>
                                         </t>
                                     </div>
@@ -64,7 +157,7 @@
                             <div t-attf-class=" btn btn-{{navClass}} d-flex align-items-center {{'ps-2 pe-3' if c.image_128 else 'px-4'}} fs-6 fw-normal {{ 'border-primary' if c.id == category.id else '' }}"
                                  style=";border:1px solid #50565C ; "
                                  t-att-for="c.id">
-<!--                                 style="background-color: #0000FF;border:1px solid #0000FF; text-align:center; color:white;"-->
+                                <!--                                 style="background-color: #0000FF;border:1px solid #0000FF; text-align:center; color:white;"-->
 
                                 <div t-if="c.image_128"
                                      t-attf-style="background-image:url('data:image/png;base64,#{c.image_128}')"

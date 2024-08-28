@@ -73,6 +73,40 @@
         </record>
 
 
+         <record id="termo_seri_configuration_action" model="ir.actions.act_window">
+            <field name="name">Termo Seri</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">termo.seri</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record id="termo_seri_tree" model="ir.ui.view">
+            <field name="name">termo.seri.tree</field>
+            <field name="model">termo.seri</field>
+            <field name="arch" type="xml">
+                <tree multi_edit="1" sample="1">
+                    <field name="name"/>
+                    <field name="active"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="termo_seri_form" model="ir.ui.view">
+            <field name="name">termo.seri.form</field>
+            <field name="model">termo.seri</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <field name="name" />
+                        <field name="active" />
+
+
+                    </group>
+                </form>
+            </field>
+        </record>
+
+
 
 
         <record id="termo_filtre_grubu_configuration_action" model="ir.actions.act_window">
@@ -194,6 +228,12 @@
                   parent="menu_termo"
                   sequence="0"
                   action="termo_tip_configuration_action"/>
+
+        <menuitem id="termo_seri_menu"
+                  name="Ürün Serileri"
+                  parent="menu_termo"
+                  sequence="1"
+                  action="termo_seri_configuration_action"/>
 
 
         <menuitem id="termo_filtre_menu"

@@ -87,6 +87,7 @@
                             <group string="Genel Bilgiler">
                                 <field name="product_top_type"/>
                                 <field name="termo_tip_id"/>
+                                <field name="termo_seri_id"/>
 
                             </group>
 
@@ -186,6 +187,7 @@
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='name']" position="after">
                     <field name="termo_tip_id" optional="hide" />
+                    <field name="termo_seri_id" optional="hide" />
                     <field name="website_parent_categ" optional="hide" />
                     <field name="termo_filtre" optional="hide" widget="many2many_tags"/>
                     <field name="public_categ_ids" optional="hide" widget="many2many_tags"/>

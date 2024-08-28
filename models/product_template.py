@@ -68,6 +68,7 @@ class ProductTemplate(models.Model):
 
 
     termo_tip_id = fields.Many2one('termo.tip', string="Ürün Tipi")
+    termo_seri_id = fields.Many2one('termo.seri', string="Ürün Serisi")
     termo_filtre =fields.Many2many(related="termo_tip_id.filtre")
     public_categ_ids =fields.Many2many(related="termo_tip_id.public")
     filtre_grubu_id =fields.Many2one(related="termo_tip_id.filtre_grubu_id")
