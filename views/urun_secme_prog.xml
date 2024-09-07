@@ -1,0 +1,99 @@
+<!-- termo/views/urun_secme_prog.xml -->
+
+<odoo>
+  <template id="urun_secme_programi_template">
+    <!--    <xpath expr="//head" position="inside">-->
+    <!--      &lt;!&ndash; CSS inline olarak tanımlanacak &ndash;&gt;-->
+    <!--    </xpath>-->
+    <t t-call="website.layout">
+      <div id="kkb-container" class="container">
+        <h2>Ürün Seçme Programı</h2>
+
+        <!-- CSS'yi inline olarak ekleyelim -->
+        <style>
+          .step {
+          display: none;
+          }
+          .step.active {
+          display: block;
+          }
+        </style>
+
+        <!-- Kategori Seçim Bölümü -->
+        <div id="step1" class="step active">
+          <h3>Kategori Seçimi</h3>
+          <div class="row">
+            <t t-foreach="categories" t-as="category">
+              <div class="col-md-4">
+                <div class="card">
+                  <img t-att-src="'/web/image/product.category/' + str(category.id) + '/image'" class="card-img-top" alt="Category Image"/>
+                  <div class="card-body">
+                    <h5 class="card-title"><t t-esc="category.name"/></h5>
+                    <button t-att-data-category-id="category.id" class="btn btn-primary select-category">Seç</button>
+                  </div>
+                </div>
+              </div>
+            </t>
+          </div>
+        </div>
+
+        <!-- Veri Girişi Bölümü -->
+        <div id="step2" class="step">
+          <h3>Veri Girişi</h3>
+          <form id="data-entry-form">
+            <div class="form-group">
+              <label for="input1">Veri 1</label>
+              <input type="text" id="input1" name="input1" class="form-control"/>
+            </div>
+            <div class="form-group">
+              <label for="input2">Veri 2</label>
+              <input type="text" id="input2" name="input2" class="form-control"/>
+            </div>
+            <button type="button" class="btn btn-primary" id="submit-data">Devam</button>
+          </form>
+        </div>
+
+        <!-- Tercihler Bölümü -->
+        <div id="step3" class="step">
+          <h3>Tercihler</h3>
+          <form id="preferences-form">
+            <div class="form-group">
+              <label for="pref1">Tercih 1</label>
+              <input type="text" id="pref1" name="pref1" class="form-control"/>
+            </div>
+            <div class="form-group">
+              <label for="pref2">Tercih 2</label>
+              <input type="text" id="pref2" name="pref2" class="form-control"/>
+            </div>
+            <button type="submit" class="btn btn-primary">Onayla</button>
+          </form>
+        </div>
+
+      </div>
+
+      <!-- JavaScript -->
+      <script>
+        document.addEventListener("DOMContentLoaded", function() {
+        const step1 = document.getElementById('step1');
+        const step2 = document.getElementById('step2');
+        const step3 = document.getElementById('step3');
+
+        // İlk adımdaki kategori seçim işlemi
+        document.querySelectorAll('.select-category').forEach(button => {
+        button.addEventListener('click', function() {
+        const categoryId = this.getAttribute('data-category-id');
+        step1.classList.remove('active');
+        step2.classList.add('active');
+        });
+        });
+
+        // Veri giriş adımından tercihler adımına geçiş
+        document.getElementById('submit-data').addEventListener('click', function() {
+        step2.classList.remove('active');
+        step3.classList.add('active');
+        });
+        });
+      </script>
+    </t>
+  </template>
+</odoo>
