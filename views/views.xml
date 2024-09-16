@@ -2,22 +2,6 @@
 
 <odoo>
     <data>
-
-
-
-        <!--        <record id="termo_product_template_form" model="ir.ui.view">-->
-        <!--            <field name="name">product.template.termo.form.inherit</field>-->
-        <!--            <field name="model">product.template</field>-->
-        <!--            <field name="inherit_id" ref="product.product_template_form_view" />-->
-        <!--            <field name="arch" type="xml">-->
-        <!--                <xpath expr="//page[last()]" position="after">-->
-
-        <!--                </xpath>-->
-        <!--            </field>-->
-        <!--        </record>-->
-
-
-
         <record id="termo_product_action_tree" model="ir.ui.view">
             <field name="name">product.template.termo.tree.inherit</field>
             <field name="model">product.template</field>
@@ -25,16 +9,11 @@
             <field name="arch" type="xml">
                 <xpath expr="//header" position="inside">
 
-                    <!--                    <button string="Görsellerigüncelle" type="object" name="onchange_termo_tip_id"/>-->
 
                     <button string="Variantları sil" type="object" name="clear_existing_variants"/>
                     <button string="Varyantları Oluştur " type="object" name="write_precomputed_values"/>
                     <button string="Variantları kontrol" type="object" name="check_precomputed_values"/>
                     <button string="Variantları Yaz" type="object" name="direct_write_precomputed_values"/>
-                    <!--                    <button string="Variantları sql" type="object" name="update_precomputed_values"/>-->
-
-
-                    <!--                    <button string="VARYANTLARI YAZ " type="object" name="read_precomputed_values"/>-->
 
                 </xpath>
             </field>
@@ -70,15 +49,10 @@
             <field name="inherit_id" ref="product.product_template_form_view" />
             <field name="arch" type="xml">
                 <xpath expr="//header" position="inside">
-
-                    <!--                    <button string="Görsellerigüncelle" type="object" name="onchange_termo_tip_id"/>-->
                     <button string="Variantları sil" type="object" name="clear_existing_variants"/>
                     <button string="Varyantları Oluştur " type="object" name="write_precomputed_values"/>
                     <button string="Variantları kontrol" type="object" name="check_precomputed_values"/>
                     <button string="Variantları Yaz" type="object" name="direct_write_precomputed_values"/>
-                    <!--                    <button string="Variantları sql" type="object" name="update_precomputed_values"/>-->
-
-                    <!--                    <button string="VARYANTLARI YAZ " type="object" name="read_precomputed_values"/>-->
                 </xpath>
                 <xpath expr="//page[last()]" position="after">
                     <page name="termo" string="Thermo">

@@ -34,7 +34,7 @@
         'views/urun_detay.xml',
         # 'views/urun_liste.xml',
         'views/urun_liste_2.xml',
-        # 'views/urun_secme_prod.xml',
+        'views/urun_secme_prod.xml',
         'views/custom_filter_page.xml',
         'views/urun_secme_prog.xml',
     ],

@@ -2,73 +2,67 @@
 
 <odoo>
   <template id="urun_secme_programi_template">
-    <!--    <xpath expr="//head" position="inside">-->
-    <!--      &lt;!&ndash; CSS inline olarak tanımlanacak &ndash;&gt;-->
-    <!--    </xpath>-->
     <t t-call="website.layout">
-      <div id="kkb-container" class="container">
-        <h2>Ürün Seçme Programı</h2>
+      <div class="container">
+        <div class="row">
+          <!-- Sol tarafta kategori seçimi -->
+          <div class="col-md-4">
+            <div class="card">
+              <div class="card-body">
+                <h2>Kategori Seçimi</h2>
 
-        <!-- CSS'yi inline olarak ekleyelim -->
-        <style>
-          .step {
-          display: none;
-          }
-          .step.active {
-          display: block;
-          }
-        </style>
+                <!-- CSS'yi inline olarak ekleyelim -->
+                <style>
+                  .step {
+                  display: none;
+                  }
+                  .step.active {
+                  display: block;
+                  }
+                </style>
 
-        <!-- Kategori Seçim Bölümü -->
-        <div id="step1" class="step active">
-          <h3>Kategori Seçimi</h3>
-          <div class="row">
-            <t t-foreach="categories" t-as="category">
-              <div class="col-md-4">
-                <div class="card">
-                  <img t-att-src="'/web/image/product.category/' + str(category.id) + '/image'" class="card-img-top" alt="Category Image"/>
-                  <div class="card-body">
-                    <h5 class="card-title"><t t-esc="category.name"/></h5>
-                    <button t-att-data-category-id="category.id" class="btn btn-primary select-category">Seç</button>
+                <!-- Ana Kategoriler Bölümü -->
+                <div id="step1" class="step active">
+                  <h3>Ana Kategoriler</h3>
+                  <div class="row">
+                    <t t-foreach="categories" t-as="category">
+                      <!-- Sadece ana kategorileri göster -->
+                      <t t-if="not category.parent_id">
+                        <div class="col-md-12">
+                          <div class="card">
+                            <img t-att-src="'/web/image/product.public.category/' + str(category.id) + '/image'" class="card-img-top" alt="Category Image"/>
+                            <div class="card-body">
+                              <h5 class="card-title"><t t-esc="category.name"/></h5>
+                              <button t-att-data-category-id="category.id" class="btn btn-primary select-category">Seç</button>
+                            </div>
+                          </div>
+                        </div>
+                      </t>
+                    </t>
                   </div>
                 </div>
+
+                <!-- Alt Kategoriler Bölümü -->
+                <div id="step2" class="step">
+                  <h3>Alt Kategoriler</h3>
+                  <div class="row" id="subcategories">
+                    <!-- Alt kategoriler dinamik olarak JavaScript ile buraya yüklenecek -->
+                  </div>
+                  <button type="button" class="btn btn-primary" id="back-to-main">Ana Kategorilere Geri Dön</button>
+                </div>
+
               </div>
-            </t>
+            </div>
+          </div>
+
+          <!-- Sağ tarafta ürün listesi -->
+          <div class="col-md-8">
+            <h3>Ürünler</h3>
+            <div class="row">
+              <!-- Ürünler burada listelenecek -->
+            </div>
           </div>
         </div>
-
-        <!-- Veri Girişi Bölümü -->
-        <div id="step2" class="step">
-          <h3>Veri Girişi</h3>
-          <form id="data-entry-form">
-            <div class="form-group">
-              <label for="input1">Veri 1</label>
-              <input type="text" id="input1" name="input1" class="form-control"/>
-            </div>
-            <div class="form-group">
-              <label for="input2">Veri 2</label>
-              <input type="text" id="input2" name="input2" class="form-control"/>
-            </div>
-            <button type="button" class="btn btn-primary" id="submit-data">Devam</button>
-          </form>
-        </div>
-
-        <!-- Tercihler Bölümü -->
-        <div id="step3" class="step">
-          <h3>Tercihler</h3>
-          <form id="preferences-form">
-            <div class="form-group">
-              <label for="pref1">Tercih 1</label>
-              <input type="text" id="pref1" name="pref1" class="form-control"/>
-            </div>
-            <div class="form-group">
-              <label for="pref2">Tercih 2</label>
-              <input type="text" id="pref2" name="pref2" class="form-control"/>
-            </div>
-            <button type="submit" class="btn btn-primary">Onayla</button>
-          </form>
-        </div>
-
       </div>
 
       <!-- JavaScript -->
@@ -76,21 +70,55 @@
         document.addEventListener("DOMContentLoaded", function() {
         const step1 = document.getElementById('step1');
         const step2 = document.getElementById('step2');
-        const step3 = document.getElementById('step3');
+        const subcategoriesContainer = document.getElementById('subcategories');
 
-        // İlk adımdaki kategori seçim işlemi
+        // Ana kategori seçim işlemi
         document.querySelectorAll('.select-category').forEach(button => {
         button.addEventListener('click', function() {
         const categoryId = this.getAttribute('data-category-id');
+
+        // Ajax çağrısı ile alt kategorileri çek
+        fetch(`/urun_secme_programi/get_subcategories/${categoryId}`)
+        .then(response => {
+        if (!response.ok) {
+        throw new Error('Network response was not ok ' + response.statusText);
+        }
+        return response.json();
+        })
+        .then(data => {
+        if (!data.subcategories || data.subcategories.length === 0) {
+        alert("Alt kategori bulunamadı!");
+        } else {
+        // Alt kategorileri göster
+        subcategoriesContainer.innerHTML = '';
+        data.subcategories.forEach(subcategory => {
+        const subcategoryElement = document.createElement('div');
+        subcategoryElement.classList.add('col-md-12');
+        subcategoryElement.innerHTML = `
+        <div class="card">
+          <div class="card-body">
+            <h5>${subcategory.name}</h5>
+            <button class="btn btn-primary">Seç</button>
+          </div>
+        </div>
+        `;
+        subcategoriesContainer.appendChild(subcategoryElement);
+        });
         step1.classList.remove('active');
         step2.classList.add('active');
+        }
+        })
+        .catch(error => {
+        console.error('Error fetching subcategories:', error);
+        alert("Bir hata oluştu. Lütfen tekrar deneyin.");
+        });
         });
         });
 
-        // Veri giriş adımından tercihler adımına geçiş
-        document.getElementById('submit-data').addEventListener('click', function() {
+        // Geri dönüş butonu
+        document.getElementById('back-to-main').addEventListener('click', function() {
         step2.classList.remove('active');
-        step3.classList.add('active');
+        step1.classList.add('active');
         });
         });
       </script>

@@ -48,6 +48,7 @@
                     <field name="filtre"/>
                     <field name="filtre_grubu_id"/>
                     <field name="web_grubu_id"/>
+                    <field name="urun_serisi_id"/>
                     <field name="public"/>
                 </tree>
             </field>
@@ -61,6 +62,7 @@
                     <group>
                         <field name="name" />
                         <field name="filtre_grubu_id" />
+                        <field name="urun_serisi_id" />
                         <field name="teknik_cizim" />
                         <field name="gorsel" />
                         <field name="filtre" />
@@ -218,7 +220,7 @@
                   action="termo_filtre_grubu_configuration_action"/>
 
         <menuitem id="termo_web_grubu_menu"
-                  name="Filtre Grupları"
+                  name="Web Grupları"
                   parent="menu_termo_teknik"
                   sequence="5"
                   action="termo_web_grubu_configuration_action"/>

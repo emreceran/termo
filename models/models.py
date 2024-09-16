@@ -16,6 +16,8 @@ class Tip(models.Model):
     filtre = fields.Many2many(related="filtre_grubu_id.filtreler", string='Filtreler')
     grup = fields.Char(related="filtre_grubu_id.name")
     web_grubu_id = fields.Many2one('termo.web_grubu')
+    urun_serisi_id = fields.Many2one('termo.seri')
+    urun_serisi = fields.Char(related="urun_serisi_id.name")
     public = fields.Many2many(related="web_grubu_id.kategoriler", string='Web Kategori')
     # product_ids = fields.One2many('product.template', 'termo_tip_id', string='Related Products')
     # product_ids = fields.Many2many('product.template', string='Related Products', domain="[('termo_tip_id', '=', False)]")

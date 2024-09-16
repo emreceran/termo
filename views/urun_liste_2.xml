@@ -5,9 +5,18 @@
             <attribute name="class">oe_product_cart h-100 d-flex flex-column flex-md-row</attribute>
         </xpath>
 
+        <xpath expr="//h6[hasclass('o_wsale_products_item_title')]" position="replace">
+            <h6 class="o_wsale_products_item_title mb-2">
+                <a class="text-decoration-none" style="color:blue" itemprop="name" t-att-href="product_href" t-att-content="product.name" t-field="product.name" />
+                <a t-if="not product.website_published" role="button" t-att-href="product_href" class="btn btn-sm btn-danger" title="This product is unpublished.">
+                    Unpublished
+                </a>
+            </h6>
+        </xpath>
+
         <!-- Görsel alanı class düzenlemesi -->
         <xpath expr="//div[hasclass('oe_product_image')]" position="attributes">
-            <attribute name="class">oe_product_image position-relative h-50 flex-grow-0 overflow-hidden"></attribute>
+            <attribute name="class">oe_product_image border position-relative h-50 flex-grow-0 overflow-hidden"></attribute>
         </xpath>
 
         <!-- Özellikleri (props) eklemek için -->
@@ -128,7 +137,7 @@
 
                                     <div class="d-flex flex-wrap justify-content-between">
 
-                                         <div class="mb-2 col-3">
+                                        <div class="mb-2 col-3">
 
                                             <span style=" margin-right:5px;"><b>Fan Çapı :</b></span>
                                             <span class="text-left"><t t-esc="format_value_with_unit(o.fan_cap, 'mm')" /></span>

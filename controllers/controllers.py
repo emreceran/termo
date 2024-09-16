@@ -40,15 +40,15 @@ class Termo(http.Controller):
     #         'objects': urunler,
     #     })
 
-    @http.route('/urun_secme_programi', type='http', auth="public", website=True)
-    def urun_secme_programi(self, **post):
-        products = request.env['product.template'].search([])
-        values = {
-            'products': products,
-        }
-        return http.request.render("termo.listing", values)
+    # @http.route('/urun_secme_programi', type='http', auth="public", website=True)
+    # def urun_secme_programi(self, **post):
+    #     products = request.env['product.template'].search([])
+    #     values = {
+    #         'products': products,
+    #     }
+    #     return http.request.render("termo.listing", values)
 
-    @http.route( '/termo/termo/urunler', type='http', auth="public", website=True)
+    @http.route( '/urun_secme_programi', type='http', auth="public", website=True)
     def list(self, page=1, **kw):
         Product = request.env['product.template'].sudo()
         items_per_page = 50
@@ -57,14 +57,14 @@ class Termo(http.Controller):
         urunler = Product.search([], limit=items_per_page, offset=offset)
 
         pager = request.website.pager(
-            url='/termo/urunler',
+            url='/urun_secme_programi',
             total=total_products,
             page=page,
             step=items_per_page
         )
 
         return http.request.render('termo.listing', {
-            'objects': urunler,
+            'objects': Product,
             'pager': pager,
         })
 
