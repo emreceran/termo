@@ -121,7 +121,7 @@
 
                 <div class="card js_cart_summary" t-if="website_sale_order and website_sale_order.website_order_line" >
                     <div class="card-body">
-                        <h4 class="d-none d-xl-block">Order Total</h4>
+                        <h4 class="d-none d-xl-block">Sipariş Toplam :</h4>
                         <hr class="d-none d-xl-block"/>
                         <div>
                             <t t-call="website_sale.total">
@@ -129,18 +129,18 @@
                             </t>
                             <t t-set="redirect_to_sign_in" t-value="website.account_on_checkout == 'mandatory' and website.is_public_user()"/>
                             <t t-set="redirect_url" t-value="'/web/login?redirect=/shop/checkout' if redirect_to_sign_in else '/shop/checkout?express=1'"/>
-                            <a role="button" t-if="website_sale_order and website_sale_order.website_order_line"
-                               class="btn btn-secondary float-end d-none d-xl-inline-block"
-                               t-attf-href="{{redirect_url}}">
-                                <t t-if="redirect_to_sign_in">
-                                    <span>Sign In</span>
-                                    <span class="fa fa-sign-in"/>
-                                </t>
-                                <t t-else="">
-                                    <span>Proceed to Checkout</span>
-                                    <span class="fa fa-chevron-right"/>
-                                </t>
-                            </a>
+<!--                            <a role="button" t-if="website_sale_order and website_sale_order.website_order_line"-->
+<!--                               class="btn btn-secondary float-end d-none d-xl-inline-block"-->
+<!--                               t-attf-href="{{redirect_url}}">-->
+<!--                                <t t-if="redirect_to_sign_in">-->
+<!--                                    <span>Sign In</span>-->
+<!--                                    <span class="fa fa-sign-in"/>-->
+<!--                                </t>-->
+<!--                                <t t-else="">-->
+<!--                                    <span>Proceed to Checkout</span>-->
+<!--                                    <span class="fa fa-chevron-right"/>-->
+<!--                                </t>-->
+<!--                            </a>-->
                         </div>
                     </div>
                 </div>
@@ -158,7 +158,7 @@
                                     <div id="wizard-step10" t-att-class="'progress-wizard-step %s' % (step == 10 and 'active' or step&gt;10 and 'complete' or 'disabled')">
                                         <div class="progress-wizard-bar d-none d-md-block"/>
                                         <span class="progress-wizard-dot d-none d-md-inline-block"></span>
-                                        <div class="text-center progress-wizard-steplabel">Review Order</div>
+                                        <div class="text-center progress-wizard-steplabel">Siparişi İncele</div>
                                     </div>
                                 </a>
 <!--                                <a class="no-decoration" t-att-href="step&gt;=20 and '/shop/checkout' or '#'">-->
@@ -172,7 +172,7 @@
                                     <div id="wizard-step40" t-att-class="'progress-wizard-step %s' % (step == 40 and 'active' or step&gt;40 and 'complete' or 'disabled')">
                                         <div class="progress-wizard-bar d-none d-md-block"/>
                                         <span class="progress-wizard-dot d-none d-md-inline-block"></span>
-                                        <div class="text-center progress-wizard-steplabel">Confirm Order</div>
+                                        <div class="text-center progress-wizard-steplabel">Sipariş Onayı</div>
                                     </div>
                                 </a>
                             </div>
