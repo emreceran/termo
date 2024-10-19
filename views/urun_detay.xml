@@ -163,7 +163,7 @@
                                     <th scope="row">Lamel Aralığı</th>
                                     <td><t t-esc="format_value_with_unit(o.hatve,'mm')"/></td>
                                     <th scope="row">Isı Transfer Yüzey Alanı</th>
-                                    <td><t t-esc="format_value_with_unit(o.yuzey,'&#13221;/h')"/></td>
+                                    <td><t t-esc="format_value_with_unit(o.yuzey,'&#13217;')"/></td>
 
                                 </tr>
                                 <tr>
@@ -253,7 +253,7 @@
                                     <th scope="row">Lamel Aralığı</th>
                                     <td><t t-esc="format_value_with_unit(o.hatve,'mm')"/></td>
                                     <th scope="row">Isı Transfer Yüzey Alanı</th>
-                                    <td><t t-esc="format_value_with_unit(o.yuzey,'&#13221;/h')"/></td>
+                                    <td><t t-esc="format_value_with_unit(o.yuzey,'&#13217;')"/></td>
 
                                 </tr>
                                 <tr>
@@ -333,7 +333,7 @@
                                     <th scope="row">Lamel Aralığı</th>
                                     <td><t t-esc="format_value_with_unit(o.hatve,'mm')"/></td>
                                     <th scope="row">Isı Transfer Yüzey Alanı</th>
-                                    <td><t t-esc="format_value_with_unit(o.yuzey,'&#13221;/h')"/></td>
+                                    <td><t t-esc="format_value_with_unit(o.yuzey,'&#13217;')"/></td>
 
                                 </tr>
                                 <tr>
