@@ -29,7 +29,7 @@
         'views/templates.xml',
         # 'views/report.xml',
         'views/report_beraber.xml',
-        'views/product_template.xml',
+        # 'views/product_template.xml',
         'views/tip_configure.xml',
         'views/urun_detay.xml',
         # 'views/urun_liste.xml',
