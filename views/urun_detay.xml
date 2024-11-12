@@ -401,7 +401,7 @@
         </xpath>
 
 
-         <xpath expr="//*[@id='product_details']">
+         <xpath expr="//div[@id='product_details']"  position="after">
 
             <hr />
             <t t-if="product.filtre_grubu_id.name in ['1', '2', '3', '4']">
