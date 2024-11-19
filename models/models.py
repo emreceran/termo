@@ -79,14 +79,14 @@ class webkategorigrup(models.Model):
     kategoriler = fields.Many2many('product.public.category', string='Filtreler')
 
 
-
-
-
-class ResPartner(models.Model):
-    _inherit = 'res.partner'
-
-    ilgili_kontak = fields.Many2one(
-        'res.partner', string="İlgili Kontak")
+#
+#
+#
+# class ResPartner(models.Model):
+#     _inherit = 'res.partner'
+#
+#     ilgili_kontak = fields.Many2one(
+#         'res.partner', string="İlgili Kontak")
 
 
 
