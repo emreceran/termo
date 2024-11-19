@@ -2,6 +2,20 @@
 
 <odoo>
     <data>
+
+        <record id="termo_pres_partnern_tree" model="ir.ui.view">
+            <field name="name">res.partner.form.inherit</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='function']" position="replace">
+                    <field name="ilgili_kontak" />
+
+                </xpath>
+            </field>
+        </record>
+
+
         <record id="termo_product_action_tree" model="ir.ui.view">
             <field name="name">product.template.termo.tree.inherit</field>
             <field name="model">product.template</field>
