@@ -86,8 +86,10 @@ class ResPartner(models.Model):
     _inherit = 'res.partner'
 
     related_contact = fields.Many2one(
-        'res.users', string="İlgili Kontak")
-
+        'res.partner',
+        string="Related Contact",
+        store=False
+    )
 
 
 class ProductTemplate(models.Model):
