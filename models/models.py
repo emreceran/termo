@@ -82,14 +82,14 @@ class webkategorigrup(models.Model):
 
 
 
-class ResPartner(models.Model):
-    _inherit = 'res.partner'
-
-    custom_email = fields.Char(
-        string="Kontak Email",  # Alanın etiketi
-        default="example@example.com",  # Varsayılan değer
-        help="Bu şirketle ilgili kontak mailini giriniz."
-    )
+# class ResPartner(models.Model):
+#     _inherit = 'res.partner'
+#
+#     custom_email = fields.Char(
+#         string="Kontak Email",  # Alanın etiketi
+#         default="example@example.com",  # Varsayılan değer
+#         help="Bu şirketle ilgili kontak mailini giriniz."
+#     )
 
 class ProductTemplate(models.Model):
     _inherit = "product.attribute"
