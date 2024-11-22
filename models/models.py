@@ -87,8 +87,8 @@ class ResPartner(models.Model):
 
     related_contact = fields.Many2one(
         'res.partner',
-        string="Related Contact",
-        store=False
+        string="İlgili  Kontak",
+        default=lambda self: self.env['res.partner'].search([], limit=1)  # Örnek olarak ilk kaydı atıyor
     )
 
 
