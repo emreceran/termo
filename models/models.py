@@ -85,12 +85,10 @@ class webkategorigrup(models.Model):
 class ResPartner(models.Model):
     _inherit = 'res.partner'
 
-    related_contact = fields.Many2one(
-        'res.partner',
-        string="İlgili  Kontak",
-        default=lambda self: self.env['res.partner'].search([], limit=1)  # Örnek olarak ilk kaydı atıyor
+    custom_email = fields.Char(
+        string="Kontak Email",  # Alanın etiketi
+        help="Bu şirketle ilgili kontak mailini giriniz."
     )
-
 
 class ProductTemplate(models.Model):
     _inherit = "product.attribute"
