@@ -87,6 +87,7 @@ class ResPartner(models.Model):
 
     custom_email = fields.Char(
         string="Kontak Email",  # Alanın etiketi
+        default="example@example.com",  # Varsayılan değer
         help="Bu şirketle ilgili kontak mailini giriniz."
     )
 
